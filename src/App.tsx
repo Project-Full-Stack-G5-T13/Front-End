@@ -1,12 +1,15 @@
-import GlobalStyle from "./styles/global";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-	return (
-		<>
-			<GlobalStyle />
-			<h1>Kenzie Kars </h1>
-		</>
-	);
+  return (
+    <div className="App">
+      <Routes>
+        <Route />
+        <Route />
+        <Route />
+      </Routes>
+    </div>
+  );
 };
 
 export default App;
