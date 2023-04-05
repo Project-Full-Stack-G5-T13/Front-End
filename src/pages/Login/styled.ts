@@ -18,6 +18,11 @@ export const Section = styled.section`
 	background-color: var(--gray-10);
 	padding: 30px;
 	border-radius: 4px;
+	margin: 0 auto;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 
 	@media (min-width: 460px) {
 		width: 412px;
