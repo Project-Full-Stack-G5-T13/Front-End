@@ -36,6 +36,16 @@ const GlobalStyle = createGlobalStyle`
     
     --font-primary: 'Lexend', sans-serif;
     --font-secundary: 'Inter', sans-serif;
+    --font-title-0: 700 2rem/1.2"Inter", sans-serif;
+    --font-title-1: 700 1.5rem/1.2"Inter", sans-serif;
+    --font-title-2: 700 1.25rem/1.2"Inter", sans-serif;
+    --font-title-3: 700 1rem/1.2"Inter", sans-serif;
+    --font-text-0: 400 1.2rem/1.2"Inter", sans-serif;
+    --font-text-1: 400 0.875rem/1.2"Inter", sans-serif;
+    --font-text-2: 700 0.875rem/1.2"Inter", sans-serif;
+    --font-text-3: 400 0.75rem/1.2"Inter", sans-serif;
+    --radius-1: 5px;
+    --radius-2: 10px;
     }
     
     * {
