@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Section, SignInButton } from "./styled";
+import Header from "../../components/Header";
 
 const Login = () => {
   const navigate = useNavigate();
 
   return (
     <>
+      <Header/>
       <Container>
         <Section>
           <h1>Login</h1>
@@ -16,7 +18,6 @@ const Login = () => {
               <label htmlFor="password">Usuário</label>
               <input type="text" id="password"  aria-label="Senha" placeholder="Digitar senha"/>              
             </div>
-
             <span>Esqueci minha senha</span>
             <Button type="submit" children="Entrar"/>
             <h3>Ainda não possui conta?</h3>
