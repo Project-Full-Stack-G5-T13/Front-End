@@ -18,7 +18,7 @@ export const Section = styled.section`
 	background-color: var(--gray-10);
 	padding: 30px;
 	border-radius: 4px;
-	margin-top: 22px;
+	margin-top: 90px;
 	max-width: 412px; 
 	width: 100%;
 
