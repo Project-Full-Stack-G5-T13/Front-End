@@ -18,7 +18,7 @@ const HeaderStyled = styled.header`
     width: 200px;
   }
 
-  svg {
+  .svg-menu {
     scale: 2.1;
   }
 
@@ -82,6 +82,57 @@ const HeaderStyled = styled.header`
     border-radius: var(--radius-1);
     cursor: pointer;
   }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .profile :first-child {
+    width: 40px;
+    height: 40px;
+    background-color: var(--brand-2);
+    color: var(--gray-10);
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .profile :nth-child(2) {
+    font: var(--font-text-0);
+    cursor: pointer;
+  }
+
+  .svg-profile {
+    color: var(--brand-2);
+    scale: 1.5;
+    cursor: pointer;
+  }
 `;
 
-export default HeaderStyled;
+const ModalOptionsProfile = styled.div`
+  position: relative;
+
+  div {
+    padding: 23px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: absolute;
+    top: 100px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font: var(--font-text-1);
+  }
+
+  div p {
+    cursor: pointer;
+  }
+`;
+
+export { HeaderStyled, ModalOptionsProfile };
