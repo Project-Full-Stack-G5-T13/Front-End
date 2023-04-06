@@ -1,32 +1,31 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
-	gap: 32px;
 	background: var(--gray-8);
 	height: 100vh;
+	gap: 10%;
+	@media (min-width: 767px) {
+		display: flex;
+	}
 `;
 
 export const Section = styled.section`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	height: fit-content;
 	background-color: var(--gray-10);
 	padding: 30px;
 	border-radius: 4px;
-	margin: 0 auto;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	margin-top: 32px;
 
-	@media (min-width: 460px) {
-		width: 412px;
-		height: 542px;	
+	max-width: 300px; 
+	width: 100%;
+	@media (max-width: 767px) {
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 42px;
 	}
 
 	form {
