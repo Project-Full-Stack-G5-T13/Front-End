@@ -59,9 +59,12 @@ const GlobalStyle = createGlobalStyle`
     }
     body,html{
     width: 100vw;
-    height: 100vh;
+	background: var(--gray-8);
+    min-height: 100vh;
+    height: 100%;
     overflow-x: hidden;
     }
 `;
 
 export default GlobalStyle;
+
