@@ -10,44 +10,37 @@ const GlobalStyle = createGlobalStyle`
     --brand-3: #B0A6F0;
     --brand-4: #EDEAFD;
 
-    //GRAY SCALE
+    //GREY SCALE
     
     
-    --gray-0: #0B0D0D;
-    --gray-1: #212529;
-    --gray-2: #495057;
-    --gray-3: #868E96;
-    --gray-4: #ADB5BD;
-    --gray-5: #CED4DA;
-    --gray-6: #DEE2E6;
-    --gray-7: #E9ECEF;
-    --gray-8: #F1F3F5;
-    --gray-9: #F8F9FA;
-    --gray-10: #FDFDFD;
+    --grey-0: #0B0D0D;
+    --grey-1: #212529;
+    --grey-2: #495057;
+    --grey-3: #868E96;
+    --grey-4: #ADB5BD;
+    --grey-5: #CED4DA;
+    --grey-6: #DEE2E6;
+    --grey-7: #E9ECEF;
+    --grey-8: #F1F3F5;
+    --grey-9: #F8F9FA;
+    --grey-10: #FDFDFD;
+
+    --fixed-white: #FFFFFF;
 
     //FEEBACK
     
     --alert-1: #CD2B31;
     --alert-2: #FDD8D8;
     --alert-3: #FFE5E5;
-    --sucess-1: #18794E;
-    --sucess-2: #CCEBD7;
-    --sucess-3: #DDF3E4;
+    --success-1: #18794E;
+    --success-2: #CCEBD7;
+    --success-3: #DDF3E4;
     
     --font-primary: 'Lexend', sans-serif;
     --font-secundary: 'Inter', sans-serif;
-    --font-title-0: 700 2rem/1.2"Inter", sans-serif;
-    --font-title-1: 700 1.5rem/1.2"Inter", sans-serif;
-    --font-title-2: 700 1.25rem/1.2"Inter", sans-serif;
-    --font-title-3: 700 1rem/1.2"Inter", sans-serif;
-    --font-text-0: 400 1.2rem/1.2"Inter", sans-serif;
-    --font-text-1: 400 1.07rem/1.2"Inter", sans-serif;
-    --font-text-2: 400 0.875rem/1.2"Inter", sans-serif;
-    --font-text-3: 700 0.875rem/1.2"Inter", sans-serif;
-    --font-text-4: 400 0.75rem/1.2"Inter", sans-serif;
-    --radius-1: 5px;
-    --radius-2: 10px;
-    }
+
+
+}
     
     * {
     margin:0;
@@ -65,6 +58,108 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     overflow-x: hidden;
     }
+
+    button{
+        cursor: pointer;
+    }
+
+    .heading-1-700{
+        font-family: 'Lexend';
+        font-weight: 700;
+        font-size: 44px;
+        line-height: 56px;        
+        color: var(--grey-1);
+    }
+
+    .heading-2-600{
+        font-family: 'Lexend';
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 45px;        
+        color: var(--grey-1);
+    }
+    
+    .heading-3-600{
+        font-family: 'Lexend';
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 40px;        
+        color: var(--grey-1);
+    }
+
+    .heading-3-500{
+        font-family: 'Lexend';
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 40px;        
+        color: var(--grey-1);
+    }
+
+    .heading-4-600{
+        font-family: 'Lexend';
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 35px;        
+        color: var(--grey-1);
+    }
+
+    .heading-4-500{
+        font-family: 'Lexend';
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 35px;        
+        color: var(--grey-1);
+    }
+
+    .heading-5-600{
+        font-family: 'Lexend';
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 30px;        
+        color: var(--grey-1);
+    }
+
+    .heading-5-500{
+        font-family: 'Lexend';
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 30px;        
+        color: var(--grey-1);
+    }
+    
+    .heading-6-600{
+        font-family: 'Lexend';
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;        
+        color: var(--grey-1);
+    }
+
+    .heading-6-500{
+        font-family: 'Lexend';
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 25px;        
+        color: var(--grey-1);
+    }
+
+    .heading-7-600{
+        font-family: 'Lexend';
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;        
+        color: var(--grey-1);
+    }
+
+    .heading-7-500{
+        font-family: 'Lexend';
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;        
+        color: var(--grey-1);
+    }
+    
+    
 `;
 
 export default GlobalStyle;
