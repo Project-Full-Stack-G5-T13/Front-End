@@ -18,10 +18,9 @@ export const Section = styled.section`
   background-color: var(--gray-10);
   padding: 30px;
   border-radius: 4px;
-  margin-top: 90px;
+  margin-top: 130px;
   max-width: 412px;
   width: 100%;
-  margin-top: 100px;
   margin-bottom: 32px;
 
   @media (max-width: 767px) {
@@ -32,7 +31,6 @@ export const Section = styled.section`
   @media (max-width: 500px) {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 42px;
     max-width: 300px;
   }
 

@@ -18,20 +18,19 @@ export const Section = styled.section`
 	background-color: var(--gray-10);
 	padding: 30px;
 	border-radius: 4px;
-	margin-top: 90px;
+	margin-top: 130px;
 	max-width: 412px; 
 	width: 100%;
 
   	@media (max-width: 767px) {
 		margin-left: auto;
 		margin-right: auto;
-		margin-top: 22px;
   	}
 
   	@media (max-width: 500px) {
 		margin-left: auto;
 		margin-right: auto;
-		margin-top: 42px;
+		margin-top: 120px;
 		max-width: 300px;
   	}
 
