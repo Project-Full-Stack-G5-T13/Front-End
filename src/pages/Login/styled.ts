@@ -18,14 +18,13 @@ export const Section = styled.section`
 	background-color: var(--gray-10);
 	padding: 30px;
 	border-radius: 4px;
-	margin-top: 32px;
+	margin-top: 90px;
 
 	max-width: 300px; 
 	width: 100%;
 	@media (max-width: 767px) {
 		margin-left: auto;
 		margin-right: auto;
-		margin-top: 42px;
 	}
 
 	form {

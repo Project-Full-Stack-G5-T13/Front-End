@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 const HeaderStyled = styled.header`
   width: 100%;
-  border-bottom: 1px solid var(--gray-3);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px;
+  position: fixed;
+  background-color: var(--gray-10);
+  top: 0;
 
   .container-header {
     margin: 20px;
@@ -25,7 +28,7 @@ const HeaderStyled = styled.header`
   }
 
   .mobile {
-    padding-top: 20px;
+    padding: 20px 0px;
     border-top: 1px solid var(--gray-3);
     margin: 0 auto;
     display: flex;
@@ -54,14 +57,30 @@ const HeaderStyled = styled.header`
     height: 40px;
     background-color: transparent;
     border: 1px solid var(--gray-3);
+    border-radius: var(--radius-1);
     cursor: pointer;
   }
 
   .desktop-menu {
-    width: 400px;
+    width: 300px;
     display: flex;
     justify-content: right;
     gap: 30px;
+    align-items: center;
+  }
+
+  .desktop-menu :nth-child(1) {
+    color: var(--brand-1);
+    cursor: pointer;
+  }
+
+  .desktop-menu button {
+    width: 140px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid var(--gray-3);
+    border-radius: var(--radius-1);
+    cursor: pointer;
   }
 `;
 
