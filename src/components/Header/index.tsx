@@ -29,8 +29,8 @@ function Header() {
 
         {widthWindow > 768 && (
           <div className="desktop-menu">
-            <button>Fazer Login</button>
-            <button>Cadastrar</button>
+            <p onClick={() => navigate("/login")}>Fazer Login</p>
+            <button onClick={() => navigate("/register")}>Cadastrar</button>
           </div>
         )}
       </div>
