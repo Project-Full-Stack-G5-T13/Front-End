@@ -7,8 +7,8 @@ const Login = () => {
 
   return (
     <>
-      <Header />
       <Container>
+      <Header />
         <Section>
           <h1>Login</h1>
           <form>
@@ -20,7 +20,7 @@ const Login = () => {
                 aria-label="E-mail"
                 placeholder="Digitar usuário"
               />
-              <label htmlFor="password">Usuário</label>
+              <label htmlFor="password">Senha</label>
               <input
                 type="text"
                 id="password"
