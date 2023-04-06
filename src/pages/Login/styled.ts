@@ -31,7 +31,7 @@ export const Section = styled.section`
   	@media (max-width: 500px) {
 		margin-left: auto;
 		margin-right: auto;
-		margin-top: 22px;
+		margin-top: 42px;
 		max-width: 300px;
   	}
 
