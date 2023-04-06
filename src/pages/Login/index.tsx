@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <>
       <Container>
-      <Header />
+        <Header />
         <Section>
           <h1>Login</h1>
           <form>

@@ -41,9 +41,10 @@ const GlobalStyle = createGlobalStyle`
     --font-title-2: 700 1.25rem/1.2"Inter", sans-serif;
     --font-title-3: 700 1rem/1.2"Inter", sans-serif;
     --font-text-0: 400 1.2rem/1.2"Inter", sans-serif;
-    --font-text-1: 400 0.875rem/1.2"Inter", sans-serif;
-    --font-text-2: 700 0.875rem/1.2"Inter", sans-serif;
-    --font-text-3: 400 0.75rem/1.2"Inter", sans-serif;
+    --font-text-1: 400 1.07rem/1.2"Inter", sans-serif;
+    --font-text-2: 400 0.875rem/1.2"Inter", sans-serif;
+    --font-text-3: 700 0.875rem/1.2"Inter", sans-serif;
+    --font-text-4: 400 0.75rem/1.2"Inter", sans-serif;
     --radius-1: 5px;
     --radius-2: 10px;
     }
@@ -67,4 +68,3 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
-
