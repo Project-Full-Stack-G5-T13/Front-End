@@ -19,12 +19,22 @@ export const Section = styled.section`
   padding: 30px;
   border-radius: 4px;
   margin-top: 32px;
-  max-width: 300px;
+  max-width: 412px;
   width: 100%;
+  margin-top: 100px;
+  margin-bottom: 32px;
+
   @media (max-width: 767px) {
     margin-left: auto;
     margin-right: auto;
     margin-top: 42px;
+  }
+
+  @media (max-width: 500px) {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 42px;
+    max-width: 300px;
   }
 
   form {
@@ -140,7 +150,7 @@ export const Article = styled.article`
     background-color: var(--gray-10);
   }
 
-  .purple_btn{
+  .purple_btn {
     font-family: "Inter";
     font-size: 14px;
     font-weight: 600;
@@ -153,15 +163,15 @@ export const Article = styled.article`
     cursor: pointer;
   }
 
-  .white_btn{
+  .white_btn {
     font-family: "Inter";
     font-size: 14px;
     font-weight: 600;
     height: 48px;
     width: 100%;
     color: var(--gray-0);
-	border: 2px solid var(--gray-6);
-	background-color:var(--gray-10);
+    border: 2px solid var(--gray-6);
+    background-color: var(--gray-10);
     border-radius: 4px;
     cursor: pointer;
   }
