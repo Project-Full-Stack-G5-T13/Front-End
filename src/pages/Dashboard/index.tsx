@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 
 import Card from "../../components/Card";
 import UserAvatar from "../../components/UserAvatar";
+import Footer from "../../components/Footer";
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -61,6 +62,7 @@ function Dashboard() {
 			<br />
 			<UserAvatar user={mycar.user}></UserAvatar>
 			<UserAvatar user={mycar2.user}></UserAvatar>
+			<Footer/>
 		</ContainerDash>
 	);
 }
