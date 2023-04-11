@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { iFormSignup } from "../../contexts/UserContext";
 import { useContext, useState } from "react";
+import Footer from "../../components/Footer";
 const Register = () => {
   const navigate = useNavigate();
 
@@ -101,6 +102,7 @@ const Register = () => {
               aria-label="description"
               placeholder="Digitar descrição"
             />
+            <p className="heading-8-500"> {errors.description?.message}</p>
             <label htmlFor="imagem">Imagem de perfil (opcional)</label>
             <input
               {...register("image_url")}
@@ -109,8 +111,7 @@ const Register = () => {
               aria-label="image-profile"
               placeholder="Url da imagem"
             />
-            <p className="heading-8-500"> {errors.description?.message}</p>
-            <p>Informações de endereço</p>
+            <h4>Informações de endereço</h4>
             <label htmlFor="zipcode">CEP</label>
             <input
               {...register("address.zip_code")}
@@ -188,7 +189,7 @@ const Register = () => {
               <button
                 onClick={() => setAdvertiserBuyer(false)}
                 type="button"
-                className="purple_btn"
+                className="white_btn"
               >
                 Comprador
               </button>
@@ -219,11 +220,11 @@ const Register = () => {
               placeholder="Digitar senha"
             />
             <p className="heading-8-500">{errors.confirmPassword?.message}</p>
-            
             <Button type="submit" children="Finalizar Cadastro" />
           </form>
         </Section>
       </Container>
+      <Footer/>
     </>
   );
 };
