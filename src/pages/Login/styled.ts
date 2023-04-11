@@ -6,7 +6,7 @@ export const Container = styled.div`
   background-color: var(--grey-8);
   gap: 10%;
   margin-top: 20px;
-  margin-bottom: 140px;
+  margin-bottom: 160px;
   @media (min-width: 767px) {
     display: flex;
   }
