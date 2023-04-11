@@ -9,7 +9,9 @@ const Footer = () => {
           <img src={MotorshopLogo} alt="Logo do site" />         
         </figure>
         <p> © 2023 - Todos os direitos reservados.</p>
-        <a href="#">^</a>        
+        <section>
+          <a href="#">^</a>        
+        </section>
       </div>
     </Container>
   );
