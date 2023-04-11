@@ -1,9 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Section, SignInButton } from "./styled";
 import Header from "../../components/Header";
+import { UserContext, iFormLogin } from "../../contexts/UserContext";
+import { useContext } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaLogin } from "../../validations";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iFormLogin>({
+    resolver: yupResolver(schemaLogin),
+  });
+
   const navigate = useNavigate();
+
+  const { signInUser } = useContext(UserContext);
 
   return (
     <>
@@ -11,10 +26,11 @@ const Login = () => {
         <Header />
         <Section>
           <h1>Login</h1>
-          <form>
+          <form onSubmit={handleSubmit(signInUser)}>
             <div>
               <label htmlFor="username">Usuário</label>
               <input
+                {...register("email")}
                 type="text"
                 id="username"
                 aria-label="E-mail"
@@ -22,6 +38,7 @@ const Login = () => {
               />
               <label htmlFor="password">Senha</label>
               <input
+                {...register("password")}
                 type="text"
                 id="password"
                 aria-label="Senha"

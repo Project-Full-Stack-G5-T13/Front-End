@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   flex-direction: column;
   align-items: center;
-  background: var(--gray-8);
+  background: var(--grey-8);
   height: 100vh;
   gap: 10%;
   @media (min-width: 767px) {
@@ -15,7 +15,7 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: var(--gray-10);
+  background-color: var(--grey-10);
   padding: 30px;
   border-radius: 4px;
   margin-top: 130px;
@@ -47,7 +47,7 @@ export const Section = styled.section`
     font-weight: 500;
     font-size: 24px;
     line-height: 30px;
-    color: var(--gray-0);
+    color: var(--grey-0);
   }
 
   div {
@@ -69,9 +69,9 @@ export const Section = styled.section`
     height: 48px;
     padding-left: 10px;
     border-radius: 4px;
-    color: var(--gray-3);
-    border: 2px solid var(--gray-6);
-    background-color: var(--gray-10);
+    color: var(--grey-3);
+    border: 2px solid var(--grey-6);
+    background-color: var(--grey-10);
   }
 
   span {
@@ -89,7 +89,7 @@ export const Section = styled.section`
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    color: var(--gray-2);
+    color: var(--grey-2);
     align-self: center;
   }
 
@@ -103,7 +103,7 @@ export const Button = styled.button`
   font-size: 14px;
   font-weight: 600;
   height: 48px;
-  color: var(--gray-10);
+  color: var(--grey-10);
   border: none;
   border-radius: 4px;
   background-color: var(--brand-1);
@@ -115,10 +115,10 @@ export const SignInButton = styled.button`
   font-size: 14px;
   font-weight: 600;
   height: 48px;
-  color: var(--gray-0);
+  color: var(--grey-0);
   border-radius: 4px;
-  border: var(--gray-8);
-  border: 2px solid var(--gray-4);
-  background-color: var(--gray-10);
+  border: var(--grey-8);
+  border: 2px solid var(--grey-4);
+  background-color: var(--grey-10);
   cursor: pointer;
 `;

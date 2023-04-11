@@ -4,7 +4,7 @@ const HeaderStyled = styled.header`
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px;
   position: fixed;
-  background-color: var(--gray-10);
+  background-color: var(--grey-10);
   top: 0;
 
   .container-header {
@@ -29,13 +29,13 @@ const HeaderStyled = styled.header`
 
   .mobile {
     padding: 20px 0px;
-    border-top: 1px solid var(--gray-3);
+    border-top: 1px solid var(--grey-3);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     width: 93%;
     gap: 23px;
-    font: var(--font-text-0);
+  
   }
 
   .mobile p {
@@ -44,7 +44,7 @@ const HeaderStyled = styled.header`
 
   .mobile :nth-child(3) {
     padding-bottom: 30px;
-    border-bottom: 1px solid var(--gray-3);
+    border-bottom: 1px solid var(--grey-3);
   }
 
   .mobile:nth-child(4) {
@@ -56,7 +56,7 @@ const HeaderStyled = styled.header`
     width: 100%;
     height: 40px;
     background-color: transparent;
-    border: 1px solid var(--gray-3);
+    border: 1px solid var(--grey-3);
     border-radius: var(--radius-1);
     cursor: pointer;
   }
@@ -78,7 +78,7 @@ const HeaderStyled = styled.header`
     width: 140px;
     height: 40px;
     background-color: transparent;
-    border: 1px solid var(--gray-3);
+    border: 1px solid var(--grey-3);
     border-radius: var(--radius-1);
     cursor: pointer;
   }
@@ -93,7 +93,7 @@ const HeaderStyled = styled.header`
     width: 40px;
     height: 40px;
     background-color: var(--brand-2);
-    color: var(--gray-10);
+    color:var(--grey-8);
     font-weight: bold;
     font-size: 20px;
     border-radius: 50%;
@@ -104,7 +104,7 @@ const HeaderStyled = styled.header`
   }
 
   .profile :nth-child(2) {
-    font: var(--font-text-0);
+  
     cursor: pointer;
   }
 
@@ -121,13 +121,13 @@ const ModalOptionsProfile = styled.div`
   div {
     padding: 23px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    position: absolute;
+    position: fixed;
+    background-color: var(--grey-10);
     top: 100px;
     right: 40px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    font: var(--font-text-1);
   }
 
   div p {
