@@ -3,9 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   flex-direction: column;
   align-items: center;
-  background: var(--grey-8);
-  height: 100vh;
+  background-color: var(--grey-8);
   gap: 10%;
+  margin-top: 20px;
+  margin-bottom: 140px;
   @media (min-width: 767px) {
     display: flex;
   }
@@ -18,7 +19,7 @@ export const Section = styled.section`
   background-color: var(--grey-10);
   padding: 30px;
   border-radius: 4px;
-  margin-top: 130px;
+  margin-top: 120px;
   max-width: 412px;
   width: 100%;
 
@@ -30,7 +31,7 @@ export const Section = styled.section`
   @media (max-width: 500px) {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 120px;
+    margin-top: 100px;
     max-width: 300px;
   }
 

@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../validations";
 import { useForm } from "react-hook-form";
+import Footer from "../../components/Footer";
 
 const Login = () => {
   const {
@@ -22,8 +23,9 @@ const Login = () => {
 
   return (
     <>
+
+      <Header />
       <Container>
-        <Header />
         <Section>
           <h1>Login</h1>
           <form onSubmit={handleSubmit(signInUser)}>
@@ -55,6 +57,7 @@ const Login = () => {
           </form>
         </Section>
       </Container>
+      <Footer/>
     </>
   );
 };
