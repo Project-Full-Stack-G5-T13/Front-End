@@ -5,6 +5,8 @@ export const Container = styled.div`
   align-items: center;
   background-color: var(--grey-8);
   gap: 10%;
+  margin-top: 20px;
+  margin-bottom: 160px;
   @media (min-width: 767px) {
     display: flex;
   }
@@ -17,10 +19,10 @@ export const Section = styled.section`
   background-color: var(--grey-10);
   padding: 30px;
   border-radius: 4px;
-  margin-top: 130px;
+  margin-top: 110px;
   max-width: 412px;
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 
   @media (max-width: 767px) {
     margin-left: auto;
@@ -55,6 +57,14 @@ export const Section = styled.section`
     color: var(--grey-0);
   }
 
+  h4 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  
   div {
     display: flex;
     flex-direction: column;
@@ -156,28 +166,6 @@ export const Article = styled.article`
     background-color: var(--grey-10);
   }
 
-  .purple_btn {
-    font-family: "Inter";
-    font-size: 14px;
-    font-weight: 600;
-    height: 48px;
-    width: 100%;
-    color: var(--grey-10);
-    border: none;
-    border-radius: 4px;
-    background-color: var(--brand-1);
-    cursor: pointer;
-  }
-
-  .purple_btn:focus{
-    outline: 2px solid var(--grey-1);
-  }
-
-  .white_btn:focus {
-    outline: 2px solid var(--grey-1);
-  }
-
-
   .white_btn {
     font-family: "Inter";
     font-size: 14px;
@@ -189,5 +177,17 @@ export const Article = styled.article`
     background-color: var(--grey-10);
     border-radius: 4px;
     cursor: pointer;
+    :hover{
+      background-color: var(--brand-1);
+      color: var(--fixed-white);
+      border: 2px solid var(--grey-6);
+    }
+  }  
+  
+  .white_btn:focus {
+    background-color: var(--brand-1);
+    color: var(--grey-10);
+    border: none;
+    border-radius: 4px;
   }
 `;

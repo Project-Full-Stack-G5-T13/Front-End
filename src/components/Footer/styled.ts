@@ -38,6 +38,13 @@ export const Container = styled.footer`
     line-height: 24px;
   }
 
+  section {
+    width: 154px;
+    margin-right: 36px;
+    display: flex;
+    justify-content: center;
+  }
+
   a {
     display: flex;
     justify-content: center;
@@ -53,13 +60,15 @@ export const Container = styled.footer`
     padding-top: 10px;
     text-decoration: none;
     border-radius: 4px;
-    margin-right: 36px;
     :hover {
       color: white;
     }
   }
-  
-  @media screen and (max-width: 540px) {
+  @media screen and (width: 1024px) {
+    height: 90px;
+  }
+
+  @media screen and (max-width: 660px) {
     
     div{
       display: flex;
@@ -68,6 +77,10 @@ export const Container = styled.footer`
       justify-content: space-evenly;
       align-items: center;
       height: 160px;
+    }
+
+    section {
+      margin-right: 0px;
     }
 
     p {

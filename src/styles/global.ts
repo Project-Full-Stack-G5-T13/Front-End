@@ -56,6 +56,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     height: 100%;
     overflow-x: hidden;
+    background-color: var(--grey-8)
     }
 
     button{
@@ -162,7 +163,7 @@ const GlobalStyle = createGlobalStyle`
     .heading-8-500{
         font-family: 'Lexend';
         font-size: 13px;
-        line-height: 20px;
+        line-height: 0px;
     }
     
 `;
