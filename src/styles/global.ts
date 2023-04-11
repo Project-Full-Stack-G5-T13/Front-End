@@ -53,7 +53,6 @@ const GlobalStyle = createGlobalStyle`
     }
     body,html{
     width: 100vw;
-	background: var(--gray-8);
     min-height: 100vh;
     height: 100%;
     overflow-x: hidden;
@@ -151,6 +150,7 @@ const GlobalStyle = createGlobalStyle`
         color: var(--grey-1);
     }
 
+    
     .heading-7-500{
         font-family: 'Lexend';
         font-weight: 500;
@@ -159,6 +159,11 @@ const GlobalStyle = createGlobalStyle`
         color: var(--grey-1);
     }
     
+    .heading-8-500{
+        font-family: 'Lexend';
+        font-size: 13px;
+        line-height: 20px;
+    }
     
 `;
 
