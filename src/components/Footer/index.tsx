@@ -1,6 +1,7 @@
 import Container from "./styled";
 import React from "react";
-import MotorshopLogo from "../../assets/Motorshoplogo.png"
+import MotorshopLogo from "../../assets/Motorshoplogo.png";
+
 const Footer = () => {
   return (
     <Container>
