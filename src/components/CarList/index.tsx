@@ -26,7 +26,6 @@ function CarList() {
         <Card car={mycar}></Card>
         <Card car={mycar}></Card>
         <Card car={mycar}></Card>
-        <Card car={mycar}></Card>
       </Section>
     );
   }
