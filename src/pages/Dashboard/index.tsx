@@ -5,6 +5,7 @@ import CarList from "../../components/CarList";
 import HomePainel from "../../components/HomePainel";
 
 function Dashboard() {
+
   const navigate = useNavigate();
 
   return (
@@ -16,6 +17,7 @@ function Dashboard() {
 			</Main>
     </>
   );
+
 }
 
 export default Dashboard;
