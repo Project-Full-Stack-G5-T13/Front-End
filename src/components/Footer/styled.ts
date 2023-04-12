@@ -4,10 +4,6 @@ export const Container = styled.footer`
   width: 100%;
   background-color: var(--grey-0);
   display: flex;
-  height: 140px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;

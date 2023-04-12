@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Section = styled.section`
 	background: rgb(131,100,180);
 	background: radial-gradient(circle, rgba(131,100,180,1) 0%, rgba(88,71,187,1) 27%, rgba(33,37,41,1) 93%);
-	filter: blur(1px);
+	filter: blur(0px);
 	height: 400px;
 	width: 100%;
 	display: flex;

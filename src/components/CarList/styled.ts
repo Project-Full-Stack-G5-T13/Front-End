@@ -9,12 +9,11 @@ export const Section = styled.section`
     max-width: 1012px;
     flex-wrap: wrap;
     align-content: flex-start;
-		justify-content: center;
+		justify-content: stretch;
     padding-top: 40px;
 
     @media (max-width: 550px) {
       width: 100%;
       justify-content: center;
 	}
-
 `;

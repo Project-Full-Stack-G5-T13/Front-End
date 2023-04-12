@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header";
 import { Button, Container, Article, SignInButton } from "./styled";
 import { UserContext } from "../../contexts/UserContext";
 import { Section } from "./styled";
@@ -8,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { iFormSignup } from "../../contexts/UserContext";
 import { useContext, useState } from "react";
-import Footer from "../../components/Footer";
+
 const Register = () => {
   const navigate = useNavigate();
 
@@ -40,7 +39,6 @@ const Register = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <Section>
           <h1>Cadastro</h1>
@@ -167,7 +165,7 @@ const Register = () => {
                   placeholder="Digitar número"
                 />
                 <p className="heading-8-500">
-                  {errors.address?.number?.message}
+                  Digite AQUI
                 </p>
               </div>
               <div>
@@ -224,7 +222,6 @@ const Register = () => {
           </form>
         </Section>
       </Container>
-      <Footer/>
     </>
   );
 };

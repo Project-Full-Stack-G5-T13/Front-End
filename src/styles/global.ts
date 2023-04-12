@@ -35,11 +35,8 @@ const GlobalStyle = createGlobalStyle`
     --success-1: #18794E;
     --success-2: #CCEBD7;
     --success-3: #DDF3E4;
-    
     --font-primary: 'Lexend', sans-serif;
     --font-secundary: 'Inter', sans-serif;
-
-
 }
     
     * {
@@ -51,8 +48,11 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     list-style: none;
     }
+
     body,html{
+    margin: 0 auto;
     width: 100vw;
+    max-width: 1400px;
     min-height: 100vh;
     height: 100%;
     overflow-x: hidden;
@@ -165,7 +165,6 @@ const GlobalStyle = createGlobalStyle`
         font-size: 13px;
         line-height: 0px;
     }
-    
 `;
 
 export default GlobalStyle;
