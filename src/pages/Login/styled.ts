@@ -5,8 +5,8 @@ export const Container = styled.div`
   align-items: center;
   background-color: var(--grey-8);
   gap: 10%;
-  margin-top: 20px;
-  margin-bottom: 160px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   @media (min-width: 767px) {
     display: flex;
   }

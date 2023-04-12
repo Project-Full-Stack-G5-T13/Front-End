@@ -5,6 +5,7 @@ export const StyledCardDiv = styled.div`
 	flex-direction: column;
 	gap: 16px;
 	width: 310px;
+	height: 380px;
 
 	& > h6 {
 		overflow: hidden;
