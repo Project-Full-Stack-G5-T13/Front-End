@@ -1,9 +1,6 @@
 import { StyledCardDiv } from "./styled";
-import carro from "../../assets/carro.png";
-import user from "../../assets/default-user-image.png";
 import {
 	StyledBody_2_400,
-	StyledBody_2_500,
 	StyledHeading_7_500,
 	StyledHeading_7_600,
 	StyledSpanDetail,
@@ -24,13 +21,30 @@ interface ICardProps {
 		km: number;
 		launch_year: number;
 		price: number;
+		is_active: boolean;
 	};
+
+	good_price?: boolean;
+
+	is_active?: boolean;
 }
 
-const Card = ({ car }: ICardProps) => {
+const Card = ({ car, good_price, is_active }: ICardProps) => {
 	return (
 		<StyledCardDiv>
 			<img src={car.image.main_image} alt="carro" />
+
+			{good_price && <div className="good_price">$</div>}
+
+			{is_active ? (
+				car.is_active ? (
+					<div className="active">Ativo</div>
+				) : (
+					<div className="inactive">Inativo</div>
+				)
+			) : (
+				<></>
+			)}
 
 			<StyledHeading_7_600>{car.model}</StyledHeading_7_600>
 

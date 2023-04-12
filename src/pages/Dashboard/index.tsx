@@ -23,6 +23,7 @@ function Dashboard() {
 		km: 21000,
 		launch_year: 2019,
 		price: 25477.5,
+		is_active: true,
 	};
 
 	const mycar2 = {
@@ -42,6 +43,7 @@ function Dashboard() {
 		km: 21000,
 		launch_year: 2019,
 		price: 25477.5,
+		is_active: false,
 	};
 	return (
 		<ContainerDash>
@@ -54,15 +56,15 @@ function Dashboard() {
 			<br />
 
 			<div style={{ display: "flex" }}>
-				<Card car={mycar}></Card>
-				<Card car={mycar2}></Card>
+				<Card car={mycar} is_active></Card>
+				<Card car={mycar2} good_price is_active></Card>
 			</div>
 
 			<br />
 			<br />
 			<UserAvatar user={mycar.user}></UserAvatar>
 			<UserAvatar user={mycar2.user}></UserAvatar>
-			<Footer/>
+			<Footer />
 		</ContainerDash>
 	);
 }
