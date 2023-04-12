@@ -50,13 +50,12 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body,html{
-    margin: 0 auto;
     width: 100vw;
-    max-width: 1400px;
-    min-height: 100vh;
-    height: 100%;
+    height: 100vh;
     overflow-x: hidden;
-    background-color: var(--grey-8)
+    background-color: var(--grey-8);
+    display: flex;
+    flex-direction: column;
     }
 
     button{
