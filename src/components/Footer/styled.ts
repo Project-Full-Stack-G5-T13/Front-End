@@ -5,7 +5,6 @@ export const Container = styled.footer`
   background-color: var(--grey-0);
   display: flex;
   height: 140px;
-  position: fixed;
   bottom: 0px;
   left: 0px;
   right: 0px;
