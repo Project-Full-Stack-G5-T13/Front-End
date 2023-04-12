@@ -35,11 +35,8 @@ const GlobalStyle = createGlobalStyle`
     --success-1: #18794E;
     --success-2: #CCEBD7;
     --success-3: #DDF3E4;
-    
     --font-primary: 'Lexend', sans-serif;
     --font-secundary: 'Inter', sans-serif;
-
-
 }
     
     * {
@@ -51,12 +48,14 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     list-style: none;
     }
+
     body,html{
     width: 100vw;
-    min-height: 100vh;
-    height: 100%;
+    height: 100vh;
     overflow-x: hidden;
-    background-color: var(--grey-8)
+    background-color: var(--grey-8);
+    display: flex;
+    flex-direction: column;
     }
 
     button{
@@ -165,7 +164,6 @@ const GlobalStyle = createGlobalStyle`
         font-size: 13px;
         line-height: 0px;
     }
-    
 `;
 
 export default GlobalStyle;
