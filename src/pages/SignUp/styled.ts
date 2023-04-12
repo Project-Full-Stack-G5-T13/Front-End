@@ -5,6 +5,7 @@ export const Container = styled.div`
   align-items: center;
   background-color: var(--grey-8);
   gap: 10%;
+  min-height: 100%;
   margin-top: 10px;
   margin-bottom: 20px;
   @media (min-width: 767px) {
