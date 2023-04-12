@@ -6,7 +6,8 @@ const HeaderStyled = styled.header`
   position: fixed;
   background-color: var(--grey-10);
   top: 0;
-
+  left: 0;
+  z-index: 999;
   .container-header {
     margin: 20px;
     display: flex;
