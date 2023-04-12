@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Section, SignInButton } from "./styled";
-import Header from "../../components/Header";
 import { UserContext, iFormLogin } from "../../contexts/UserContext";
 import { useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../validations";
 import { useForm } from "react-hook-form";
-import Footer from "../../components/Footer";
 
 const Login = () => {
   const {
@@ -23,7 +21,6 @@ const Login = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <Section>
           <h1>Login</h1>
@@ -56,7 +53,6 @@ const Login = () => {
           </form>
         </Section>
       </Container>
-      <Footer/>
     </>
   );
 };
