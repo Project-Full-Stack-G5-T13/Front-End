@@ -147,11 +147,11 @@ export const Article = styled.article`
 	display: flex;
 	flex-direction: row;
 	gap: 10%;
+	position: relative;
 
 	div {
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
 	}
 
 	input {
@@ -165,6 +165,10 @@ export const Article = styled.article`
 		color: var(--grey-3);
 		border: 2px solid var(--grey-6);
 		background-color: var(--grey-10);
+	}
+
+	p {
+		line-height: normal;
 	}
 
 	.white_btn {
