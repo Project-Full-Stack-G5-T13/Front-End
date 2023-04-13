@@ -11,7 +11,7 @@ export const Div = styled.div`
 	border-radius: 4px;
 	gap: 8px;
 	background-color: var(--fixed-white);
-	height: 330px;
+	height: 340px;
 	padding: 20px;
 	margin-bottom: 30px;
 
