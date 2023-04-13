@@ -10,11 +10,11 @@ export const Section = styled.section`
 	background-repeat: no-repeat;
 	background-size: contain;
 
-	@media (max-width: 900px){
+	@media (max-width: 900px) {
 		background-size: 100% 900px;
 	}
 
-	@media (max-width: 580px){
+	@media (max-width: 580px) {
 		background-size: 100% 900px;
 	}
 `;
@@ -32,11 +32,11 @@ export const Article = styled.article`
 		display: flex;
 		flex-direction: column;
 		gap: 0px;
-	}	
+	}
 
-	@media (max-width: 580px){
+	@media (max-width: 580px) {
 		width: 300px;
-		
+
 		h3 {
 			font-size: 16px;
 		}
@@ -44,14 +44,14 @@ export const Article = styled.article`
 `;
 
 export const Main = styled.main`
-		display: flex;
-		flex-direction: column;
-		margin-top: 29px;
-		width: 550px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 29px;
+	width: 550px;
 
-		@media (max-width: 580px) {
-			align-items: center;
-		}
+	@media (max-width: 580px) {
+		align-items: center;
+	}
 `;
 
 export const SecondMain = styled.main`
@@ -64,8 +64,8 @@ export const SecondMain = styled.main`
 	width: 300px;
 
 	@media (max-width: 900px) {
-			margin-top: 0px;
-		}
+		margin-top: 0px;
+	}
 `;
 
 export const Figure = styled.figure`
@@ -77,8 +77,8 @@ export const Figure = styled.figure`
 	height: 260px;
 	background-color: var(--grey-10);
 	border-radius: 4px;
-	
-	img	{	
+
+	img {
 		width: 80%;
 		max-width: 470px;
 		min-width: 260px;
@@ -96,8 +96,6 @@ export const Figure = styled.figure`
 	@media (max-width: 370px) {
 		width: 270px;
 	}
-	
-
 `;
 
 export const Div = styled.div`
@@ -116,8 +114,8 @@ export const Div = styled.div`
 	h3 {
 		height: 80px;
 		width: 100%;
-    text-align:center;
-    margin: 0 auto;	
+		text-align: center;
+		margin: 0 auto;
 		text-overflow: ellipsis;
 		overflow-x: hidden;
 	}
@@ -126,12 +124,12 @@ export const Div = styled.div`
 		width: 100%;
 	}
 
-	.priceAndSpan{
+	.priceAndSpan {
 		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		font-family: 'Inter';
+		font-family: "Inter";
 		font-style: normal;
 		font-weight: 600;
 		font-size: 14px;
@@ -165,10 +163,10 @@ export const Div = styled.div`
 		width: 100px;
 		height: 38px;
 		background-color: var(--brand-1);
-		border: 1.5px solid #4529E6;
+		border: 1.5px solid #4529e6;
 		border-radius: 4px;
 		color: var(--fixed-white);
-		font-family: 'Inter';
+		font-family: "Inter";
 		font-style: normal;
 		font-weight: 600;
 		font-size: 14px;
@@ -210,7 +208,7 @@ export const SecondDiv = styled.div`
 	}
 
 	p {
-		font-family: 'Inter';
+		font-family: "Inter";
 		color: var(--grey-2);
 		width: 100%;
 		font-style: normal;
@@ -224,19 +222,19 @@ export const SecondDiv = styled.div`
 	@media (max-width: 580px) {
 		width: 470px;
 	}
-	
+
 	@media (max-width: 490px) {
 		width: 370px;
-		
-		p	{
+
+		p {
 			font-size: 14px;
 		}
 	}
 
 	@media (max-width: 390px) {
-		width: 320px;		
+		width: 320px;
 
-		p	{
+		p {
 			font-size: 13px;
 		}
 	}
@@ -251,7 +249,7 @@ export const Aside = styled.aside`
 	height: 300px;
 	border-radius: 4px;
 	background-color: var(--fixed-white);
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	padding: 30px;
@@ -269,15 +267,15 @@ export const Aside = styled.aside`
 		background-color: var(--grey-8);
 	}
 
-	.defaultphoto	{
+	.defaultphoto {
 		width: 60px;
 		height: 60px;
 		border-radius: 50px;
-	}	
+	}
 
 	@media (max-width: 900px) {
 		width: 550px;
-		
+
 		.aside-images {
 			align-self: center;
 			width: 300px;
@@ -304,29 +302,29 @@ export const SecondAside = styled.aside`
 	height: 300px;
 	border-radius: 4px;
 	background-color: var(--fixed-white);
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 15px;
 	padding: 15px;
 
-	img	{
+	img {
 		width: 60px;
 		height: 60px;
 		border-radius: 50px;
 	}
-	p	{
-		font-family: 'Inter';
+	p {
+		font-family: "Inter";
 		height: 1-00px;
-    text-align: center;
-    margin: 0 auto;	
+		text-align: center;
+		margin: 0 auto;
 		font-style: normal;
 		font-weight: 400;
 		font-size: 15px;
 		color: var(--grey-2);
 	}
 
-	button{
+	button {
 		width: 206px;
 		height: 48px;
 		background-color: var(--grey-0);
@@ -337,7 +335,7 @@ export const SecondAside = styled.aside`
 
 	@media (max-width: 900px) {
 		width: 550px;
-		
+
 		.aside-images {
 			align-self: center;
 			width: 300px;
@@ -351,14 +349,14 @@ export const SecondAside = styled.aside`
 	@media (max-width: 490px) {
 		width: 370px;
 
-		p	{
-		font-size: 14px;
+		p {
+			font-size: 14px;
 		}
 	}
 
 	@media (max-width: 390px) {
 		width: 320px;
-		p	{
+		p {
 			font-size: 13px;
 		}
 	}
@@ -372,6 +370,60 @@ export const SecondAside = styled.aside`
 			color: var(--fixed-white);
 			border-radius: 4px;
 			border: none;
+		}
+	}
+`;
+
+export const Modal = styled.div`
+	z-index: 1000;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	.modal-wrapper {
+		width: 100%;
+		max-width: 500px;
+		background-color: white;
+		border-radius: 5px;
+		padding: 1rem;
+	}
+
+	.modal-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1rem;
+
+		button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700;
+			font-size: x-large;
+			border: none;
+			color: var(--grey-4);
+			background-color: transparent;
+		}
+	}
+
+	.modal-img {
+		background-color: var(--grey-6);
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 300px;
+
+		img {
+			width: 100%;
+			height: 100%;
 		}
 	}
 `;
