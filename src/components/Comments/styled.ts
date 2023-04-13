@@ -15,8 +15,8 @@ export const Div = styled.div`
 	margin-bottom: 30px;
 
 	section{
-		margin: 10px;
-		height: 200px;
+		margin: 8px;
+		height: 240px;
 	}
 
   .profile-comment{
@@ -36,7 +36,7 @@ export const Div = styled.div`
 	}
 
 	h3 {
-		margin-top: 17px;
+		margin-top: 5px;
 		height: 40px;
 		width: 160px;
 		text-overflow: ellipsis;
@@ -44,6 +44,7 @@ export const Div = styled.div`
 	}
 
 	p {
+		font-family: 'Inter';
 		margin-top: 10px;
 		font-style: normal;
 		font-weight: 400;
@@ -52,9 +53,11 @@ export const Div = styled.div`
 		height: 70px;
 	}
 
+	
   img	{
 		width: 50px;
 		height: 50px;
 		border-radius: 50px;
 	}
+	
 `;
