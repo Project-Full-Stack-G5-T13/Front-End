@@ -12,8 +12,12 @@ export const Section = styled.section`
 	justify-content: stretch;
 	padding-top: 40px;
 
-	@media (max-width: 550px) {
+	@media (max-width: 768px) {
 		width: 100%;
-		justify-content: center;
+
+		flex-wrap: nowrap;
+		overflow-y: scroll;
+		height: fit-content;
+		padding: 16px;
 	}
 `;
