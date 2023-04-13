@@ -16,6 +16,7 @@ export const Div = styled.div`
 
 	section{
 		margin: 10px;
+		height: 200px;
 	}
 
   .profile-comment{
@@ -44,8 +45,6 @@ export const Div = styled.div`
 
 	p {
 		margin-top: 10px;
-		text-overflow: ellipsis;
-		overflow-x: hidden;
 		font-style: normal;
 		font-weight: 400;
 		font-size: 14px;
