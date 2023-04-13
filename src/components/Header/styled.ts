@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 const HeaderStyled = styled.header`
 	width: 100%;
-	max-width: 1400px;
+	/* max-width: 1400px; */
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px;
 	position: fixed;
 	background-color: var(--grey-10);
 	top: 0;
-	left: 50%;
-	z-index: 999;
+	left: 0;
+	z-index: 10;
 
 	.container-header {
 		margin: 20px;
@@ -118,17 +118,18 @@ const HeaderStyled = styled.header`
 
 const ModalOptionsProfile = styled.div`
 	position: relative;
-
+	z-index: 20;
 	div {
 		padding: 23px;
 		box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 		position: fixed;
 		background-color: var(--grey-10);
-		top: 100px;
-		right: 40px;
+		top: 70px;
+		right: 20px;
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
+		border-radius: 4px;
 	}
 
 	div p {
