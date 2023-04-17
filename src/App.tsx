@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Car from "./pages/Car";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Teste from "./pages/Teste";
 
 const App = () => {
 	return (
@@ -17,6 +18,7 @@ const App = () => {
 				<Route path="/register" element={<Register />} />
 				<Route path="/" element={<Dashboard />} />
 				<Route path="/car" element={<Car />} />
+				<Route path="/teste" element={<Teste />} />
 			</Routes>
 			<ToastContainer limit={1} autoClose={1500} />
 			<Footer />
