@@ -2,16 +2,18 @@ import styled from "styled-components";
 
 const HeaderStyled = styled.header`
 	width: 100%;
-	/* max-width: 1400px; */
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px;
-	position: fixed;
+	position: sticky;
+	margin-bottom: 4px;
 	background-color: var(--grey-10);
 	top: 0;
 	left: 0;
-	z-index: 10;
+	z-index: 900;
 
 	.container-header {
-		margin: 20px;
+		margin: 0 auto;
+		max-width: 1400px;
+		padding: 20px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
