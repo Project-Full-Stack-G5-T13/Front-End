@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 
@@ -11,122 +11,57 @@ export const StyledSelect = ({
 	modal,
 	defaultValue,
 }: any) => {
-	const modalStyles = {
+	const style = {
 		option: (provided: any, state: any) => ({
 			...provided,
-			borderBottom: "1px solid var(--color-primary)",
+			borderBottom: "1px solid var(--brand-1)",
 			backgroundColor: state.isSelected
-				? "#929292"
+				? "var(--grey-5)"
 				: state.isFocused
-				? "#DAD8D8"
-				: "#F8F9FA",
+				? "var(--brand-3)"
+				: "var(--fixed-whte)",
 			padding: 10,
 			cursor: "pointer",
-			color: theme.colors.placeholder,
+			color: "var(--grey-1)",
 		}),
-		control: (provided: any, state: any) => ({
-			...provided,
-			// width: 200,
-			height: 40,
-			cursor: "pointer",
-			// backgroundColor: "var(--color-grey-0)",
-			backgroundColor: "#F8F9FA",
-			outline: "none",
-			borderRadius: "8px",
-			border: `2px solid ${
-				state.isFocused ? "var(--color-primary)" : "transparent"
-			}`,
-			boxSizing: "border-box",
-			boxShadow: "none",
-			":hover": {
-				borderColor: "var(--color-primary)",
-			},
-		}),
-		placeholder: (provided: any, state: any) => ({
-			...provided,
-			color: state.isFocused
-				? "var(--color-grey-4)"
-				: "var(--color-grey-1)",
-		}),
-		indicatorsContainer: (provided: any) => ({
-			...provided,
-			svg: {
-				color: "var(--color-primary-focus)",
-			},
-		}),
-		menuList: (provided: any) => ({
-			...provided,
-			backgroundColor: "var(--color-grey-0)",
-			borderRadius: "4px",
-			height: 220,
-			"::-webkit-scrollbar": {
-				width: "6px",
-				height: "0px",
-			},
-			"::-webkit-scrollbar-track": {
-				background: "#f1f1f1",
-				borderRadius: "4px",
-			},
-			"::-webkit-scrollbar-thumb": {
-				background: "#888",
-				borderRadius: "4px",
-			},
-			"::-webkit-scrollbar-thumb:hover": {
-				background: "#555",
-			},
-		}),
-		indicatorSeparator: (provided: any) => ({
-			...provided,
-			backgroundColor: "var(--color-primary-focus)",
-		}),
-	};
 
-	const customStyles = {
-		option: (provided: any, state: any) => ({
-			...provided,
-			borderBottom: "1px solid var(--color-primary)",
-			backgroundColor: state.isSelected
-				? "#929292"
-				: state.isFocused
-				? theme.colors.hover
-				: theme.colors.grey2,
-			padding: 10,
-			cursor: "pointer",
-			color: theme.colors.placeholder,
-		}),
 		control: (provided: any, state: any) => ({
 			...provided,
-			// width: 200,
 			height: 40,
 			cursor: "pointer",
-			// backgroundColor: "var(--color-grey-0)",
-			backgroundColor: theme.colors.grey2,
+			backgroundColor: "var(--fixed-white)",
 			outline: "none",
-			borderRadius: "8px",
+			borderRadius: "4px",
 			border: `2px solid ${
-				state.isFocused ? "var(--color-primary)" : "transparent"
+				state.isFocused ? "var(--brand-1)" : "var(--grey-7)"
 			}`,
 			boxSizing: "border-box",
 			boxShadow: "none",
 			":hover": {
-				borderColor: "var(--color-primary)",
+				borderColor: "var(--grey-8)",
+				backgroundColor: "var(--grey-8)",
+			},
+		}),
+		singleValue: (provided: any, state: any) => ({
+			...provided,
+			color: "var(--grey-2)",
+			":hover": {
+				color: "var(--grey-1)",
 			},
 		}),
 		placeholder: (provided: any, state: any) => ({
 			...provided,
-			color: state.isFocused
-				? "var(--color-grey-4)"
-				: "var(--color-grey-1)",
+			color: "var(--grey-3)",
 		}),
-		indicatorsContainer: (provided: any) => ({
+		indicatorsContainer: (provided: any, state: any) => ({
 			...provided,
 			svg: {
-				color: "var(--color-primary-focus)",
+				color: "var(--brand-2)",
 			},
 		}),
 		menuList: (provided: any) => ({
 			...provided,
-			backgroundColor: "var(--color-grey-0)",
+			backgroundColor: "var(--grey-9)",
 			borderRadius: "4px",
 			height: 220,
 			"::-webkit-scrollbar": {
@@ -134,20 +69,20 @@ export const StyledSelect = ({
 				height: "0px",
 			},
 			"::-webkit-scrollbar-track": {
-				background: "#f1f1f1",
+				background: "var(--grey-6)",
 				borderRadius: "4px",
 			},
 			"::-webkit-scrollbar-thumb": {
-				background: "#888",
+				background: "var(--grey-4)",
 				borderRadius: "4px",
 			},
 			"::-webkit-scrollbar-thumb:hover": {
-				background: "#555",
+				background: "var(--grey-3)",
 			},
 		}),
 		indicatorSeparator: (provided: any) => ({
 			...provided,
-			backgroundColor: "var(--color-primary-focus)",
+			backgroundColor: "var(--brand-2)",
 		}),
 	};
 
@@ -155,11 +90,12 @@ export const StyledSelect = ({
 		<>
 			<Controller
 				name={name}
+				shouldUnregister={true}
 				control={control}
 				render={({ field: { onChange, onBlur } }: any) => {
 					return (
 						<Select
-							// styles={modal ? modalStyles : customStyles}
+							styles={style}
 							isClearable
 							isSearchable={false}
 							defaultValue={options.filter((option: any) => {
@@ -172,7 +108,7 @@ export const StyledSelect = ({
 							})}
 							options={options}
 							placeholder={placeholder}
-							onChange={(event) => onChange(event)}
+							onChange={(event) => onChange(event?.value)}
 							onBlur={onBlur}
 						/>
 					);

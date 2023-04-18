@@ -12,9 +12,17 @@ const Teste = () => {
 		{ value: "palio", label: "palio" },
 		{ value: "ferrari", label: "ferrari" },
 		{ value: "corolla", label: "corolla" },
+		{ value: "corolla", label: "corolla" },
+		{ value: "corolla", label: "corolla" },
+		{ value: "corolla", label: "corolla" },
+		{ value: "corolla", label: "corolla" },
+		{ value: "corolla", label: "corolla" },
 	];
 	interface IAddAd {
 		model: string;
+	}
+	function mostrar(data: any) {
+		console.log(data);
 	}
 	const {
 		register,
@@ -25,12 +33,18 @@ const Teste = () => {
 
 	return (
 		<StyledTeste>
-			<StyledSelect
-				name="model"
-				placeholder="Selecione um modelo"
-				control={control}
-				options={selectOptions}
-			/>
+			<div>
+				<form onSubmit={handleSubmit(mostrar)}>
+					<StyledSelect
+						name="model"
+						placeholder="Selecione um modelo"
+						control={control}
+						options={selectOptions}
+					/>
+
+					<button type="submit">Clique aqui</button>
+				</form>
+			</div>
 		</StyledTeste>
 	);
 };
