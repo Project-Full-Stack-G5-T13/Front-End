@@ -62,7 +62,10 @@ const ModalCreateAds = () => {
   console.log(model);
   console.log(typeof model);
 
- 
+  const car = model.length > 0 && model.find((car: any) => 
+    car.name === modelSelect
+  );
+  console.log(car);
 
   const {
     register,
