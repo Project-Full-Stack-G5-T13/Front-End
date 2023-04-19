@@ -3,6 +3,7 @@ import { StyledSelect } from "../../styles/select";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaAddAd } from "../../validations/select.schema";
 import { StyledTeste } from "./styled";
+import { useEffect, useState } from "react";
 
 const Teste = () => {
 	// itens necessarios para fazer o select funcionar
@@ -24,6 +25,13 @@ const Teste = () => {
 	function mostrar(data: any) {
 		console.log(data);
 	}
+
+	const [myState, setMyState] = useState("");
+
+	useEffect(() => {
+		console.log(myState);
+	}, [myState]);
+
 	const {
 		register,
 		handleSubmit,
@@ -40,6 +48,7 @@ const Teste = () => {
 						placeholder="Selecione um modelo"
 						control={control}
 						options={selectOptions}
+						setState={setMyState}
 					/>
 
 					<button type="submit">Clique aqui</button>

@@ -10,6 +10,7 @@ export const StyledSelect = ({
 	theme,
 	modal,
 	defaultValue,
+	setState,
 }: any) => {
 	const style = {
 		option: (provided: any, state: any) => ({
@@ -108,7 +109,10 @@ export const StyledSelect = ({
 							})}
 							options={options}
 							placeholder={placeholder}
-							onChange={(event) => onChange(event?.value)}
+							onChange={(event) => {
+								onChange(event?.value);
+								setState && setState(event?.value);
+							}}
 							onBlur={onBlur}
 						/>
 					);
