@@ -8,6 +8,8 @@ import { useState } from "react";
 import { StyledButton_primary } from "../../styles/buttons";
 import { StyledModalTitle } from "../../components/Modal/styled";
 import { StyledHeading_7_500 } from "../../styles/typografy";
+import { string } from "yup";
+import api from "../../services/api";
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -16,6 +18,14 @@ function Dashboard() {
 	window.addEventListener("resize", function () {
 		setWidthWindow(window.innerWidth);
 	});
+
+	// const ads = await api.get("/ads")
+
+	const [brands, setBrands] = useState<string[]>();
+	const [models, setModels] = useState<string[]>();
+	const [colors, setColors] = useState<string[]>();
+	const [years, setYears] = useState<string[]>();
+	const [fuels, setFuels] = useState<string[]>();
 
 	return (
 		<>

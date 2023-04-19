@@ -9,7 +9,7 @@ function Header() {
 	const navigate = useNavigate();
 	const [menu, setMenu] = useState(false);
 	const [widthWindow, setWidthWindow] = useState<number>(window.innerWidth);
-	const [autenticated, setAutenticated] = useState(true);
+	const [autenticated, setAutenticated] = useState(false);
 	const [menuProfile, setMenuProfile] = useState(false);
 
 	window.addEventListener("resize", function () {
