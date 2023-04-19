@@ -85,7 +85,6 @@ function Header() {
 				)}
 			</HeaderStyled>
 
-			{/* {widthWindow > 768 && autenticated && menuProfile && ( */}
 			{autenticated && menuProfile && (
 				<ModalOptionsProfile>
 					<div>

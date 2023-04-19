@@ -4,7 +4,7 @@ export const StyledModal = styled.div`
 	position: absolute;
 	top: 70px;
 	background-color: #1e1c1c9e;
-	width: 100vw;
+	width: 100%;
 	height: auto;
 	z-index: 900;
 	padding: 1rem;
@@ -13,10 +13,16 @@ export const StyledModal = styled.div`
 		margin: 0 auto;
 		margin-bottom: 50px;
 		background-color: var(--fixed-white);
-		/* width: 150px;
-		height: 150px; */
+		border-radius:5px;
 		padding: 0 1.5rem;
+		width:95%;
 		gap: 2rem;
+	}
+
+	@media(min-width:768px){
+		& > div {
+		width: 520px;
+		}
 	}
 `;
 
