@@ -3,14 +3,14 @@ import { Controller } from "react-hook-form";
 import Select from "react-select";
 
 export const StyledSelect = ({
-  options,
-  control,
-  name,
-  placeholder,
-  theme,
-  modal,
-  defaultValue,
-  setState,
+	options,
+	control,
+	name,
+	placeholder,
+	theme,
+	modal,
+	defaultValue,
+	setState,
 }: any) => {
   const style = {
     option: (provided: any, state: any) => ({
@@ -87,37 +87,38 @@ export const StyledSelect = ({
     }),
   };
 
-  return (
-    <>
-      <Controller
-        name={name}
-        shouldUnregister={true}
-        control={control}
-        render={({ field: { onChange, onBlur } }: any) => {
-          return (
-            <Select
-              styles={style}
-              isClearable
-              isSearchable={false}
-              defaultValue={options.filter((option: any) => {
-                if (option.value == defaultValue) {
-                  useEffect(() => {
-                    onChange(option.value);
-                  }, []);
-                  return option.label;
-                }
-              })}
-              options={options}
-              placeholder={placeholder}
-              onChange={(event) => {
-                onChange(event?.value);
-                setState && setState(event?.value);
-              }}
-              onBlur={onBlur}
-            />
-          );
-        }}
-      />
-    </>
-  );
+
+	return (
+		<>
+			<Controller
+				name={name}
+				shouldUnregister={true}
+				control={control}
+				render={({ field: { onChange, onBlur } }: any) => {
+					return (
+						<Select
+							styles={style}
+							isClearable
+							isSearchable={false}
+							defaultValue={options.filter((option: any) => {
+								if (option.value == defaultValue) {
+									useEffect(() => {
+										onChange(option.value);
+									}, []);
+									return option.label;
+								}
+							})}
+							options={options}
+							placeholder={placeholder}
+							onChange={(event) => {
+								onChange(event?.value);
+								setState && setState(event?.value);
+							}}
+							onBlur={onBlur}
+						/>
+					);
+				}}
+			/>
+		</>
+	);
 };
