@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { StyledSelect } from "../../styles/select";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaAddAd } from "../../validations/select.schema";
+import { schemaAdsCreate } from "../../validations/select.schema";
 import { StyledTeste } from "./styled";
 
 const Teste = () => {
@@ -29,7 +29,7 @@ const Teste = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<IAddAd>({ resolver: yupResolver(schemaAddAd) });
+	} = useForm<IAddAd>({ resolver: yupResolver(schemaAdsCreate) });
 
 	return (
 		<StyledTeste>

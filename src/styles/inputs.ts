@@ -4,7 +4,6 @@ export const StyledInput = styled.input`
 	padding: 0px 16px;
 	height: 48px;
 	color: var(--grey-1);
-
 	border: 1.5px solid var(--grey-7);
 	border-radius: 4px;
 
@@ -27,7 +26,8 @@ export const StyledInput = styled.input`
 export const StyledTextArea = styled.textarea`
 	padding: 16px 8px 8px 16px;
 	color: var(--grey-1);
-
+	resize:none;
+	min-height:88px;
 	border: 1.5px solid var(--grey-7);
 	border-radius: 4px;
 
