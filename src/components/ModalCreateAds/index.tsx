@@ -56,6 +56,7 @@ const ModalCreateAds = () => {
     (car: any) => car.name === modelSelect
   );
 
+  console.log(findModel);
   // const yearFind = findModel !== undefined ? findModel.year : null;
 
   // const fuelType = (car: any) => {
