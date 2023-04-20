@@ -51,8 +51,13 @@ interface iAdsContext {
   setModelSelect: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface iModel {
-  name: any;
+export interface iModel {
+  brand: string;
+  fuel: number;
+  id: string;
+  name: string;
+  value: number;
+  year: string;
 }
 
 export const AdsContext = createContext({} as iAdsContext);
@@ -90,8 +95,6 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
           `https://kenzie-kars.herokuapp.com/cars?brand=${brandSelect}`
         );
 
-        // console.log(response.data);
-        // console.log(typeof response.data);
         setModel(response.data);
       } catch (error) {
         console.log("Deu erro");
