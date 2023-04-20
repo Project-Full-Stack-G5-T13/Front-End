@@ -1,8 +1,4 @@
-import {
-  AdsContext,
-  iAdsCreate,
-  iBrandObject,
-} from "../../contexts/AdsContext";
+import { AdsContext, iAdsCreate, iModel } from "../../contexts/AdsContext";
 import { schemaAdsCreate } from "../../validations/select.schema";
 import { StyledInput, StyledTextArea } from "../../styles/inputs";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +6,7 @@ import { StyledSelect } from "../../styles/select";
 import { StyledModalTitle } from "../Modal/styled";
 import ModalCreateAdsStyled from "./styled";
 import { useForm } from "react-hook-form";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "../Modal";
 import {
   StyledHeading_7_500,
@@ -28,19 +24,16 @@ const ModalCreateAds = () => {
     modalAds,
     setModalAds,
     carsTableKenzie,
-    brandSelect,
     setBrandSelect,
     model,
     modelSelect,
     setModelSelect,
   } = useContext(AdsContext);
 
-
-  // const retorno = carsTableKenzie.brandSelect
-
-
   const brands = Object.keys(carsTableKenzie);
 
+  // const [inputFuel, setInputFuel] = useState<string | undefined>("");
+  // const [objectModel, setObjectModel] = useState<Object | undefined>();
 
   function createListBrand(br: any) {
     const selectOptions = [];
@@ -59,13 +52,23 @@ const ModalCreateAds = () => {
   const listBrand = createListBrand(brands);
   const listModel = createListModel(model);
 
-  console.log(model);
-  console.log(typeof model);
-
-  const car = model.length > 0 && model.find((car: any) => 
-    car.name === modelSelect
+  const findModel = Object.values(model).find(
+    (car: any) => car.name === modelSelect
   );
-  console.log(car);
+
+  // const yearFind = findModel !== undefined ? findModel.year : null;
+
+  // const fuelType = (car: any) => {
+  //   if (car && car.fuel === 1) {
+  //     return "Gasolina / Etanol";
+  //   } else if (car && car.fuel === 2) {
+  //     return "Híbrido";
+  //   } else if (car && car.fuel === 3) {
+  //     return "Elétrico";
+  //   }
+  // };
+
+  // const resultFuel = fuelType(findModel);
 
   const {
     register,
@@ -115,11 +118,10 @@ const ModalCreateAds = () => {
           <div className="inputs_row">
             <div className="div-inputs">
               <StyledLabel>Ano</StyledLabel>
-              <StyledSelect
+              <StyledInput
                 name="launch_year"
-                placeholder="Selecione um modelo"
-                control={control}
-                options={listModel}
+                placeholder="2018"
+                disabled={true}
               />
               <p className="heading-8-500">{errors.launch_year?.message}</p>
             </div>

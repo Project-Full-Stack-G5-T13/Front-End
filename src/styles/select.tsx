@@ -28,7 +28,7 @@ export const StyledSelect = ({
 
     control: (provided: any, state: any) => ({
       ...provided,
-      height: 40,
+      height: 50,
       cursor: "pointer",
       backgroundColor: "var(--fixed-white)",
       outline: "none",
