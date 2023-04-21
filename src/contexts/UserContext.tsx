@@ -53,7 +53,7 @@ const Providers = ({ children }: iProvidersProps) => {
     try {
       const response = await api.post("/session", data);
 
-      localStorage.setItem("@Motors:token", response.data);
+      localStorage.setItem("@Motors:token", response.data.token);
 
       toast.success("Logado com sucesso!");
       navigate(`/`);
