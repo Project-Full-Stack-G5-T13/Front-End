@@ -6,7 +6,7 @@ import { StyledSelect } from "../../styles/select";
 import { StyledModalTitle } from "../Modal/styled";
 import ModalCreateAdsStyled from "./styled";
 import { useForm } from "react-hook-form";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef, ChangeEvent } from "react";
 import Modal from "../Modal";
 import {
   StyledHeading_7_500,
@@ -28,12 +28,14 @@ const ModalCreateAds = () => {
     model,
     modelSelect,
     setModelSelect,
+    createAds,
   } = useContext(AdsContext);
 
   const brands = Object.keys(carsTableKenzie);
 
-  // const [inputFuel, setInputFuel] = useState<string | undefined>("");
-  // const [objectModel, setObjectModel] = useState<Object | undefined>();
+  const [inputFuel, setInputFuel] = useState<string>("");
+  const [inputYear, setInputYear] = useState<string>("");
+  const [inputFipe, setInputFipe] = useState<string>("");
 
   function createListBrand(br: any) {
     const selectOptions = [];
@@ -54,33 +56,46 @@ const ModalCreateAds = () => {
 
   const findModel = Object.values(model).find(
     (car: any) => car.name === modelSelect
-  );
+  ) as any;
 
-  console.log(findModel);
-  // const yearFind = findModel !== undefined ? findModel.year : null;
+  useEffect(() => {
+    const fuelType = (car: any) => {
+      if (car && car.fuel === 1) {
+        return "Flex";
+      } else if (car && car.fuel === 2) {
+        return "Híbrido";
+      } else if (car && car.fuel === 3) {
+        return "Elétrico";
+      }
+      return "";
+    };
 
-  // const fuelType = (car: any) => {
-  //   if (car && car.fuel === 1) {
-  //     return "Gasolina / Etanol";
-  //   } else if (car && car.fuel === 2) {
-  //     return "Híbrido";
-  //   } else if (car && car.fuel === 3) {
-  //     return "Elétrico";
-  //   }
-  // };
+    const resultFuel = fuelType(findModel);
 
-  // const resultFuel = fuelType(findModel);
+    setValue("fuel_type", resultFuel);
+
+    if (findModel) {
+      setValue("launch_year", findModel.year);
+
+      const fipe = findModel.value;
+      const valueFipe = fipe.toLocaleString("pt-br", {
+        style: "currency",
+        currency: "BRL",
+      });
+
+      setValue("price_table", valueFipe);
+    }
+  }, [findModel]);
 
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
-  } = useForm<iAdsCreate>({ resolver: yupResolver(schemaAdsCreate) });
-
-  function mostrar(data: any) {
-    console.log(data);
-  }
+  } = useForm<iAdsCreate>({
+    resolver: yupResolver(schemaAdsCreate),
+  });
 
   return (
     <Modal>
@@ -90,7 +105,7 @@ const ModalCreateAds = () => {
           <button onClick={() => setModalAds(!modalAds)}>X</button>
         </StyledModalTitle>
 
-        <form onSubmit={handleSubmit(mostrar)} className="selects">
+        <form onSubmit={handleSubmit(createAds)} className="selects">
           <TextBody_2_500 style={{ padding: "5px 0px" }}>
             Informações do veículo
           </TextBody_2_500>
@@ -120,17 +135,18 @@ const ModalCreateAds = () => {
             <div className="div-inputs">
               <StyledLabel>Ano</StyledLabel>
               <StyledInput
-                name="launch_year"
-                placeholder="2018"
-                disabled={true}
+                readOnly={true}
+                {...register("launch_year")}
+                placeholder="Ano"
               />
               <p className="heading-8-500">{errors.launch_year?.message}</p>
             </div>
             <div className="div-inputs">
               <StyledLabel>Combustível</StyledLabel>
               <StyledInput
+                readOnly={true}
                 {...register("fuel_type")}
-                placeholder="Gasolina / Etanol"
+                placeholder="Combustível"
               />
               <p className="heading-8-500">{errors.fuel_type?.message}</p>
             </div>
@@ -151,6 +167,7 @@ const ModalCreateAds = () => {
             <div className="div-inputs">
               <StyledLabel>Preço tabela FIPE</StyledLabel>
               <StyledInput
+                readOnly={true}
                 {...register("price_table")}
                 placeholder="R$ 48.000,00"
               />
