@@ -15,9 +15,9 @@ const App = () => {
     <>
       <Header />
       <Routes>
+        <Route path="*" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Dashboard />} />
         <Route path="/car" element={<Car />} />
         <Route path="/teste" element={<Teste />} />
         <Route path="/createadsmodal" element={<ModalCreateAds />} />

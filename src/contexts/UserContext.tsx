@@ -2,6 +2,7 @@ import { createContext, useState, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../services/api";
+import axios from "axios";
 
 interface iProvidersProps {
   children: ReactNode;
@@ -71,9 +72,28 @@ const Providers = ({ children }: iProvidersProps) => {
       navigate("/login");
       toast.success("Usuário cadastrado com sucesso!");
     } catch (error) {
-      toast.error("Esse usuário já existe!");
+      if (axios.isAxiosError(error)) {
+        if (
+          error?.response?.data.message ==
+          "There is already an account with this email"
+        ) {
+          toast.error("Já existe uma conta com este e-mail");
+        } else if (
+          error?.response?.data.message ==
+          "There is already an account with this phone number"
+        ) {
+          toast.error("Já existe uma conta com este número de telefone");
+        } else if (
+          error?.response?.data.message ==
+          "There is already an account with this cpf"
+        ) {
+          toast.error("Já existe uma conta com este cpf");
+        }
+      }
     }
   }
+
+  // error.response.data
 
   return (
     <UserContext.Provider

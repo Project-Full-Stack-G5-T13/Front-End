@@ -8,12 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { iFormSignup } from "../../contexts/UserContext";
 import { useContext, useState } from "react";
 import { StyledLabel } from "../../styles/typografy";
-import { StyledSelect } from "../../styles/select";
 import { StyledInput } from "../../styles/inputs";
+import { BsEyeFill } from "react-icons/bs";
 
 const Register = () => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -24,6 +22,9 @@ const Register = () => {
 
   const [validatedIsSeller, setValidatedIsSeller] = useState<boolean>(false);
   const [advertiserBuyer, setAdvertiserBuyer] = useState<string | boolean>("");
+  const [confirmPassword, setConfirmPassword] = useState(false);
+  const [password, setPassword] = useState(false);
+
   const { registerUser } = useContext(UserContext);
 
   function validatedAccountType(data: iFormSignup) {
@@ -179,16 +180,20 @@ const Register = () => {
               <StyledLabel>Senha</StyledLabel>
               <StyledInput
                 {...register("password")}
+                type={password ? "text" : "password"}
                 placeholder="Digitar senha"
               />
+              <BsEyeFill onClick={() => setPassword(!password)} />
               <p className="heading-8-500">{errors.password?.message}</p>
             </div>
             <div>
               <StyledLabel>Confirmar Senha</StyledLabel>
               <StyledInput
                 {...register("confirmPassword")}
+                type={confirmPassword ? "text" : "password"}
                 placeholder="Digitar senha"
               />
+              <BsEyeFill onClick={() => setConfirmPassword(!confirmPassword)} />
               <p className="heading-8-500">{errors.confirmPassword?.message}</p>
             </div>
             <Button type="submit" children="Finalizar Cadastro" />
