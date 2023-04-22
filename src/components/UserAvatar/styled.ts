@@ -25,10 +25,17 @@ export const StyledUserAvatar = styled.div`
 	gap: 8px;
 	align-items: center;
 
-	& > img {
-		max-width: 32px;
-		max-height: 32px;
+	& > .img_container {
+		max-width: 40px;
+		max-height: 40px;
 		border-radius: 50%;
+		overflow: hidden;
+
+		& > img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 	}
 
 	& > div {
@@ -45,5 +52,8 @@ export const StyledUserAvatar = styled.div`
 		font-weight: 600;
 		font-size: 14px;
 		line-height: 24px;
+	}
+	& > p {
+		text-transform: capitalize;
 	}
 `;

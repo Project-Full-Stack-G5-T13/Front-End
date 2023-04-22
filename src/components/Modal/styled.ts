@@ -13,15 +13,15 @@ export const StyledModal = styled.div`
 		margin: 0 auto;
 		margin-bottom: 50px;
 		background-color: var(--fixed-white);
-		border-radius:5px;
-		padding: 0 1.5rem;
-		width:95%;
+		border-radius: 5px;
+		padding: 0 1.5rem 1rem 1.5rem;
+		width: 95%;
 		gap: 2rem;
 	}
 
-	@media(min-width:768px){
+	@media (min-width: 768px) {
 		& > div {
-		width: 520px;
+			width: 520px;
 		}
 	}
 `;

@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { StyledSelect } from "../../styles/select";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaAdsCreate } from "../../validations/select.schema";
+import { schemaTeste } from "../../validations/select.schema";
 import { StyledTeste } from "./styled";
 import { useEffect, useState } from "react";
+import { StyledInput } from "../../styles/inputs";
 
 const Teste = () => {
 	// itens necessarios para fazer o select funcionar
@@ -21,6 +22,8 @@ const Teste = () => {
 	];
 	interface IAddAd {
 		model: string;
+		fuel_type: string;
+		brand: string;
 	}
 	function mostrar(data: any) {
 		console.log(data);
@@ -28,16 +31,25 @@ const Teste = () => {
 
 	const [myState, setMyState] = useState("");
 
-	useEffect(() => {
-		console.log(myState);
-	}, [myState]);
+	const [brand, setBrand] = useState("");
+	const [fuelType, setFuelType] = useState("");
 
 	const {
 		register,
 		handleSubmit,
 		control,
+		setValue,
 		formState: { errors },
-	} = useForm<IAddAd>({ resolver: yupResolver(schemaAdsCreate) });
+	} = useForm<IAddAd>({ resolver: yupResolver(schemaTeste) });
+
+	useEffect(() => {
+		console.log(myState);
+
+		if (myState) {
+			setValue("brand", "Ford");
+			setValue("fuel_type", "Flex");
+		}
+	}, [myState]);
 
 	return (
 		<StyledTeste>
@@ -49,6 +61,12 @@ const Teste = () => {
 						control={control}
 						options={selectOptions}
 						setState={setMyState}
+					/>
+
+					<StyledInput placeholder="brand" {...register("brand")} />
+					<StyledInput
+						placeholder="combustivel"
+						{...register("fuel_type")}
 					/>
 
 					<button type="submit">Clique aqui</button>

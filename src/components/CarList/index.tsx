@@ -1,9 +1,14 @@
 import Card from "../../components/Card";
+import { IAdsReturn } from "../../pages/Dashboard";
 import { Section } from "./styled";
 
-function CarList() {
+interface ICardListProps {
+	ads: IAdsReturn[];
+}
+
+function CarList({ ads }: ICardListProps) {
 	const mycar = {
-		image: {
+		images: {
 			main_image:
 				"https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/novo-cruze-nb.jpg?imwidth=960",
 		},
@@ -15,18 +20,21 @@ function CarList() {
 			image_url: "",
 		},
 		km: 21000,
-		launch_year: 2019,
+		launch_year: "2019jj",
 		price: 25477.5,
 		is_active: true,
 	};
 
 	return (
 		<Section>
+			{/* <Card car={mycar}></Card> */}
+			{ads.map((ad) => (
+				<Card key={ad.id} car={ad} />
+			))}
+			{/* <Card car={mycar}></Card>
 			<Card car={mycar}></Card>
 			<Card car={mycar}></Card>
-			<Card car={mycar}></Card>
-			<Card car={mycar}></Card>
-			<Card car={mycar}></Card>
+			<Card car={mycar}></Card> */}
 		</Section>
 	);
 }

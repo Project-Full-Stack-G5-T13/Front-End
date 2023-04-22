@@ -12,6 +12,7 @@ import { StyledInput } from "../../styles/inputs";
 import { BsEyeFill } from "react-icons/bs";
 
 const Register = () => {
+
   const {
     register,
     handleSubmit,
@@ -27,19 +28,22 @@ const Register = () => {
 
   const { registerUser } = useContext(UserContext);
 
-  function validatedAccountType(data: iFormSignup) {
-    if (advertiserBuyer && advertiserBuyer !== "") {
-      data.is_seller = true;
-      setAdvertiserBuyer(false);
-      registerUser(data);
-    } else if (!advertiserBuyer && advertiserBuyer !== "") {
-      data.is_seller = false;
-      setAdvertiserBuyer(false);
-      registerUser(data);
-    } else if (data.is_seller === undefined) {
-      setValidatedIsSeller(true);
-    }
-  }
+
+	function validatedAccountType(data: iFormSignup) {
+		console.log(data);
+		if (advertiserBuyer && advertiserBuyer !== "") {
+			data.is_seller = true;
+			setAdvertiserBuyer(false);
+			registerUser(data);
+		} else if (!advertiserBuyer && advertiserBuyer !== "") {
+			data.is_seller = false;
+			setAdvertiserBuyer(false);
+			registerUser(data);
+		} else if (data.is_seller === undefined) {
+			setValidatedIsSeller(true);
+		}
+	}
+
 
   return (
     <>
@@ -202,6 +206,7 @@ const Register = () => {
       </Container>
     </>
   );
+
 };
 
 export default Register;

@@ -5,9 +5,24 @@ export const StyledCardDiv = styled.div`
 	flex-direction: column;
 	gap: 16px;
 	width: 310px;
-  height: 380px;
-	position: relative;	
+	/* height: 380px; */
+	position: relative;
 
+	& > .imgContainer {
+		width: 310px;
+		height: 155px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #ffffff;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
 
 	& > h6 {
 		overflow: hidden;

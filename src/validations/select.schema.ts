@@ -22,3 +22,9 @@ export const schemaAdsCreate = yup.object({
     image_three: yup.string().notRequired().url("Necessário que seja uma url"),
   }),
 });
+
+export const schemaTeste = yup.object({
+	brand: yup.string().required(),
+	model: yup.string().required(),
+	fuel_type: yup.string().required(),
+});

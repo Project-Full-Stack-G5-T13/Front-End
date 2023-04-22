@@ -4,10 +4,42 @@ import HomeFilter from "../../components/HomeFilter";
 import CarList from "../../components/CarList";
 import HomePainel from "../../components/HomePainel";
 import Modal from "../../components/Modal";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyledButton_primary } from "../../styles/buttons";
 import { StyledModalTitle } from "../../components/Modal/styled";
 import { StyledHeading_7_500 } from "../../styles/typografy";
+import { string } from "yup";
+import api from "../../services/api";
+import { UserContext } from "../../contexts/UserContext";
+
+export interface IAdsReturn {
+	id: string;
+	brand: string;
+	model: string;
+	launch_year: string;
+	car_color: string;
+	fuel_type: string;
+	fuel: number;
+	km: number;
+	price: number;
+	price_table?: string;
+	description: string;
+	is_active: boolean;
+	sold: boolean;
+	images: {
+		id: string;
+		main_image: string;
+		image_one?: string;
+		image_two?: string;
+		image_three?: string;
+		image_four?: string;
+		image_five?: string;
+	};
+	user: {
+		name: string;
+		image_url: string;
+	};
+}
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -16,6 +48,60 @@ function Dashboard() {
 	window.addEventListener("resize", function () {
 		setWidthWindow(window.innerWidth);
 	});
+
+	const [ads, setAds] = useState<IAdsReturn[]>([]);
+	const [query, setQuery] = useState("");
+
+	const [brands, setBrands] = useState<string[]>([]);
+	const [models, setModels] = useState<string[]>([]);
+	const [colors, setColors] = useState<string[]>([]);
+	const [years, setYears] = useState<string[]>([]);
+	const [fuels, setFuels] = useState<string[]>([]);
+
+	const handleSetQuery = (type: string, value: string) => {
+		const newQuery = query
+			? query + `&${type}=${value}`
+			: query + `?${type}=${value}`;
+		setQuery(newQuery);
+	};
+
+	async function getAds(): Promise<void> {
+		try {
+			const allAds = await api.get(`/ads/${query}`);
+			setAds(allAds.data.result);
+
+			const newBrands = allAds.data.result.map(
+				(ad: IAdsReturn) => ad.brand
+			);
+			setBrands([...new Set([...newBrands])]);
+
+			const newModels = allAds.data.result.map(
+				(ad: IAdsReturn) => ad.model
+			);
+			setModels([...new Set([...newModels])]);
+
+			const newColors = allAds.data.result.map(
+				(ad: IAdsReturn) => ad.car_color
+			);
+			setColors([...new Set([...newColors])]);
+
+			const newYears = allAds.data.result.map(
+				(ad: IAdsReturn) => ad.launch_year
+			);
+			setYears([...new Set([...newYears])]);
+
+			const newFuels = allAds.data.result.map(
+				(ad: IAdsReturn) => ad.fuel_type
+			);
+			setFuels([...new Set([...newFuels])]);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	useEffect(() => {
+		getAds();
+	}, [query]);
 
 	return (
 		<>
@@ -30,7 +116,14 @@ function Dashboard() {
 							</button>
 						</StyledModalTitle>
 
-						<HomeFilter />
+						<HomeFilter
+							brands={brands}
+							models={models}
+							colors={colors}
+							fuels={fuels}
+							years={years}
+							handleSetQuery={handleSetQuery}
+						/>
 						<div className="btn_container">
 							<StyledButton_primary
 								onClick={() => setOpenModal(false)}
@@ -40,8 +133,17 @@ function Dashboard() {
 						</div>
 					</Modal>
 				)}
-				{widthWindow > 768 && <HomeFilter />}
-				<CarList />
+				{widthWindow > 768 && (
+					<HomeFilter
+						brands={brands}
+						models={models}
+						colors={colors}
+						fuels={fuels}
+						years={years}
+						handleSetQuery={handleSetQuery}
+					/>
+				)}
+				<CarList ads={ads} />
 				{widthWindow <= 768 && (
 					<div className="btn_container">
 						<StyledButton_primary

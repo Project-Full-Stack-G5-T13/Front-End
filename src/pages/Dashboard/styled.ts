@@ -7,7 +7,7 @@ export const Main = styled.main`
 	/* min-height: 100%; */
 	margin-bottom: 20px;
 	color: var(--fixed-white);
-	gap: 100px;
+	gap: 50px;
 
 	@media (max-width: 768px) {
 		display: flex;
@@ -15,8 +15,8 @@ export const Main = styled.main`
 	}
 
 	.btn_container {
-		width: 280px;
-		margin: 0 auto 50px auto;
+		max-width: 280px;
+		margin: 30px auto;
 
 		& > button {
 			width: 100%;
