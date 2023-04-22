@@ -20,21 +20,19 @@ import {
 
 import { BsEyeFill } from "react-icons/bs";
 
-
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<iFormLogin>({
-    resolver: yupResolver(schemaLogin),
-  });
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<iFormLogin>({
+		resolver: yupResolver(schemaLogin),
+	});
 
-  const navigate = useNavigate();
-  const [passwordLogin, setPasswordLogin] = useState(false);
+	const navigate = useNavigate();
+	const [viewPassword, setViewPassword] = useState(false);
 
-  const { signInUser } = useContext(UserContext);
-
+	const { signInUser } = useContext(UserContext);
 
 	return (
 		<Container>
@@ -51,14 +49,18 @@ const Login = () => {
 						placeholder="Digitar usuário"
 					/>
 					<StyledLabel htmlFor="password">Senha</StyledLabel>
-
-					<StyledInput
-						{...register("password")}
-						type="text"
-						id="password"
-						aria-label="Senha"
-						placeholder="Digitar senha"
-					/>
+					<div className="password_container">
+						<StyledInput
+							{...register("password")}
+							type={viewPassword ? "text" : "password"}
+							id="password"
+							aria-label="Senha"
+							placeholder="Digitar senha"
+						/>
+						<BsEyeFill
+							onClick={() => setViewPassword(!viewPassword)}
+						/>
+					</div>
 
 					<StyledBody_2_500 className="end">
 						Esqueci minha senha
@@ -78,7 +80,6 @@ const Login = () => {
 			</Section>
 		</Container>
 	);
-
 };
 
 export default Login;
