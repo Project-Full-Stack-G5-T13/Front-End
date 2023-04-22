@@ -1,6 +1,13 @@
-import { createContext, useState, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+  useContext,
+} from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
+import { UserContext } from "./UserContext";
 
 interface iProvidersAdsProps {
   children: ReactNode;
@@ -11,11 +18,10 @@ export interface iAdsCreate {
   model: string;
   car_color: string;
   fuel_type: string;
-  fuel: number;
   description: string;
   km: number;
   launch_year: string;
-  price_table?: string;
+  price_table?: number;
   price: number;
   images: {
     main_image: string;
@@ -38,6 +44,7 @@ export interface iBrandObject {
   toyota: Array<Object>;
   volkswagen: Array<Object>;
 }
+// email, phone number, cpf
 
 interface iAdsContext {
   modalAds: boolean;
@@ -49,10 +56,17 @@ interface iAdsContext {
   model: iModel[];
   modelSelect: string;
   setModelSelect: React.Dispatch<React.SetStateAction<string>>;
+  // allAds:iAdsCreate[];
+  // setAllAds: React.Dispatch<React.SetStateAction<iAdsCreate[]>>
+  createAds: (data: iAdsCreate) => Promise<void>;
 }
-
-interface iModel {
-  name: any;
+export interface iModel {
+  brand: string;
+  fuel: number;
+  id: string;
+  name: string;
+  value: number;
+  year: string;
 }
 
 export const AdsContext = createContext({} as iAdsContext);
@@ -66,6 +80,12 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
   const [modelSelect, setModelSelect] = useState<string>("");
 
   const [model, setModel] = useState<iModel[]>([]);
+
+  const token = localStorage.getItem("@Motors:token");
+
+  const { globalLoading, setGlobalLoading } = useContext(UserContext);
+  const [allAds, setAllAds] = useState<iAdsCreate[]>([]);
+  
 
   useEffect(() => {
     async function carsTable() {
@@ -90,8 +110,6 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
           `https://kenzie-kars.herokuapp.com/cars?brand=${brandSelect}`
         );
 
-        // console.log(response.data);
-        // console.log(typeof response.data);
         setModel(response.data);
       } catch (error) {
         console.log("Deu erro");
@@ -100,6 +118,23 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
 
     brandSelectRequest();
   }, [brandSelect]);
+
+  async function createAds(data: iAdsCreate): Promise<void> {
+    setGlobalLoading(true);
+    try {
+      api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+      const response = await api.post("/ads", data);
+
+      toast.success("Anúncio criado com sucesso!");
+      console.log(response.data);
+      setAllAds([...allAds, response.data]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setGlobalLoading(false);
+    }
+  }
 
   return (
     <AdsContext.Provider
@@ -113,6 +148,7 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
         model,
         modelSelect,
         setModelSelect,
+        createAds,
       }}
     >
       {children}

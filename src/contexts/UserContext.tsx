@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import api from "../services/api";
 import jwtDecode from "jwt-decode";
 import { set } from "react-hook-form";
+import axios from "axios";
+
 
 interface iProvidersProps {
 	children: ReactNode;
@@ -78,6 +80,7 @@ interface iUserContext {
 export const UserContext = createContext({} as iUserContext);
 
 const Providers = ({ children }: iProvidersProps) => {
+
 	const navigate = useNavigate();
 
 	const [globalLoading, setGlobalLoading] = useState<boolean>(false);
@@ -120,18 +123,37 @@ const Providers = ({ children }: iProvidersProps) => {
 			setGlobalLoading(false);
 		}
 	}
+  
+   async function registerUser(data: iFormSignup): Promise<void> {
+    try {
+      await api.post("/users", data);
 
-	async function registerUser(data: iFormSignup): Promise<void> {
-		try {
-			await api.post("/users", data);
-
-			navigate("/login");
-			toast.success("Usuário cadastrado com sucesso!");
-		} catch (error) {
-			console.log(error);
-			toast.error("Esse usuário já existe!");
-		}
-	}
+      navigate("/login");
+      toast.success("Usuário cadastrado com sucesso!");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (
+          error?.response?.data.message ==
+          "There is already an account with this email"
+        ) {
+          toast.error("Já existe uma conta com este e-mail");
+        } else if (
+          error?.response?.data.message ==
+          "There is already an account with this phone number"
+        ) {
+          toast.error("Já existe uma conta com este número de telefone");
+        } else if (
+          error?.response?.data.message ==
+          "There is already an account with this cpf"
+        ) {
+          toast.error("Já existe uma conta com este cpf");
+        }
+      }
+    }
+  }
+   
+  
+  
 
 	return (
 		<UserContext.Provider
@@ -148,6 +170,8 @@ const Providers = ({ children }: iProvidersProps) => {
 			{children}
 		</UserContext.Provider>
 	);
+
+
 };
 
 export default Providers;

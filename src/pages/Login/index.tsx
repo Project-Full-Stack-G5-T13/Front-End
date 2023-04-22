@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Section } from "./styled";
 import { UserContext, iFormLogin } from "../../contexts/UserContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../validations";
 import { useForm } from "react-hook-form";
+
 import {
 	StyledBody_2_400,
 	StyledBody_2_500,
@@ -17,18 +18,23 @@ import {
 	StyledButton_white_outline,
 } from "../../styles/buttons";
 
+import { BsEyeFill } from "react-icons/bs";
+
+
 const Login = () => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<iFormLogin>({
-		resolver: yupResolver(schemaLogin),
-	});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iFormLogin>({
+    resolver: yupResolver(schemaLogin),
+  });
 
-	const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [passwordLogin, setPasswordLogin] = useState(false);
 
-	const { signInUser } = useContext(UserContext);
+  const { signInUser } = useContext(UserContext);
+
 
 	return (
 		<Container>
@@ -72,6 +78,7 @@ const Login = () => {
 			</Section>
 		</Container>
 	);
+
 };
 
 export default Login;
