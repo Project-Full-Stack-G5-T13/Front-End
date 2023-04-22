@@ -44,6 +44,7 @@ export interface iBrandObject {
   toyota: Array<Object>;
   volkswagen: Array<Object>;
 }
+// email, phone number, cpf
 
 interface iAdsContext {
   modalAds: boolean;
@@ -84,7 +85,7 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
 
   const { globalLoading, setGlobalLoading } = useContext(UserContext);
   const [allAds, setAllAds] = useState<iAdsCreate[]>([]);
-  console.log(allAds);
+  
 
   useEffect(() => {
     async function carsTable() {

@@ -45,6 +45,16 @@ export const Section = styled.section`
     gap: 10px;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+
+  svg {
+    position: absolute;
+    top: 43px;
+    scale: 1.2;
+    right: 20px;
+    color: var(--grey-2);
+    cursor: pointer;
   }
 
   h1 {
@@ -58,6 +68,7 @@ export const Section = styled.section`
   }
 
   label {
+    color: var(--grey-0);
     margin-left: 5px;
   }
 
