@@ -10,63 +10,106 @@ interface IHomeFilter {
 	colors: string[];
 	years: string[];
 	fuels: string[];
+	handleSetQuery: (type: string, value: string) => void;
 }
 
-const HomeFilter = ({ brands, models, colors, years, fuels }: IHomeFilter) => {
+const HomeFilter = ({
+	brands,
+	models,
+	colors,
+	years,
+	fuels,
+	handleSetQuery,
+}: IHomeFilter) => {
 	return (
 		<Div className="advertisement-filter">
-			<section>
-				<StyledHeading_4_600>Marca</StyledHeading_4_600>
-				{brands.filter((brand) => {
-					<StyledHeading_6_500 key={brand}>
+			<StyledHeading_4_600>Marca</StyledHeading_4_600>
+			<ul>
+				{brands.map((brand) => (
+					<StyledHeading_6_500
+						key={brand}
+						onClick={() => handleSetQuery("brand", brand)}
+					>
 						{brand}
-					</StyledHeading_6_500>;
-				})}
-			</section>
-			<section>
-				<StyledHeading_4_600>Modelo</StyledHeading_4_600>
-				{models.filter((model) => {
-					<StyledHeading_6_500 key={model}>
+					</StyledHeading_6_500>
+				))}
+			</ul>
+			<StyledHeading_4_600>Modelo</StyledHeading_4_600>
+			<ul>
+				{models.map((model) => (
+					<StyledHeading_6_500
+						key={model}
+						onClick={() => handleSetQuery("model", model)}
+					>
 						{model}
-					</StyledHeading_6_500>;
-				})}
-			</section>
-			<section>
-				<StyledHeading_4_600>Cor</StyledHeading_4_600>
-				{colors.filter((color) => {
-					<StyledHeading_6_500 key={color}>
-						{color}
-					</StyledHeading_6_500>;
-				})}
-			</section>
-			<section>
-				<StyledHeading_4_600>Ano</StyledHeading_4_600>
-				{years.filter((year) => {
-					<StyledHeading_6_500 key={year}>
-						{year}
-					</StyledHeading_6_500>;
-				})}
-			</section>
-			<section>
-				<StyledHeading_4_600>Combustível</StyledHeading_4_600>
-				{fuels.filter((fuel) => {
-					<StyledHeading_6_500 key={fuel}>
+					</StyledHeading_6_500>
+				))}
+			</ul>
+			<StyledHeading_4_600>Cor</StyledHeading_4_600>
+			<ul>
+				{colors.map((car_color) => (
+					<StyledHeading_6_500
+						key={car_color}
+						onClick={() => handleSetQuery("car_color", car_color)}
+					>
+						{car_color}
+					</StyledHeading_6_500>
+				))}
+			</ul>
+			<StyledHeading_4_600>Ano</StyledHeading_4_600>
+			<ul>
+				{years.map((year) => (
+					<StyledHeading_6_500
+						key={year}
+						onClick={() => handleSetQuery("launch_year", year)}
+					>
+						{year.slice(0, 4)}
+					</StyledHeading_6_500>
+				))}
+			</ul>
+			<StyledHeading_4_600>Combustível</StyledHeading_4_600>
+			<ul>
+				{fuels.map((fuel) => (
+					<StyledHeading_6_500
+						key={fuel}
+						onClick={() => handleSetQuery("fuel_type", fuel)}
+					>
 						{fuel}
-					</StyledHeading_6_500>;
-				})}
-			</section>
+					</StyledHeading_6_500>
+				))}
+			</ul>
 			<section>
 				<StyledHeading_4_600>KM</StyledHeading_4_600>
 				<div>
-					<input type="text" placeholder="Mínima" />
-					<input type="text" placeholder="Máxima" />
+					<input
+						onBlur={(e) => handleSetQuery("min_km", e.target.value)}
+						type="text"
+						placeholder="Mínima"
+					/>
+					<input
+						onBlur={(e) => handleSetQuery("max_km", e.target.value)}
+						type="text"
+						placeholder="Máxima"
+					/>
 				</div>
 			</section>
 			<section>
 				<StyledHeading_4_600>Preço</StyledHeading_4_600>
 				<div>
-					<input type="text" placeholder="Mínima" />
-					<input type="text" placeholder="Máxima" />
+					<input
+						onBlur={(e) =>
+							handleSetQuery("min_price", e.target.value)
+						}
+						type="text"
+						placeholder="Mínima"
+					/>
+					<input
+						onBlur={(e) =>
+							handleSetQuery("max_price", e.target.value)
+						}
+						type="text"
+						placeholder="Máxima"
+					/>
 				</div>
 			</section>
 		</Div>

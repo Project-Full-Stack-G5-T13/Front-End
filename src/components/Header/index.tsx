@@ -2,99 +2,116 @@ import { useNavigate } from "react-router-dom";
 import { HeaderStyled, ModalOptionsProfile } from "./styled";
 import logo from "../../assets/logo.svg";
 import { VscThreeBars } from "react-icons/vsc";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { UserContext } from "../../contexts/UserContext";
+import {
+	StyledButton_brand_outline_medium,
+	StyledButton_white_outline,
+} from "../../styles/buttons";
+import UserAvatar from "../UserAvatar";
+import { Button } from "../../pages/SignUp/styled";
 
 function Header() {
 	const navigate = useNavigate();
 	const [menu, setMenu] = useState(false);
 	const [widthWindow, setWidthWindow] = useState<number>(window.innerWidth);
-	const [autenticated, setAutenticated] = useState(false);
 	const [menuProfile, setMenuProfile] = useState(false);
+
+	const { user, setUser } = useContext(UserContext);
 
 	window.addEventListener("resize", function () {
 		setWidthWindow(window.innerWidth);
 	});
 
+	function logout() {
+		setMenuProfile(!menuProfile);
+		setMenu(!menu);
+		setUser(null);
+		localStorage.removeItem("@Motors:token");
+		localStorage.removeItem("@Motors:userId");
+		navigate("/login");
+	}
+
 	return (
 		<>
 			<HeaderStyled>
-				<div className="container-header">
+				<div className="container_header">
 					<img src={logo} alt="Motors shop" />
-					{widthWindow <= 768 && !menu && (
-						<VscThreeBars
-							className="svg-menu"
-							onClick={() => {
-								setMenu(!menu);
-								setMenuProfile(!menuProfile);
-							}}
-						/>
-					)}
 
-					{widthWindow <= 768 && menu && (
-						<p
+					{widthWindow <= 768 && (
+						<button
+							className="burguer_menu"
 							onClick={() => {
 								setMenu(!menu);
 								setMenuProfile(!menuProfile);
 							}}
-							className="closed-menu"
 						>
-							X
-						</p>
+							{menu ? "X" : <VscThreeBars />}
+						</button>
 					)}
 
-					{widthWindow > 768 && !autenticated && (
-						<div className="desktop-menu">
-							<p onClick={() => navigate("/login")}>
-								Fazer Login
-							</p>
-							<button onClick={() => navigate("/register")}>
+					{widthWindow <= 768 && !user && menu && (
+						<div className="mobile_options">
+							<StyledButton_white_outline
+								onClick={() => {
+									setMenu(false);
+									navigate("/login");
+								}}
+							>
+								Fazer login
+							</StyledButton_white_outline>
+
+							<StyledButton_white_outline
+								onClick={() => {
+									setMenu(false);
+									navigate("/register");
+								}}
+							>
 								Cadastrar
-							</button>
+							</StyledButton_white_outline>
 						</div>
 					)}
 
-					{widthWindow > 768 && autenticated && (
-						<div className="profile">
-							<div onClick={() => setMenuProfile(!menuProfile)}>
-								<p onClick={() => setMenuProfile(!menuProfile)}>
-									VQ
-								</p>
-							</div>
-							<p onClick={() => setMenuProfile(!menuProfile)}>
-								Vinicius Quirino
-							</p>
-							<MdKeyboardArrowDown
-								className="svg-profile"
-								onClick={() => setMenuProfile(!menuProfile)}
-							/>
+					{widthWindow > 768 && !user && (
+						<div className="desktop_options">
+							<StyledButton_white_outline
+								onClick={() => navigate("/login")}
+							>
+								Fazer login
+							</StyledButton_white_outline>
+
+							<StyledButton_white_outline
+								onClick={() => navigate("/register")}
+							>
+								Cadastrar
+							</StyledButton_white_outline>
 						</div>
+					)}
+
+					{widthWindow > 768 && user && (
+						<div
+							className="desktop_options"
+							onClick={() => setMenuProfile(!menuProfile)}
+						>
+							<UserAvatar user={user}></UserAvatar>
+						</div>
+					)}
+
+					{user && menuProfile && (
+						<ModalOptionsProfile>
+							<div>
+								<button>Editar Perfil</button>
+								<button>Editar Endereço</button>
+								{user.is_seller && (
+									<button>Meus Anúncios</button>
+								)}
+								<button onClick={() => logout()}>Sair</button>
+							</div>
+						</ModalOptionsProfile>
 					)}
 				</div>
-
-				{widthWindow <= 768 && menu && !autenticated && (
-					<div className="mobile">
-						<p>Carros</p>
-						<p>Motos</p>
-						<p>Leilão</p>
-						<p onClick={() => navigate("/login")}>Fazer Login</p>
-						<button onClick={() => navigate("/register")}>
-							Cadastrar
-						</button>
-					</div>
-				)}
 			</HeaderStyled>
-
-			{autenticated && menuProfile && (
-				<ModalOptionsProfile>
-					<div>
-						<p>Editar Perfil</p>
-						<p>Editar Endereço</p>
-						<p>Meus Anúncios</p>
-						<p>Sair</p>
-					</div>
-				</ModalOptionsProfile>
-			)}
 		</>
 	);
 }

@@ -6,10 +6,13 @@ import {
 	StyledSpanDetail,
 } from "../../styles/typografy";
 import UserAvatar from "../UserAvatar";
+import { IAdsReturn } from "../../pages/Dashboard";
+import imgCarDefault from "../../assets/car-default.png";
+import { useEffect, useState } from "react";
 
 interface ICardProps {
 	car: {
-		image: {
+		images: {
 			main_image: string;
 		};
 		model: string;
@@ -19,7 +22,7 @@ interface ICardProps {
 			image_url: string;
 		};
 		km: number;
-		launch_year: number;
+		launch_year: string;
 		price: number;
 		is_active: boolean;
 	};
@@ -30,9 +33,22 @@ interface ICardProps {
 }
 
 const Card = ({ car, good_price, is_active }: ICardProps) => {
+	const [image, setImage] = useState(car.images.main_image);
+
+	const handleErrorImage = () => {
+		setImage(
+			"https://img.freepik.com/vetores-premium/ilustracao-de-silhueta-de-carro-de-luxo-de-veiculo-simples_591091-249.jpg"
+		);
+	};
 	return (
 		<StyledCardDiv>
-			<img src={car.image.main_image} alt="carro" />
+			<figure className="imgContainer">
+				<img
+					src={image}
+					onError={handleErrorImage}
+					alt="imagem do carro"
+				/>
+			</figure>
 
 			{good_price && <div className="good_price">$</div>}
 
@@ -53,8 +69,10 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 			<UserAvatar user={car.user} />
 			<div className="base_info">
 				<div>
-					<StyledSpanDetail>{car.km}</StyledSpanDetail>
-					<StyledSpanDetail>{car.launch_year}</StyledSpanDetail>
+					<StyledSpanDetail>{car.km} KM</StyledSpanDetail>
+					<StyledSpanDetail>
+						{car.launch_year.slice(0, 4)}
+					</StyledSpanDetail>
 				</div>
 				<StyledHeading_7_500>
 					{car.price.toLocaleString("pt-br", {
