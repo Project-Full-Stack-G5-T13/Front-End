@@ -18,11 +18,15 @@ function Header() {
 	const [widthWindow, setWidthWindow] = useState<number>(window.innerWidth);
 	const [menuProfile, setMenuProfile] = useState(false);
 
-	const { user, setUser } = useContext(UserContext);
+	const { user, setUser, getUser } = useContext(UserContext);
 
 	window.addEventListener("resize", function () {
 		setWidthWindow(window.innerWidth);
 	});
+
+	useEffect(() => {
+		getUser();
+	}, []);
 
 	function logout() {
 		setMenuProfile(!menuProfile);
@@ -74,15 +78,11 @@ function Header() {
 
 					{widthWindow > 768 && !user && (
 						<div className="desktop_options">
-							<StyledButton_white_outline
-								onClick={() => navigate("/login")}
-							>
+							<StyledButton_white_outline onClick={() => navigate("/login")}>
 								Fazer login
 							</StyledButton_white_outline>
 
-							<StyledButton_white_outline
-								onClick={() => navigate("/register")}
-							>
+							<StyledButton_white_outline onClick={() => navigate("/register")}>
 								Cadastrar
 							</StyledButton_white_outline>
 						</div>
@@ -102,9 +102,7 @@ function Header() {
 							<div>
 								<button>Editar Perfil</button>
 								<button>Editar Endereço</button>
-								{user.is_seller && (
-									<button>Meus Anúncios</button>
-								)}
+								{user.is_seller && <button>Meus Anúncios</button>}
 								<button onClick={() => logout()}>Sair</button>
 							</div>
 						</ModalOptionsProfile>

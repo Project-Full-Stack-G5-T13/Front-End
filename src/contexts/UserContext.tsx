@@ -58,6 +58,8 @@ export interface iUser {
 	};
 }
 
+export interface iUserWithCars extends iUser {}
+
 interface iJwtDecoded {
 	exp: number;
 	iat: number;
@@ -81,6 +83,7 @@ export const UserContext = createContext({} as iUserContext);
 const Providers = ({ children }: iProvidersProps) => {
 	const navigate = useNavigate();
 
+	const [userProfile, setUserProfile] = useState<iUserWithCars>();
 	const [globalLoading, setGlobalLoading] = useState<boolean>(false);
 	const [user, setUser] = useState<iUser>();
 
@@ -92,15 +95,19 @@ const Providers = ({ children }: iProvidersProps) => {
 			const response = await api.get(`users/${userId}`);
 			const myUser: iUser = response.data;
 			setUser(myUser);
-			navigate("/");
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
-	useEffect(() => {
-		getUser();
-	}, []);
+	async function getUserProfile(userId: string) {
+		try {
+			const response = await api.get(`users/${userId}`);
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	async function signInUser(data: iFormLogin): Promise<void> {
 		setGlobalLoading(true);
@@ -131,20 +138,16 @@ const Providers = ({ children }: iProvidersProps) => {
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				if (
-					error?.response?.data.message ==
-					"There is already an account with this email"
+					error?.response?.data.message == "There is already an account with this email"
 				) {
 					toast.error("Já existe uma conta com este e-mail");
 				} else if (
 					error?.response?.data.message ==
 					"There is already an account with this phone number"
 				) {
-					toast.error(
-						"Já existe uma conta com este número de telefone"
-					);
+					toast.error("Já existe uma conta com este número de telefone");
 				} else if (
-					error?.response?.data.message ==
-					"There is already an account with this cpf"
+					error?.response?.data.message == "There is already an account with this cpf"
 				) {
 					toast.error("Já existe uma conta com este cpf");
 				}

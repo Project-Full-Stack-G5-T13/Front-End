@@ -43,11 +43,16 @@ export interface IAdsReturn {
 
 function Dashboard() {
 	const navigate = useNavigate();
+	const { getUser } = useContext(UserContext);
 	const [widthWindow, setWidthWindow] = useState<number>(window.innerWidth);
 	const [openModal, setOpenModal] = useState(false);
 	window.addEventListener("resize", function () {
 		setWidthWindow(window.innerWidth);
 	});
+
+	useEffect(() => {
+		getUser();
+	}, []);
 
 	const [ads, setAds] = useState<IAdsReturn[]>([]);
 	const [query, setQuery] = useState("");
@@ -59,9 +64,7 @@ function Dashboard() {
 	const [fuels, setFuels] = useState<string[]>([]);
 
 	const handleSetQuery = (type: string, value: string) => {
-		const newQuery = query
-			? query + `&${type}=${value}`
-			: query + `?${type}=${value}`;
+		const newQuery = query ? query + `&${type}=${value}` : query + `?${type}=${value}`;
 		setQuery(newQuery);
 	};
 
@@ -70,29 +73,19 @@ function Dashboard() {
 			const allAds = await api.get(`/ads/${query}`);
 			setAds(allAds.data.result);
 
-			const newBrands = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.brand
-			);
+			const newBrands = allAds.data.result.map((ad: IAdsReturn) => ad.brand);
 			setBrands([...new Set([...newBrands])]);
 
-			const newModels = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.model
-			);
+			const newModels = allAds.data.result.map((ad: IAdsReturn) => ad.model);
 			setModels([...new Set([...newModels])]);
 
-			const newColors = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.car_color
-			);
+			const newColors = allAds.data.result.map((ad: IAdsReturn) => ad.car_color);
 			setColors([...new Set([...newColors])]);
 
-			const newYears = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.launch_year
-			);
+			const newYears = allAds.data.result.map((ad: IAdsReturn) => ad.launch_year);
 			setYears([...new Set([...newYears])]);
 
-			const newFuels = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.fuel_type
-			);
+			const newFuels = allAds.data.result.map((ad: IAdsReturn) => ad.fuel_type);
 			setFuels([...new Set([...newFuels])]);
 		} catch (error) {
 			console.error(error);
@@ -111,9 +104,7 @@ function Dashboard() {
 					<Modal>
 						<StyledModalTitle>
 							<StyledHeading_7_500>Filtros</StyledHeading_7_500>
-							<button onClick={() => setOpenModal(false)}>
-								X
-							</button>
+							<button onClick={() => setOpenModal(false)}>X</button>
 						</StyledModalTitle>
 
 						<HomeFilter
@@ -125,9 +116,7 @@ function Dashboard() {
 							handleSetQuery={handleSetQuery}
 						/>
 						<div className="btn_container">
-							<StyledButton_primary
-								onClick={() => setOpenModal(false)}
-							>
+							<StyledButton_primary onClick={() => setOpenModal(false)}>
 								Ver anúncios
 							</StyledButton_primary>
 						</div>
@@ -146,9 +135,7 @@ function Dashboard() {
 				<CarList ads={ads} />
 				{widthWindow <= 768 && (
 					<div className="btn_container">
-						<StyledButton_primary
-							onClick={() => setOpenModal(true)}
-						>
+						<StyledButton_primary onClick={() => setOpenModal(true)}>
 							Filtros
 						</StyledButton_primary>
 					</div>
