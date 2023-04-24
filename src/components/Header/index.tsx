@@ -24,6 +24,8 @@ function Header() {
 		setWidthWindow(window.innerWidth);
 	});
 
+	console.log("user header", user);
+
 	useEffect(() => {
 		getUser();
 	}, []);
