@@ -8,32 +8,32 @@ import ModalCreateAds from "../../components/ModalCreateAds";
 const Profile = () => {
 	const [isProfile, setIsProfile] = useState<boolean>(false);
 	const { modalAds, setModalAds } = useContext(AdsContext);
-	const { getUserProfile, userProfile } = useContext(UserContext);
+	//const { getUserProfile, userProfile } = useContext(UserContext);
 
 	const { userId } = useParams();
 
-	useEffect(() => {
-		const profileId = localStorage.getItem("@Motors:userId");
-		if (profileId == userId) {
-			setIsProfile(true);
-		}
-		async function fetchUser() {
-			if (userId) {
-				try {
-					await getUserProfile(userId);
-				} catch (error) {
-					console.log(error);
-				}
-			}
-		}
-		fetchUser();
-	}, [userId]);
+	// useEffect(() => {
+	// 	const profileId = localStorage.getItem("@Motors:userId");
+	// 	if (profileId == userId) {
+	// 		setIsProfile(true);
+	// 	}
+	// 	async function fetchUser() {
+	// 		if (userId) {
+	// 			try {
+	// 				await getUserProfile(userId);
+	// 			} catch (error) {
+	// 				console.log(error);
+	// 			}
+	// 		}
+	// 	}
+	// 	fetchUser();
+	// }, [userId]);
 
 	return (
 		<>
 			<Container>
 				<Main>
-					<UserHeader>
+					{/* <UserHeader>
 						<div className="img-box">
 							<h1>S</h1>
 						</div>
@@ -72,7 +72,7 @@ const Profile = () => {
 						) : (
 							<h2>Esse usuário não possui nenhum veículo cadastrado</h2>
 						)}
-					</CarList>
+					</CarList> */}
 
 					<div className="pagination">
 						<span>1 de 2</span>
