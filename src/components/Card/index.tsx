@@ -40,14 +40,12 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 			"https://img.freepik.com/vetores-premium/ilustracao-de-silhueta-de-carro-de-luxo-de-veiculo-simples_591091-249.jpg"
 		);
 	};
+
+	console.log("car user card", car);
 	return (
 		<StyledCardDiv>
 			<figure className="imgContainer">
-				<img
-					src={image}
-					onError={handleErrorImage}
-					alt="imagem do carro"
-				/>
+				<img src={image} onError={handleErrorImage} alt="imagem do carro" />
 			</figure>
 
 			{good_price && <div className="good_price">$</div>}

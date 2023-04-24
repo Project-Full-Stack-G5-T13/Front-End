@@ -40,6 +40,7 @@ export const UserHeader = styled.div`
 	gap: 1rem;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 
 	@media (min-width: 768px) {
 		min-height: 250px;
@@ -99,4 +100,14 @@ export const CarList = styled.div`
 			padding: 16px;
 		}
 	}
+`;
+
+export const NotFound = styled.div`
+	width: 100%;
+	min-height: 500px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 `;

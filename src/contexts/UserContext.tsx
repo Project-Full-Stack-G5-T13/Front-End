@@ -5,6 +5,7 @@ import api from "../services/api";
 import jwtDecode from "jwt-decode";
 import { set } from "react-hook-form";
 import axios from "axios";
+import { IAdsReturn } from "../pages/Dashboard";
 
 interface iProvidersProps {
 	children: ReactNode;
@@ -58,7 +59,9 @@ export interface iUser {
 	};
 }
 
-export interface iUserWithCars extends iUser {}
+export interface iUserWithCars extends iUser {
+	cars: IAdsReturn[];
+}
 
 interface iJwtDecoded {
 	exp: number;
@@ -76,6 +79,8 @@ interface iUserContext {
 	user: iUser | undefined;
 	setUser: React.Dispatch<React.SetStateAction<iUser | undefined>>;
 	getUser: () => Promise<void>;
+	userProfile: iUserWithCars;
+	getUserProfile(userId: string): Promise<void>;
 }
 
 export const UserContext = createContext({} as iUserContext);
@@ -102,8 +107,8 @@ const Providers = ({ children }: iProvidersProps) => {
 
 	async function getUserProfile(userId: string) {
 		try {
-			const response = await api.get(`users/${userId}`);
-			return response;
+			const { data } = await api.get(`users/${userId}`);
+			setUserProfile(data);
 		} catch (error) {
 			console.error(error);
 		}
@@ -165,6 +170,8 @@ const Providers = ({ children }: iProvidersProps) => {
 				user,
 				setUser,
 				getUser,
+				userProfile,
+				getUserProfile,
 			}}
 		>
 			{children}
