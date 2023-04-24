@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Teste from "./pages/Teste";
 import Profile from "./pages/Profile";
+import ModalCreateAds from "./components/ModalCreateAds";
 
 const App = () => {
 	return (
@@ -21,6 +22,7 @@ const App = () => {
 				<Route path="/car" element={<Car />} />
 				<Route path="/teste" element={<Teste />} />
 				<Route path="/profile/:userId" element={<Profile />} />
+				<Route path="/createadsmodal" element={<ModalCreateAds />} />
 			</Routes>
 			<ToastContainer limit={1} autoClose={1500} />
 			<Footer />
