@@ -6,7 +6,6 @@ import jwtDecode from "jwt-decode";
 import { set } from "react-hook-form";
 import axios from "axios";
 
-
 interface iProvidersProps {
 	children: ReactNode;
 }
@@ -80,7 +79,6 @@ interface iUserContext {
 export const UserContext = createContext({} as iUserContext);
 
 const Providers = ({ children }: iProvidersProps) => {
-
 	const navigate = useNavigate();
 
 	const [globalLoading, setGlobalLoading] = useState<boolean>(false);
@@ -91,7 +89,7 @@ const Providers = ({ children }: iProvidersProps) => {
 			const token = localStorage.getItem("@Motors:token");
 			const userId = localStorage.getItem("@Motors:userId");
 			api.defaults.headers.common.Authorization = `Bearer ${token}`;
-			const response = await api.get("/users");
+			const response = await api.get(`users/${userId}`);
 			const myUser: iUser = response.data;
 			setUser(myUser);
 			navigate("/");
@@ -123,37 +121,36 @@ const Providers = ({ children }: iProvidersProps) => {
 			setGlobalLoading(false);
 		}
 	}
-  
-   async function registerUser(data: iFormSignup): Promise<void> {
-    try {
-      await api.post("/users", data);
 
-      navigate("/login");
-      toast.success("Usuário cadastrado com sucesso!");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (
-          error?.response?.data.message ==
-          "There is already an account with this email"
-        ) {
-          toast.error("Já existe uma conta com este e-mail");
-        } else if (
-          error?.response?.data.message ==
-          "There is already an account with this phone number"
-        ) {
-          toast.error("Já existe uma conta com este número de telefone");
-        } else if (
-          error?.response?.data.message ==
-          "There is already an account with this cpf"
-        ) {
-          toast.error("Já existe uma conta com este cpf");
-        }
-      }
-    }
-  }
-   
-  
-  
+	async function registerUser(data: iFormSignup): Promise<void> {
+		try {
+			await api.post("/users", data);
+
+			navigate("/login");
+			toast.success("Usuário cadastrado com sucesso!");
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (
+					error?.response?.data.message ==
+					"There is already an account with this email"
+				) {
+					toast.error("Já existe uma conta com este e-mail");
+				} else if (
+					error?.response?.data.message ==
+					"There is already an account with this phone number"
+				) {
+					toast.error(
+						"Já existe uma conta com este número de telefone"
+					);
+				} else if (
+					error?.response?.data.message ==
+					"There is already an account with this cpf"
+				) {
+					toast.error("Já existe uma conta com este cpf");
+				}
+			}
+		}
+	}
 
 	return (
 		<UserContext.Provider
@@ -170,8 +167,6 @@ const Providers = ({ children }: iProvidersProps) => {
 			{children}
 		</UserContext.Provider>
 	);
-
-
 };
 
 export default Providers;

@@ -16,7 +16,7 @@ export interface IAdsReturn {
 	id: string;
 	brand: string;
 	model: string;
-	launch_year: string;
+	launch_year: number;
 	car_color: string;
 	fuel_type: string;
 	fuel: number;
@@ -55,7 +55,7 @@ function Dashboard() {
 	const [brands, setBrands] = useState<string[]>([]);
 	const [models, setModels] = useState<string[]>([]);
 	const [colors, setColors] = useState<string[]>([]);
-	const [years, setYears] = useState<string[]>([]);
+	const [years, setYears] = useState<number[]>([]);
 	const [fuels, setFuels] = useState<string[]>([]);
 
 	const handleSetQuery = (type: string, value: string) => {
