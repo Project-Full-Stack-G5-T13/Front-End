@@ -32,7 +32,6 @@ function Header() {
 		localStorage.removeItem("@Motors:userId");
 		navigate("/login");
 	}
-
 	return (
 		<>
 			<HeaderStyled>

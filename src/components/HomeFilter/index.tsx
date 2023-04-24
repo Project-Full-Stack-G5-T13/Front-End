@@ -8,9 +8,9 @@ interface IHomeFilter {
 	brands: string[];
 	models: string[];
 	colors: string[];
-	years: string[];
+	years: number[];
 	fuels: string[];
-	handleSetQuery: (type: string, value: string) => void;
+	handleSetQuery: (type: string, value: string | number) => void;
 }
 
 const HomeFilter = ({
@@ -63,7 +63,7 @@ const HomeFilter = ({
 						key={year}
 						onClick={() => handleSetQuery("launch_year", year)}
 					>
-						{year.slice(0, 4)}
+						{year}
 					</StyledHeading_6_500>
 				))}
 			</ul>
