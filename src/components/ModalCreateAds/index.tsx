@@ -154,7 +154,11 @@ const ModalCreateAds = () => {
           <div className="inputs_row">
             <div className="div-inputs">
               <StyledLabel>Quilometragem</StyledLabel>
-              <StyledInput {...register("km")} placeholder="30.000" />
+              <StyledInput
+                {...register("km")}
+                placeholder="30.000"
+                pattern="^[0-9]+$"
+              />
               <p className="heading-8-500">{errors.km?.message}</p>
             </div>
             <div className="div-inputs">
