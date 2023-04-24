@@ -20,7 +20,7 @@ function CarList({ ads }: ICardListProps) {
 			image_url: "",
 		},
 		km: 21000,
-		launch_year: "2019jj",
+		launch_year: 2019,
 		price: 25477.5,
 		is_active: true,
 	};

@@ -22,7 +22,7 @@ interface ICardProps {
 			image_url: string;
 		};
 		km: number;
-		launch_year: string;
+		launch_year: number;
 		price: number;
 		is_active: boolean;
 	};
@@ -70,9 +70,7 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 			<div className="base_info">
 				<div>
 					<StyledSpanDetail>{car.km} KM</StyledSpanDetail>
-					<StyledSpanDetail>
-						{car.launch_year.slice(0, 4)}
-					</StyledSpanDetail>
+					<StyledSpanDetail>{car.launch_year}</StyledSpanDetail>
 				</div>
 				<StyledHeading_7_500>
 					{car.price.toLocaleString("pt-br", {
