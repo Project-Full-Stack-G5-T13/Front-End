@@ -1,11 +1,9 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { StyledHeading_7_500 } from "../../styles/typografy";
 import HomeFilter from "../HomeFilter";
 import { StyledModal, StyledModalTitle } from "./styled";
+import { IModalProps } from "../../interfaces/modal/modal.interface";
 
-interface IModalProps {
-	children: ReactNode;
-}
 
 const Modal = ({ children }: IModalProps) => {
 	return (

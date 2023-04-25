@@ -6,31 +6,9 @@ import {
 	StyledSpanDetail,
 } from "../../styles/typografy";
 import UserAvatar from "../UserAvatar";
-import { IAdsReturn } from "../../pages/Dashboard";
 import imgCarDefault from "../../assets/car-default.png";
 import { useEffect, useState } from "react";
-
-interface ICardProps {
-	car: {
-		images: {
-			main_image: string;
-		};
-		model: string;
-		description: string;
-		user: {
-			name: string;
-			image_url: string;
-		};
-		km: number;
-		launch_year: string;
-		price: number;
-		is_active: boolean;
-	};
-
-	good_price?: boolean;
-
-	is_active?: boolean;
-}
+import { ICardProps } from "../../interfaces/card/card.interface";
 
 const Card = ({ car, good_price, is_active }: ICardProps) => {
 	const [image, setImage] = useState(car.images.main_image);

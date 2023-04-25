@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Section } from "./styled";
-import { UserContext, iFormLogin } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
+import { IFormLogin } from "../../interfaces/user/user.interface";
 import { useContext, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../validations";
@@ -25,7 +26,7 @@ const Login = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<iFormLogin>({
+	} = useForm<IFormLogin>({
 		resolver: yupResolver(schemaLogin),
 	});
 

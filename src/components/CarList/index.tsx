@@ -1,10 +1,6 @@
 import Card from "../../components/Card";
-import { IAdsReturn } from "../../pages/Dashboard";
 import { Section } from "./styled";
-
-interface ICardListProps {
-	ads: IAdsReturn[];
-}
+import { ICardListProps } from "../../interfaces/card/card.interface";
 
 function CarList({ ads }: ICardListProps) {
 	const mycar = {

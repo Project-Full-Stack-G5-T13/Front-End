@@ -1,12 +1,9 @@
 import { WaveLoading } from "react-loading-typescript";
-import { useContext, ReactNode } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { IGlobalLoadingProps } from "../../interfaces/globalLoading/loading.interface";
 
-interface iGlobalLoadingProps {
-  children: ReactNode;
-}
-
-const GlobalLoading = ({ children }: iGlobalLoadingProps) => {
+const GlobalLoading = ({ children }: IGlobalLoadingProps) => {
   const { globalLoading } = useContext(UserContext);
   return (
     <>

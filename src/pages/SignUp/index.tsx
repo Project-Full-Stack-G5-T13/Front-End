@@ -5,7 +5,7 @@ import { Section } from "./styled";
 import { schemaSignup } from "../../validations/index";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { iFormSignup } from "../../contexts/UserContext";
+import { IFormSignup } from "../../interfaces/user/user.interface";
 import { useContext, useState } from "react";
 import { StyledLabel } from "../../styles/typografy";
 import { StyledInput } from "../../styles/inputs";
@@ -17,7 +17,7 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iFormSignup>({
+  } = useForm<IFormSignup>({
     resolver: yupResolver(schemaSignup),
   });
 
@@ -29,7 +29,7 @@ const Register = () => {
   const { registerUser } = useContext(UserContext);
 
 
-	function validatedAccountType(data: iFormSignup) {
+	function validatedAccountType(data: IFormSignup) {
 		console.log(data);
 		if (advertiserBuyer && advertiserBuyer !== "") {
 			data.is_seller = true;
