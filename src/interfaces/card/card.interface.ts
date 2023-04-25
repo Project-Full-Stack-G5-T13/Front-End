@@ -18,7 +18,6 @@ export interface ICardProps {
 	};
 
 	good_price?: boolean;
-
 	is_active?: boolean;
 }
 
@@ -55,13 +54,11 @@ export interface ICardListProps {
 	ads: IAdsReturn[];
 }
 
-
 // Ads context: 
-
 export interface IProvidersAdsProps {
 	children: ReactNode;
-  }
-  
+}
+
 export interface IAdsCreate {
 	brand: string;
 	model: string;
@@ -73,12 +70,12 @@ export interface IAdsCreate {
 	price_table?: number;
 	price: number;
 	images: {
-	  main_image: string;
-	  image_one?: string;
-	  image_two?: string;
-	  image_three?: string;
+		main_image: string;
+		image_one?: string;
+		image_two?: string;
+		image_three?: string;
 	};
-  }
+}
   
 export interface IBrandObject {
 	chevrolet: Array<Object>;
@@ -92,7 +89,7 @@ export interface IBrandObject {
 	renault: Array<Object>;
 	toyota: Array<Object>;
 	volkswagen: Array<Object>;
-  }
+}
   // email, phone number, cpf
   
 export interface IAdsContext {
@@ -108,12 +105,13 @@ export interface IAdsContext {
 	// allAds:iAdsCreate[];
 	// setAllAds: React.Dispatch<React.SetStateAction<iAdsCreate[]>>
 	createAds: (data: IAdsCreate) => Promise<void>;
-  }
-  export interface IModel {
+}
+
+export interface IModel {
 	brand: string;
 	fuel: number;
 	id: string;
 	name: string;
 	value: number;
 	year: string;
-  }
+}
