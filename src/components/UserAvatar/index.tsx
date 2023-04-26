@@ -1,12 +1,6 @@
 import { StyledBody_2_500, StyledBody_1_600 } from "../../styles/typografy";
 import { StyledUserAvatar } from "./styled";
-
-interface IUserAvatarProps {
-	user: {
-		name: string;
-		image_url?: string;
-	};
-}
+import { IUserAvatarProps } from "../../interface/user/user.interface";
 
 const UserAvatar = ({ user }: IUserAvatarProps) => {
 	console.log(user);

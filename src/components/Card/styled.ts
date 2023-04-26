@@ -59,6 +59,10 @@ export const StyledCardDiv = styled.div`
 		}
 	}
 
+	.userProfileRoute {
+		cursor: pointer;
+	}
+
 	& > .base_info {
 		display: flex;
 		justify-content: space-between;

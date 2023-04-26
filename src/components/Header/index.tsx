@@ -38,6 +38,7 @@ function Header() {
 		localStorage.removeItem("@Motors:userId");
 		navigate("/login");
 	}
+
 	return (
 		<>
 			<HeaderStyled>
@@ -89,7 +90,6 @@ function Header() {
 							</StyledButton_white_outline>
 						</div>
 					)}
-
 					{widthWindow > 768 && user && (
 						<div
 							className="desktop_options"
@@ -104,7 +104,9 @@ function Header() {
 							<div>
 								<button>Editar Perfil</button>
 								<button>Editar Endereço</button>
-								{user.is_seller && <button>Meus Anúncios</button>}
+								<button onClick={() => { navigate(`/profile/${user.id}`)}}>
+									{user.is_seller}Meus Anúncios
+								</button>
 								<button onClick={() => logout()}>Sair</button>
 							</div>
 						</ModalOptionsProfile>

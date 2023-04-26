@@ -5,92 +5,17 @@ import api from "../services/api";
 import jwtDecode from "jwt-decode";
 import { set } from "react-hook-form";
 import axios from "axios";
-import { IAdsReturn } from "../pages/Dashboard";
+import { IFormLogin, IFormSignup, IJwtDecoded, IProvidersProps, IUser, IUserContext, IUserWithCars } from "../interface/user/user.interface";
 
-interface iProvidersProps {
-	children: ReactNode;
-}
 
-export interface iFormLogin {
-	email: string;
-	password: string;
-}
+export const UserContext = createContext({} as IUserContext);
 
-export interface iFormSignup {
-	name: string;
-	email: string;
-	cpf: string;
-	phone_number: string;
-	birth_date: string;
-	description: string;
-	image_url?: string;
-	is_seller: boolean;
-	password: string;
-	confirmPassword: string;
-	address: {
-		zip_code: string;
-		state: string;
-		city: string;
-		street: string;
-		number: string;
-		complement: string;
-	};
-}
-
-export interface iUser {
-	id: string;
-	name: string;
-	email: string;
-	cpf: string;
-	phone_number: string;
-	birth_date: string;
-	description: string;
-	image_url?: string;
-	is_seller: boolean;
-	is_adm: boolean;
-	address: {
-		state: string;
-		city: string;
-		zip_code: string;
-		complement?: string;
-		number: string;
-		street: string;
-		id: string;
-	};
-}
-
-export interface iUserWithCars extends iUser {
-	cars: IAdsReturn[];
-}
-
-interface iJwtDecoded {
-	exp: number;
-	iat: number;
-	isAdm: boolean;
-	isSeller: boolean;
-	sub: string;
-}
-
-interface iUserContext {
-	registerUser: (data: iFormSignup) => Promise<void>;
-	signInUser: (data: iFormLogin) => Promise<void>;
-	globalLoading: boolean;
-	setGlobalLoading: React.Dispatch<React.SetStateAction<boolean>>;
-	user: iUser | undefined;
-	setUser: React.Dispatch<React.SetStateAction<iUser | undefined>>;
-	getUser: () => Promise<void>;
-	userProfile: iUserWithCars;
-	getUserProfile(userId: string): Promise<void>;
-}
-
-export const UserContext = createContext({} as iUserContext);
-
-const Providers = ({ children }: iProvidersProps) => {
+const Providers = ({ children }: IProvidersProps) => {
 	const navigate = useNavigate();
 
-	const [userProfile, setUserProfile] = useState<iUserWithCars>();
+	const [userProfile, setUserProfile] = useState<IUserWithCars>();
 	const [globalLoading, setGlobalLoading] = useState<boolean>(false);
-	const [user, setUser] = useState<iUser>();
+	const [user, setUser] = useState<IUser>();
 
 	async function getUser() {
 		try {
@@ -98,7 +23,7 @@ const Providers = ({ children }: iProvidersProps) => {
 			const userId = localStorage.getItem("@Motors:userId");
 			api.defaults.headers.common.Authorization = `Bearer ${token}`;
 			const response = await api.get(`users/${userId}`);
-			const myUser: iUser = response.data;
+			const myUser: IUser = response.data;
 			setUser(myUser);
 		} catch (error) {
 			console.error(error);
@@ -114,12 +39,12 @@ const Providers = ({ children }: iProvidersProps) => {
 		}
 	}
 
-	async function signInUser(data: iFormLogin): Promise<void> {
+	async function signInUser(data: IFormLogin): Promise<void> {
 		setGlobalLoading(true);
 		try {
 			const response = await api.post("/session", data);
 			localStorage.setItem("@Motors:token", response.data.token);
-			const decoded: iJwtDecoded = jwtDecode(response.data.token);
+			const decoded: IJwtDecoded = jwtDecode(response.data.token);
 			const userId = decoded.sub;
 			localStorage.setItem("@Motors:userId", `${userId}`);
 
@@ -134,7 +59,7 @@ const Providers = ({ children }: iProvidersProps) => {
 		}
 	}
 
-	async function registerUser(data: iFormSignup): Promise<void> {
+	async function registerUser(data: IFormSignup): Promise<void> {
 		try {
 			await api.post("/users", data);
 

@@ -3,11 +3,9 @@ import { Div } from "./styled";
 import img from "../../assets/default-user-image.png"
 
 function MakeComments() {
-
-  const navigate = useNavigate();
-  
-  return (
-    <>
+	const navigate = useNavigate();
+	return (
+		<>
 			<Div>
 				<section>
 					<div className="profile-comment">
@@ -15,18 +13,18 @@ function MakeComments() {
 						<h4>Samuel Leão</h4>
 					</div>
 					<div className="inputDiv">
-            <input type="text" placeholder="Carro muito confortável, foi uma ótima experiência de compra..."/>
-            <button>Comentar</button>
-          </div>
+						<input type="text" placeholder="Carro muito confortável, foi uma ótima experiência de compra..."/>
+						<button>Comentar</button>
+					</div>
 				</section>
-					<div className="pre-phrase">
-            <span>Gostei muito!</span>
-            <span>Incrível</span>
-            <span>Recomendarei para meus amigos</span>
-          </div>
+				<div className="pre-phrase">
+					<span>Gostei muito!</span>
+					<span>Incrível</span>
+					<span>Recomendarei para meus amigos</span>
+				</div>
 			</Div>
-    </>
-  );
+		</>
+	);
 }
 
 export default MakeComments;
