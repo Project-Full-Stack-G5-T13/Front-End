@@ -97,7 +97,7 @@ export const CarList = styled.div`
 		gap: 20px;
 		flex-wrap: wrap;
 		align-content: flex-start;
-		justify-content: space-evenly;
+		justify-content: center;
 		padding-top: 40px;
 		flex: 1;
 		
@@ -107,6 +107,7 @@ export const CarList = styled.div`
 			overflow-y: scroll;
 			height: fit-content;
 			padding: 16px;
+			align-content: stretch;
 			justify-content: flex-start;
 		}
 	}
