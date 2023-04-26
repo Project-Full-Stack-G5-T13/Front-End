@@ -7,7 +7,7 @@ export const Container = styled.div`
 	flex-direction: column;
 	background: linear-gradient(
 		to bottom,
-		var(--brand-1) 0%,
+		var(--brand-1) 30%,
 		var(--brand-1) 20%,
 		var(--grey-8) 20%,
 		var(--grey-8) 100%
@@ -23,7 +23,7 @@ export const Main = styled.div`
 	min-height: 100vh;
 	margin-top: 2rem;
 	gap: 2rem;
-
+	align-items: center;
 	.pagination {
 		width: 100%;
 		display: flex;
@@ -35,22 +35,24 @@ export const Main = styled.div`
 export const UserHeader = styled.div`
 	width: 100%;
 	background-color: var(--grey-9);
-	min-height: 220px;
-	padding: 2rem;
+	height: 327px;
+	padding: 1.2rem;
 	gap: 1rem;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-
+	border-radius: 4px;
+	max-width: 1240px;
 	@media (min-width: 768px) {
 		min-height: 250px;
+		padding: 3rem;
 	}
 
 	.img-box {
 		padding: 1rem;
 		background-color: var(--brand-1);
-		width: 70px;
-		height: 70px;
+		min-width: 92px;
+		min-height: 92px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -70,6 +72,11 @@ export const UserHeader = styled.div`
 	}
 
 	.description {
+		font-family: 'Lexend';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 16px;
+		color: var(--grey-2)
 	}
 `;
 
@@ -78,26 +85,30 @@ export const CarList = styled.div`
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+	max-width: 1240px;
+	.adsList{
+		display: flex;
+	}
 
 	.list {
 		display: flex;
 		flex-direction: row;
 		flex-flow: row wrap;
-		width: 100%;
-		gap: 30px;
-		/* max-width: 1012px; */
+		gap: 20px;
 		flex-wrap: wrap;
 		align-content: flex-start;
-		justify-content: space-around;
+		justify-content: center;
 		padding-top: 40px;
-
+		flex: 1;
+		
 		@media (max-width: 768px) {
 			width: 100%;
-
 			flex-wrap: nowrap;
 			overflow-y: scroll;
 			height: fit-content;
 			padding: 16px;
+			align-content: stretch;
+			justify-content: flex-start;
 		}
 	}
 `;

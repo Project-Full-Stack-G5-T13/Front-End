@@ -3,15 +3,7 @@ import {
 	StyledHeading_6_500,
 } from "../../styles/typografy";
 import { Div } from "./styled";
-
-interface IHomeFilter {
-	brands: string[];
-	models: string[];
-	colors: string[];
-	years: number[];
-	fuels: string[];
-	handleSetQuery: (type: string, value: string | number) => void;
-}
+import { IHomeFilter } from "../../interface/filter/filter.interface";
 
 const HomeFilter = ({
 	brands,

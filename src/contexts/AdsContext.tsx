@@ -8,83 +8,24 @@ import {
 import { toast } from "react-toastify";
 import api from "../services/api";
 import { UserContext } from "./UserContext";
+import { IAdsContext, IAdsCreate, IBrandObject, IModel, IProvidersAdsProps } from "../interface/card/card.interface";
 
-interface iProvidersAdsProps {
-	children: ReactNode;
-}
+export const AdsContext = createContext({} as IAdsContext);
 
-export interface iAdsCreate {
-	brand: string;
-	model: string;
-	car_color: string;
-	fuel_type: string;
-	description: string;
-	km: number;
-	launch_year: number;
-	price_table?: number;
-	price: number;
-	images: {
-		main_image: string;
-		image_one?: string;
-		image_two?: string;
-		image_three?: string;
-	};
-}
-
-export interface iBrandObject {
-	chevrolet: Array<Object>;
-	citroën: Array<Object>;
-	fiat: Array<Object>;
-	ford: Array<Object>;
-	honda: Array<Object>;
-	hyundai: Array<Object>;
-	nissan: Array<Object>;
-	peugeot: Array<Object>;
-	renault: Array<Object>;
-	toyota: Array<Object>;
-	volkswagen: Array<Object>;
-}
-// email, phone number, cpf
-
-interface iAdsContext {
-	modalAds: boolean;
-	setModalAds: React.Dispatch<React.SetStateAction<boolean>>;
-	carsTableKenzie: iBrandObject;
-	setCarsTableKenzie: React.Dispatch<React.SetStateAction<iBrandObject>>;
-	brandSelect: string;
-	setBrandSelect: React.Dispatch<React.SetStateAction<string>>;
-	model: iModel[];
-	modelSelect: string;
-	setModelSelect: React.Dispatch<React.SetStateAction<string>>;
-	// allAds:iAdsCreate[];
-	// setAllAds: React.Dispatch<React.SetStateAction<iAdsCreate[]>>
-	createAds: (data: iAdsCreate) => Promise<void>;
-}
-export interface iModel {
-	brand: string;
-	fuel: number;
-	id: string;
-	name: string;
-	value: number;
-	year: number;
-}
-
-export const AdsContext = createContext({} as iAdsContext);
-
-const AdsProvider = ({ children }: iProvidersAdsProps) => {
+const AdsProvider = ({ children }: IProvidersAdsProps) => {
 	const [modalAds, setModalAds] = useState<boolean>(false);
-	const [carsTableKenzie, setCarsTableKenzie] = useState<iBrandObject>(
-		{} as iBrandObject
+	const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>(
+		{} as IBrandObject
 	);
 	const [brandSelect, setBrandSelect] = useState<string>("");
 	const [modelSelect, setModelSelect] = useState<string>("");
 
-	const [model, setModel] = useState<iModel[]>([]);
+	const [model, setModel] = useState<IModel[]>([]);
 
 	const token = localStorage.getItem("@Motors:token");
 
 	const { globalLoading, setGlobalLoading } = useContext(UserContext);
-	const [allAds, setAllAds] = useState<iAdsCreate[]>([]);
+	const [allAds, setAllAds] = useState<IAdsCreate[]>([]);
 
 	useEffect(() => {
 		async function carsTable() {
@@ -118,7 +59,7 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
 		brandSelectRequest();
 	}, [brandSelect]);
 
-	async function createAds(data: iAdsCreate): Promise<void> {
+	async function createAds(data: IAdsCreate): Promise<void> {
 		setGlobalLoading(true);
 		try {
 			api.defaults.headers.common.authorization = `Bearer ${token}`;
