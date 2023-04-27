@@ -59,12 +59,15 @@ function Header() {
 		setEditAddressModal(true);
 	};
 
-
 	return (
 		<>
 			<HeaderStyled>
 				<div className="container_header">
-					<img src={logo} alt="Motors shop" />
+					<img
+						src={logo}
+						alt="Motors shop"
+						onClick={() => navigate("/")}
+					/>
 
 					{widthWindow <= 768 && (
 						<button
@@ -133,7 +136,6 @@ function Header() {
 							onClick={(e) => e.stopPropagation()}
 						>
 							<div>
-
 								<button
 									onClick={() => {
 										openEditUserModal();
@@ -147,7 +149,13 @@ function Header() {
 								</button>
 
 								{user.is_seller && (
-									<button onClick={() => { navigate(`/profile/${user.id}`)}}>Meus Anúncios</button>
+									<button
+										onClick={() => {
+											navigate(`/profile/${user.id}`);
+										}}
+									>
+										Meus Anúncios
+									</button>
 								)}
 
 								<button onClick={() => logout()}>Sair</button>
