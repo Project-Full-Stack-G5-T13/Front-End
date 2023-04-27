@@ -95,7 +95,7 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
 
 				setCarsTableKenzie(response.data);
 			} catch (error) {
-				console.log("Deu erro");
+				console.error(error);
 			}
 		}
 
@@ -111,7 +111,7 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
 
 				setModel(response.data);
 			} catch (error) {
-				console.log("Deu erro");
+				console.error(error);
 			}
 		}
 
@@ -126,7 +126,7 @@ const AdsProvider = ({ children }: iProvidersAdsProps) => {
 			const response = await api.post("/ads", data);
 
 			toast.success("Anúncio criado com sucesso!");
-			console.log(response.data);
+
 			setAllAds([...allAds, response.data]);
 		} catch (error) {
 			console.error(error);

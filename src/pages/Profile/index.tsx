@@ -29,7 +29,7 @@ const Profile = () => {
 				try {
 					await getUserProfile(userId);
 				} catch (error) {
-					console.log(error);
+					console.error(error);
 				}
 			}
 		}
@@ -49,10 +49,14 @@ const Profile = () => {
 								<div className="name-box">
 									<h3>{userProfile?.name}</h3>
 									{userProfile?.is_seller && (
-										<StyledSpanDetail>Anunciante</StyledSpanDetail>
+										<StyledSpanDetail>
+											Anunciante
+										</StyledSpanDetail>
 									)}
 								</div>
-								<p className="description">{userProfile?.description}</p>
+								<p className="description">
+									{userProfile?.description}
+								</p>
 								{isProfile && (
 									<StyledButton_brand_outline
 										onClick={() => setModalAds(!modalAds)}
@@ -63,14 +67,23 @@ const Profile = () => {
 							</UserHeader>
 							<h3 className="title">Anuncios</h3>
 							<CarList>
-								{userProfile?.cars && userProfile?.cars.length > 0 ? (
+								{userProfile?.cars &&
+								userProfile?.cars.length > 0 ? (
 									<ul className="list">
 										{userProfile?.cars.map((e) => {
-											return <Card car={e} is_active={e.is_active} />;
+											return (
+												<Card
+													car={e}
+													is_active={e.is_active}
+												/>
+											);
 										})}
 									</ul>
 								) : (
-									<h2>Esse usuário não possui nenhum veículo cadastrado</h2>
+									<h2>
+										Esse usuário não possui nenhum veículo
+										cadastrado
+									</h2>
 								)}
 							</CarList>
 
@@ -81,7 +94,9 @@ const Profile = () => {
 						</>
 					) : (
 						<NotFound>
-							<StyledHeading_1>Usuário não encontrado</StyledHeading_1>
+							<StyledHeading_1>
+								Usuário não encontrado
+							</StyledHeading_1>
 							<StyledButton_primary onClick={() => navigate("/")}>
 								Voltar
 							</StyledButton_primary>

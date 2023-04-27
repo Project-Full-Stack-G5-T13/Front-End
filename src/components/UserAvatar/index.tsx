@@ -9,7 +9,6 @@ interface IUserAvatarProps {
 }
 
 const UserAvatar = ({ user }: IUserAvatarProps) => {
-	console.log(user);
 	return (
 		<StyledUserAvatar>
 			<div className="img_container">

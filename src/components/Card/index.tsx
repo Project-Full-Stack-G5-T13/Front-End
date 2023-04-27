@@ -41,11 +41,14 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 		);
 	};
 
-	console.log("car user card", car);
 	return (
 		<StyledCardDiv>
 			<figure className="imgContainer">
-				<img src={image} onError={handleErrorImage} alt="imagem do carro" />
+				<img
+					src={image}
+					onError={handleErrorImage}
+					alt="imagem do carro"
+				/>
 			</figure>
 
 			{good_price && <div className="good_price">$</div>}

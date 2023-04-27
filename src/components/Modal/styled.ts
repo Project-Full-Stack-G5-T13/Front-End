@@ -2,28 +2,29 @@ import styled from "styled-components";
 
 export const StyledModal = styled.div`
 	position: absolute;
-	top: 70px;
+	top: 0px;
 	background-color: #1e1c1c9e;
-	width: 100%;
-	height: auto;
+	width: 100vw;
+	height: 100vh;
+	overflow-x: auto;
 	z-index: 900;
 	padding: 1rem;
 
 	& > div {
 		margin: 0 auto;
-		margin-bottom: 50px;
 		background-color: var(--fixed-white);
 		border-radius: 5px;
 		padding: 0 1.5rem 1rem 1.5rem;
 		width: 95%;
+		max-width: 800px;
 		gap: 2rem;
 	}
 
-	@media (min-width: 768px) {
+	/* @media (max-width: 768px) {
 		& > div {
 			width: 520px;
 		}
-	}
+	} */
 `;
 
 export const StyledModalTitle = styled.div`

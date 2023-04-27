@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../services/api";
 import jwtDecode from "jwt-decode";
-import { set } from "react-hook-form";
 import axios from "axios";
 import { IAdsReturn } from "../pages/Dashboard";
+import { iUserUpdate } from "../components/ModalEditUser";
+import { iAddressUpdateRequest } from "../components/ModalEditAddress";
 
 interface iProvidersProps {
 	children: ReactNode;
@@ -81,6 +82,11 @@ interface iUserContext {
 	getUser: () => Promise<void>;
 	userProfile: iUserWithCars;
 	getUserProfile(userId: string): Promise<void>;
+	updateUser: (
+		data: iUserUpdate | iAddressUpdateRequest,
+		closeModal: () => void
+	) => Promise<Omit<iUser, "address">>;
+	deleteUser: (closeModal: () => void) => Promise<void>;
 }
 
 export const UserContext = createContext({} as iUserContext);
@@ -101,6 +107,7 @@ const Providers = ({ children }: iProvidersProps) => {
 			const myUser: iUser = response.data;
 			setUser(myUser);
 		} catch (error) {
+			setUser(null);
 			console.error(error);
 		}
 	}
@@ -141,22 +148,71 @@ const Providers = ({ children }: iProvidersProps) => {
 			navigate("/login");
 			toast.success("Usuário cadastrado com sucesso!");
 		} catch (error) {
+			console.error(error);
 			if (axios.isAxiosError(error)) {
 				if (
-					error?.response?.data.message == "There is already an account with this email"
+					error?.response?.data.message ==
+					"There is already an account with this email"
 				) {
 					toast.error("Já existe uma conta com este e-mail");
 				} else if (
 					error?.response?.data.message ==
 					"There is already an account with this phone number"
 				) {
-					toast.error("Já existe uma conta com este número de telefone");
+					toast.error(
+						"Já existe uma conta com este número de telefone"
+					);
 				} else if (
-					error?.response?.data.message == "There is already an account with this cpf"
+					error?.response?.data.message ==
+					"There is already an account with this cpf"
 				) {
 					toast.error("Já existe uma conta com este cpf");
 				}
 			}
+		}
+	}
+
+	async function updateUser(
+		data: iUserUpdate | iAddressUpdateRequest,
+		closeModal: () => void
+	): Promise<Omit<iUser, "address">> {
+		try {
+			const token = localStorage.getItem("@Motors:token");
+			const userId = localStorage.getItem("@Motors:userId");
+			api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+			const response = await api.patch(`/users/${userId}`, data);
+
+			const updatedUser = response.data;
+			await getUser();
+			closeModal();
+			toast.success("Usuario atualizado com sucesso!");
+			return updatedUser;
+		} catch (error) {
+			console.error(error);
+			toast.error(error.response.data.message);
+		}
+	}
+
+	async function deleteUser(closeModal: () => void): Promise<void> {
+		try {
+			const token = localStorage.getItem("@Motors:token");
+			const userId = localStorage.getItem("@Motors:userId");
+			api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+			await api.delete(`/users/${userId}`);
+
+			localStorage.clear();
+			closeModal();
+
+			await getUser();
+
+			navigate("/login");
+
+			toast.success("Usuario excluido com sucesso!");
+		} catch (error) {
+			console.error(error);
+			toast.error(error.response.data.message);
 		}
 	}
 
@@ -172,6 +228,8 @@ const Providers = ({ children }: iProvidersProps) => {
 				getUser,
 				userProfile,
 				getUserProfile,
+				updateUser,
+				deleteUser,
 			}}
 		>
 			{children}

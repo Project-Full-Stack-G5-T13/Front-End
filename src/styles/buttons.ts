@@ -56,6 +56,12 @@ export const StyledButton_primary = styled.button`
 		background-color: var(--brand-2);
 		border-color: var(--brand-2);
 	}
+
+	:disabled {
+		background-color: var(--brand-3);
+		border-color: var(--brand-3);
+		color: var(--brand-4);
+	}
 `;
 
 export const StyledButton_primary_medium = styled(StyledButton_primary)`

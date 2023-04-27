@@ -1,16 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { HeaderStyled, ModalOptionsProfile } from "./styled";
 import logo from "../../assets/logo.svg";
-import { VscThreeBars } from "react-icons/vsc";
+import { VscThreeBars, VscClose, VscCloseAll } from "react-icons/vsc";
 import { useContext, useEffect, useState } from "react";
-import { MdKeyboardArrowDown } from "react-icons/md";
 import { UserContext } from "../../contexts/UserContext";
-import {
-	StyledButton_brand_outline_medium,
-	StyledButton_white_outline,
-} from "../../styles/buttons";
+import { StyledButton_white_outline } from "../../styles/buttons";
 import UserAvatar from "../UserAvatar";
-import { Button } from "../../pages/SignUp/styled";
+
+import ModalEditUser from "../ModalEditUser";
+import ModalEditAddress from "../ModalEditAddress";
 
 function Header() {
 	const navigate = useNavigate();
@@ -18,13 +16,14 @@ function Header() {
 	const [widthWindow, setWidthWindow] = useState<number>(window.innerWidth);
 	const [menuProfile, setMenuProfile] = useState(false);
 
+	const [editUserModal, setEditUserModal] = useState(false);
+	const [editAddressModal, setEditAddressModal] = useState(false);
+
 	const { user, setUser, getUser } = useContext(UserContext);
 
 	window.addEventListener("resize", function () {
 		setWidthWindow(window.innerWidth);
 	});
-
-	console.log("user header", user);
 
 	useEffect(() => {
 		getUser();
@@ -38,6 +37,28 @@ function Header() {
 		localStorage.removeItem("@Motors:userId");
 		navigate("/login");
 	}
+
+	window.onclick = () => {
+		setMenuProfile(false);
+		setMenu(false);
+	};
+
+	const closeEditUserModal = () => {
+		setEditUserModal(false);
+	};
+
+	const openEditUserModal = () => {
+		setEditUserModal(true);
+	};
+
+	const closeEditAddressModal = () => {
+		setEditAddressModal(false);
+	};
+
+	const openEditAddressModal = () => {
+		setEditAddressModal(true);
+	};
+
 	return (
 		<>
 			<HeaderStyled>
@@ -47,12 +68,13 @@ function Header() {
 					{widthWindow <= 768 && (
 						<button
 							className="burguer_menu"
-							onClick={() => {
+							onClick={(e) => {
 								setMenu(!menu);
 								setMenuProfile(!menuProfile);
+								e.stopPropagation();
 							}}
 						>
-							{menu ? "X" : <VscThreeBars />}
+							{menu ? <VscCloseAll /> : <VscThreeBars />}
 						</button>
 					)}
 
@@ -80,11 +102,15 @@ function Header() {
 
 					{widthWindow > 768 && !user && (
 						<div className="desktop_options">
-							<StyledButton_white_outline onClick={() => navigate("/login")}>
+							<StyledButton_white_outline
+								onClick={() => navigate("/login")}
+							>
 								Fazer login
 							</StyledButton_white_outline>
 
-							<StyledButton_white_outline onClick={() => navigate("/register")}>
+							<StyledButton_white_outline
+								onClick={() => navigate("/register")}
+							>
 								Cadastrar
 							</StyledButton_white_outline>
 						</div>
@@ -93,24 +119,46 @@ function Header() {
 					{widthWindow > 768 && user && (
 						<div
 							className="desktop_options"
-							onClick={() => setMenuProfile(!menuProfile)}
+							onClick={(e) => {
+								e.stopPropagation();
+								setMenuProfile(!menuProfile);
+							}}
 						>
 							<UserAvatar user={user}></UserAvatar>
 						</div>
 					)}
 
 					{user && menuProfile && (
-						<ModalOptionsProfile>
+						<ModalOptionsProfile
+							onClick={(e) => e.stopPropagation()}
+						>
 							<div>
-								<button>Editar Perfil</button>
-								<button>Editar Endereço</button>
-								{user.is_seller && <button>Meus Anúncios</button>}
+								<button
+									onClick={() => {
+										openEditUserModal();
+									}}
+								>
+									Editar Perfil
+								</button>
+
+								<button onClick={() => openEditAddressModal()}>
+									Editar Endereço
+								</button>
+
+								{user.is_seller && (
+									<button>Meus Anúncios</button>
+								)}
 								<button onClick={() => logout()}>Sair</button>
 							</div>
 						</ModalOptionsProfile>
 					)}
 				</div>
 			</HeaderStyled>
+			{editUserModal && <ModalEditUser closeModal={closeEditUserModal} />}
+
+			{editAddressModal && (
+				<ModalEditAddress closeModal={closeEditAddressModal} />
+			)}
 		</>
 	);
 }
