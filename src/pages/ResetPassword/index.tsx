@@ -10,57 +10,59 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 
 export interface iResetPassword {
-  password: string;
-  confirmPassword: string;
+	password: string;
+	confirmPassword: string;
 }
 
 function ResetPassword() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<iResetPassword>({
-    resolver: yupResolver(schemaResetPassword),
-  });
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<iResetPassword>({
+		resolver: yupResolver(schemaResetPassword),
+	});
 
-  let { token } = useParams();
-  const { resetPassword } = useContext(UserContext);
+	let { token } = useParams();
+	const { resetPassword } = useContext(UserContext);
 
-  const handlePassword = (data: iResetPassword) => {
-    resetPassword(data, token);
-  };
+	const handlePassword = (data: iResetPassword) => {
+		resetPassword(data, token);
+	};
 
-  return (
-    <ContainerSendEmailAndResetPassword>
-      <form onSubmit={handleSubmit(handlePassword)}>
-        <StyledHeading_6_600>Recuperação de senha</StyledHeading_6_600>
+	return (
+		<ContainerSendEmailAndResetPassword>
+			<form onSubmit={handleSubmit(handlePassword)}>
+				<StyledHeading_6_600>Recuperação de senha</StyledHeading_6_600>
 
-        <StyledLabel htmlFor="password">Senha</StyledLabel>
-        <StyledInput
-          {...register("password")}
-          id="password"
-          placeholder="Digite sua nova senha..."
-          type="password"
-        />
+				<StyledLabel htmlFor="password">Senha</StyledLabel>
+				<StyledInput
+					{...register("password")}
+					id="password"
+					placeholder="Digite sua nova senha..."
+					type="password"
+				/>
 
-        <p className="heading-8-500">{errors.password?.message}</p>
+				<p className="heading-8-500">{errors.password?.message}</p>
 
-        <StyledLabel htmlFor="confirmPassword">
-          Confirmação de senha
-        </StyledLabel>
-        <StyledInput
-          {...register("confirmPassword")}
-          id="confirmPassword"
-          placeholder="Confirme sua senha..."
-          type="password"
-        />
+				<StyledLabel htmlFor="confirmPassword">
+					Confirmação de senha
+				</StyledLabel>
+				<StyledInput
+					{...register("confirmPassword")}
+					id="confirmPassword"
+					placeholder="Confirme sua senha..."
+					type="password"
+				/>
 
-        <p className="heading-8-500">{errors.confirmPassword?.message}</p>
+				<p className="heading-8-500">
+					{errors.confirmPassword?.message}
+				</p>
 
-        <StyledButton_primary>Redefinir senha</StyledButton_primary>
-      </form>
-    </ContainerSendEmailAndResetPassword>
-  );
+				<StyledButton_primary>Redefinir senha</StyledButton_primary>
+			</form>
+		</ContainerSendEmailAndResetPassword>
+	);
 }
 
 export default ResetPassword;
