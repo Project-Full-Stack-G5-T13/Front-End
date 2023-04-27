@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Section } from "./styled";
-import { UserContext, iFormLogin } from "../../contexts/UserContext";
+import { UserContext} from "../../contexts/UserContext";
 import { useContext, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../validations";
 import { useForm } from "react-hook-form";
-
+import { IFormLogin } from "../../interface/user/user.interface";
 import {
 	StyledBody_2_400,
 	StyledBody_2_500,
@@ -25,7 +25,7 @@ const Login = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<iFormLogin>({
+	} = useForm<IFormLogin>({
 		resolver: yupResolver(schemaLogin),
 	});
 

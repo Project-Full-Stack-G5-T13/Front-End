@@ -6,31 +6,9 @@ import {
 	StyledSpanDetail,
 } from "../../styles/typografy";
 import UserAvatar from "../UserAvatar";
-import { IAdsReturn } from "../../pages/Dashboard";
-import imgCarDefault from "../../assets/car-default.png";
-import { useEffect, useState } from "react";
-
-interface ICardProps {
-	car: {
-		images: {
-			main_image: string;
-		};
-		model: string;
-		description: string;
-		user: {
-			name: string;
-			image_url: string;
-		};
-		km: number;
-		launch_year: number;
-		price: number;
-		is_active: boolean;
-	};
-
-	good_price?: boolean;
-
-	is_active?: boolean;
-}
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ICardProps } from "../../interface/card/card.interface";
 
 const Card = ({ car, good_price, is_active }: ICardProps) => {
 	const [image, setImage] = useState(car.images.main_image);
@@ -40,6 +18,10 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 			"https://img.freepik.com/vetores-premium/ilustracao-de-silhueta-de-carro-de-luxo-de-veiculo-simples_591091-249.jpg"
 		);
 	};
+
+	const navigate = useNavigate();
+	
+	console.log("car user card", car);
 
 	return (
 		<StyledCardDiv>
@@ -62,12 +44,11 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 			) : (
 				<></>
 			)}
-
 			<StyledHeading_7_600>{car.model}</StyledHeading_7_600>
-
 			<StyledBody_2_400>{car.description}</StyledBody_2_400>
-
-			<UserAvatar user={car.user} />
+			<div className="userProfileRoute" onClick={() => { navigate(`/profile/${car.user.id}`)}}>
+				<UserAvatar user={car.user}  />
+			</div>
 			<div className="base_info">
 				<div>
 					<StyledSpanDetail>{car.km} KM</StyledSpanDetail>

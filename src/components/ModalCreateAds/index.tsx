@@ -1,4 +1,4 @@
-import { AdsContext, iAdsCreate, iModel } from "../../contexts/AdsContext";
+import { AdsContext } from "../../contexts/AdsContext";
 import { schemaAdsCreate } from "../../validations/select.schema";
 import { StyledInput, StyledTextArea } from "../../styles/inputs";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,6 +16,7 @@ import {
 } from "../../styles/buttons";
 import { UserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
+import { IAdsCreate } from "../../interface/card/card.interface";
 
 const ModalCreateAds = () => {
 	const {
@@ -93,11 +94,11 @@ const ModalCreateAds = () => {
 		control,
 		setValue,
 		formState: { errors },
-	} = useForm<iAdsCreate>({
+	} = useForm<IAdsCreate>({
 		resolver: yupResolver(schemaAdsCreate),
 	});
 
-	const submitAds = async (data: iAdsCreate) => {
+	const submitAds = async (data: IAdsCreate) => {
 		await createAds(data);
 		getUserProfile(userId);
 		setModalAds(false);

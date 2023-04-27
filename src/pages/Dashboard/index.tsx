@@ -11,35 +11,9 @@ import { StyledHeading_7_500 } from "../../styles/typografy";
 import { string } from "yup";
 import api from "../../services/api";
 import { UserContext } from "../../contexts/UserContext";
+import { IAdsReturn } from "../../interface/card/card.interface";
 
-export interface IAdsReturn {
-	id: string;
-	brand: string;
-	model: string;
-	launch_year: number;
-	car_color: string;
-	fuel_type: string;
-	fuel: number;
-	km: number;
-	price: number;
-	price_table?: string;
-	description: string;
-	is_active: boolean;
-	sold: boolean;
-	images: {
-		id: string;
-		main_image: string;
-		image_one?: string;
-		image_two?: string;
-		image_three?: string;
-		image_four?: string;
-		image_five?: string;
-	};
-	user: {
-		name: string;
-		image_url: string;
-	};
-}
+
 
 function Dashboard() {
 	const navigate = useNavigate();

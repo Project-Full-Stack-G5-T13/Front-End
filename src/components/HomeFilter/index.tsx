@@ -15,6 +15,7 @@ interface IHomeFilter {
 	clearQuery: () => void;
 }
 
+
 const HomeFilter = ({
 	brands,
 	models,

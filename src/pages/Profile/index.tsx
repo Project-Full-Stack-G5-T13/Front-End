@@ -44,7 +44,7 @@ const Profile = () => {
 						<>
 							<UserHeader>
 								<div className="img-box">
-									<h1>S</h1>
+									<h1>{userProfile.name.charAt(0)}</h1>
 								</div>
 								<div className="name-box">
 									<h3>{userProfile?.name}</h3>
@@ -65,7 +65,9 @@ const Profile = () => {
 									</StyledButton_brand_outline>
 								)}
 							</UserHeader>
-							<h3 className="title">Anuncios</h3>
+							<div className="adsList">
+								<h3 className="title">Anúncios</h3>
+							</div>
 							<CarList>
 								{userProfile?.cars &&
 								userProfile?.cars.length > 0 ? (

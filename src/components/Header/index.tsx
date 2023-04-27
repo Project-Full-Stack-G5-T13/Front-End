@@ -59,6 +59,7 @@ function Header() {
 		setEditAddressModal(true);
 	};
 
+
 	return (
 		<>
 			<HeaderStyled>
@@ -115,7 +116,6 @@ function Header() {
 							</StyledButton_white_outline>
 						</div>
 					)}
-
 					{widthWindow > 768 && user && (
 						<div
 							className="desktop_options"
@@ -133,6 +133,7 @@ function Header() {
 							onClick={(e) => e.stopPropagation()}
 						>
 							<div>
+
 								<button
 									onClick={() => {
 										openEditUserModal();
@@ -146,8 +147,9 @@ function Header() {
 								</button>
 
 								{user.is_seller && (
-									<button>Meus Anúncios</button>
+									<button onClick={() => { navigate(`/profile/${user.id}`)}}>Meus Anúncios</button>
 								)}
+
 								<button onClick={() => logout()}>Sair</button>
 							</div>
 						</ModalOptionsProfile>
