@@ -142,6 +142,7 @@ const Providers = ({ children }: iProvidersProps) => {
 			toast.success("Usuário cadastrado com sucesso!");
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
+				console.log(error);
 				if (
 					error?.response?.data.message == "There is already an account with this email"
 				) {
