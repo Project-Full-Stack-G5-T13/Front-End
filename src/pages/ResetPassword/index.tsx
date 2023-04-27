@@ -7,8 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { StyledInput } from "../../styles/inputs";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
-import { BsEyeFill } from "react-icons/bs";
+import { useContext } from "react";
 
 export interface iResetPassword {
   password: string;
