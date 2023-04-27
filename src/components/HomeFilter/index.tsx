@@ -1,9 +1,20 @@
+import { StyledButton_primary } from "../../styles/buttons";
 import {
 	StyledHeading_4_600,
 	StyledHeading_6_500,
 } from "../../styles/typografy";
 import { Div } from "./styled";
-import { IHomeFilter } from "../../interface/filter/filter.interface";
+
+interface IHomeFilter {
+	brands: string[];
+	models: string[];
+	colors: string[];
+	years: number[];
+	fuels: string[];
+	handleSetQuery: (type: string, value: string | number) => void;
+	clearQuery: () => void;
+}
+
 
 const HomeFilter = ({
 	brands,
@@ -12,6 +23,7 @@ const HomeFilter = ({
 	years,
 	fuels,
 	handleSetQuery,
+	clearQuery,
 }: IHomeFilter) => {
 	return (
 		<Div className="advertisement-filter">
@@ -104,6 +116,10 @@ const HomeFilter = ({
 					/>
 				</div>
 			</section>
+
+			<StyledButton_primary onClick={() => clearQuery()}>
+				Limpar filtros
+			</StyledButton_primary>
 		</Div>
 	);
 };

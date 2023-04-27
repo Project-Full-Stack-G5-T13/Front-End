@@ -16,11 +16,13 @@ const Register = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<IFormSignup>({
+
+	} = useForm<iFormSignup>({
 		resolver: yupResolver(schemaSignup),
 	});
 
 	const [validatedIsSeller, setValidatedIsSeller] = useState<boolean>(false);
+
 	const [advertiserBuyer, setAdvertiserBuyer] = useState<string | boolean>("");
 	const [confirmPassword, setConfirmPassword] = useState(false);
 	const [password, setPassword] = useState(false);
@@ -28,6 +30,7 @@ const Register = () => {
 
 	function validatedAccountType(data: IFormSignup) {
 		console.log(data);
+
 		if (advertiserBuyer && advertiserBuyer !== "") {
 			data.is_seller = true;
 			setAdvertiserBuyer(false);
@@ -50,8 +53,10 @@ const Register = () => {
 						<h4>Informações pessoais</h4>
 						<div>
 							<StyledLabel>Name</StyledLabel>
+
 							<StyledInput {...register("name")} placeholder="Ex: Samnuel" />
 							<p className="heading-8-500">{errors.name?.message}</p>
+
 						</div>
 						<div>
 							<StyledLabel>Email</StyledLabel>
@@ -59,12 +64,14 @@ const Register = () => {
 								{...register("email")}
 								placeholder="Ex: samuelk@kenzie.com.br"
 							/>
+
 							<p className="heading-8-500">{errors.email?.message}</p>
 						</div>
 						<div>
 							<StyledLabel>CPF</StyledLabel>
 							<StyledInput {...register("cpf")} placeholder="Ex: 15748568788" />
 							<p className="heading-8-500">{errors.cpf?.message}</p>
+
 						</div>
 						<div>
 							<StyledLabel>Celular</StyledLabel>
@@ -72,12 +79,14 @@ const Register = () => {
 								{...register("phone_number")}
 								placeholder="Ex: 14981754895"
 							/>
+
 							<p className="heading-8-500">{errors.phone_number?.message}</p>
 						</div>
 						<div>
 							<StyledLabel>Data de nascimento</StyledLabel>
 							<StyledInput {...register("birth_date")} placeholder="Ex: 00/00/0000" />
 							<p className="heading-8-500">{errors.birth_date?.message}</p>
+
 						</div>
 						<div>
 							<StyledLabel>Descrição</StyledLabel>
@@ -85,11 +94,13 @@ const Register = () => {
 								{...register("description")}
 								placeholder="Digitar descrição"
 							/>
+
 							<p className="heading-8-500"> {errors.description?.message}</p>
 						</div>
 						<div>
 							<StyledLabel>Imagem de perfil (opcional)</StyledLabel>
 							<StyledInput {...register("image_url")} placeholder="Url da imagem" />
+
 						</div>
 						<h4>Informações de endereço</h4>
 						<div>
@@ -98,7 +109,9 @@ const Register = () => {
 								{...register("address.zip_code")}
 								placeholder="Ex: 17340480"
 							/>
+
 							<p className="heading-8-500">{errors.address?.zip_code?.message}</p>
+
 						</div>
 						<Article>
 							<div>
@@ -107,7 +120,9 @@ const Register = () => {
 									{...register("address.state")}
 									placeholder="Digitar Estado"
 								/>
+
 								<p className="heading-8-500">{errors.address?.state?.message}</p>
+
 							</div>
 							<div>
 								<StyledLabel>Cidade</StyledLabel>
@@ -115,7 +130,9 @@ const Register = () => {
 									{...register("address.city")}
 									placeholder="Digitar Cidade"
 								/>
+
 								<p className="heading-8-500">{errors.address?.city?.message}</p>
+
 							</div>
 						</Article>
 						<div>
@@ -124,7 +141,9 @@ const Register = () => {
 								{...register("address.street")}
 								placeholder="Digitar Rua"
 							/>
+
 							<p className="heading-8-500">{errors.address?.street?.message}</p>
+
 						</div>
 						<Article>
 							<div>
@@ -133,7 +152,9 @@ const Register = () => {
 									{...register("address.number")}
 									placeholder="Digitar número"
 								/>
+
 								<p className="heading-8-500">{errors.address?.number?.message}</p>
+
 							</div>
 							<div>
 								<StyledLabel>Complemento</StyledLabel>
@@ -151,23 +172,29 @@ const Register = () => {
 							<button
 								onClick={() => setAdvertiserBuyer(false)}
 								type="button"
+
 								className={`white_btn ${
 									!advertiserBuyer && advertiserBuyer !== "" ? "selected" : ""
 								}`}
+
 							>
 								Comprador
 							</button>
 							<button
 								onClick={() => setAdvertiserBuyer(true)}
 								type="button"
+
 								className={`white_btn ${
 									advertiserBuyer && advertiserBuyer !== "" ? "selected" : ""
 								}`}
+
 							>
 								Anunciante
 							</button>
 						</Article>
+
 						{validatedIsSeller && <p>Tipo de conta é obrigatório</p>}
+
 						<div>
 							<StyledLabel>Senha</StyledLabel>
 							<StyledInput
@@ -176,7 +203,9 @@ const Register = () => {
 								placeholder="Digitar senha"
 							/>
 							<BsEyeFill onClick={() => setPassword(!password)} />
+
 							<p className="heading-8-500">{errors.password?.message}</p>
+
 						</div>
 						<div>
 							<StyledLabel>Confirmar Senha</StyledLabel>
@@ -185,8 +214,10 @@ const Register = () => {
 								type={confirmPassword ? "text" : "password"}
 								placeholder="Digitar senha"
 							/>
+
 							<BsEyeFill onClick={() => setConfirmPassword(!confirmPassword)} />
 							<p className="heading-8-500">{errors.confirmPassword?.message}</p>
+
 						</div>
 						<Button type="submit" children="Finalizar Cadastro" />
 					</form>

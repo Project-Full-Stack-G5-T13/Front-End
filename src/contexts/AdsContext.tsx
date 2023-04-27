@@ -19,6 +19,7 @@ import {
 export const AdsContext = createContext({} as IAdsContext);
 
 const AdsProvider = ({ children }: IProvidersAdsProps) => {
+
   const [modalAds, setModalAds] = useState<boolean>(false);
   const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>(
     {} as IBrandObject
@@ -103,6 +104,7 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
       {children}
     </AdsContext.Provider>
   );
+
 };
 
 export default AdsProvider;

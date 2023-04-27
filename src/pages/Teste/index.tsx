@@ -43,8 +43,6 @@ const Teste = () => {
 	} = useForm<IAddAd>({ resolver: yupResolver(schemaTeste) });
 
 	useEffect(() => {
-		console.log(myState);
-
 		if (myState) {
 			setValue("brand", "Ford");
 			setValue("fuel_type", "Flex");

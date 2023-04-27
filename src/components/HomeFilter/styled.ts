@@ -8,6 +8,10 @@ export const Div = styled.div`
 	padding: 20px;
 	gap: 20px;
 
+	@media (max-width: 768px) {
+		width: 100%;
+	}
+
 	& > ul {
 		display: flex;
 		flex-direction: column;

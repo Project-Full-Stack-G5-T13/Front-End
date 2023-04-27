@@ -3,7 +3,6 @@ import { StyledUserAvatar } from "./styled";
 import { IUserAvatarProps } from "../../interface/user/user.interface";
 
 const UserAvatar = ({ user }: IUserAvatarProps) => {
-	console.log(user);
 	return (
 		<StyledUserAvatar>
 			<div className="img_container">
