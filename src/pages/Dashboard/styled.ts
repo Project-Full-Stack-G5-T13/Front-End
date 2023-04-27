@@ -4,8 +4,8 @@ export const Main = styled.main`
 	display: flex;
 	flex-direction: row;
 	width: 100%;
-	/* min-height: 100%; */
-	margin-bottom: 20px;
+	max-width: 1400px;
+	margin: 0 auto 20px auto;
 	color: var(--fixed-white);
 	gap: 50px;
 

@@ -65,9 +65,7 @@ const Profile = () => {
 									</StyledButton_brand_outline>
 								)}
 							</UserHeader>
-							<div className="adsList">
-								<h3 className="title">Anúncios</h3>
-							</div>
+
 							<CarList>
 								{userProfile?.cars &&
 								userProfile?.cars.length > 0 ? (
