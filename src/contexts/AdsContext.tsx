@@ -1,99 +1,110 @@
 import {
-	createContext,
-	useState,
-	ReactNode,
-	useEffect,
-	useContext,
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+  useContext,
 } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 import { UserContext } from "./UserContext";
-import { IAdsContext, IAdsCreate, IBrandObject, IModel, IProvidersAdsProps } from "../interface/card/card.interface";
+import {
+  IAdsContext,
+  IAdsCreate,
+  IBrandObject,
+  IModel,
+  IProvidersAdsProps,
+} from "../interface/card/card.interface";
 
 export const AdsContext = createContext({} as IAdsContext);
 
 const AdsProvider = ({ children }: IProvidersAdsProps) => {
-	const [modalAds, setModalAds] = useState<boolean>(false);
-	const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>(
-		{} as IBrandObject
-	);
-	const [brandSelect, setBrandSelect] = useState<string>("");
-	const [modelSelect, setModelSelect] = useState<string>("");
 
-	const [model, setModel] = useState<IModel[]>([]);
+  const [modalAds, setModalAds] = useState<boolean>(false);
+  const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>(
+    {} as IBrandObject
+  );
+  const [brandSelect, setBrandSelect] = useState<string>("");
+  const [modelSelect, setModelSelect] = useState<string>("");
+  const [colorSelect, setColorSelect] = useState<string>("");
 
-	const token = localStorage.getItem("@Motors:token");
+  const [model, setModel] = useState<IModel[]>([]);
 
-	const { globalLoading, setGlobalLoading } = useContext(UserContext);
-	const [allAds, setAllAds] = useState<IAdsCreate[]>([]);
+  const token = localStorage.getItem("@Motors:token");
 
-	useEffect(() => {
-		async function carsTable() {
-			try {
-				const response = await api.get(
-					"https://kenzie-kars.herokuapp.com/cars"
-				);
+  const { globalLoading, setGlobalLoading } = useContext(UserContext);
+  const [allAds, setAllAds] = useState<IAdsCreate[]>([]);
 
-				setCarsTableKenzie(response.data);
-			} catch (error) {
-				console.error(error);
-			}
-		}
+  useEffect(() => {
+    async function carsTable() {
+      try {
+        const response = await api.get(
+          "https://kenzie-kars.herokuapp.com/cars"
+        );
 
-		carsTable();
-	}, []);
+        setCarsTableKenzie(response.data);
+      } catch (error) {
+        console.log("Deu erro");
+      }
+    }
 
-	useEffect(() => {
-		async function brandSelectRequest() {
-			try {
-				const response = await api.get(
-					`https://kenzie-kars.herokuapp.com/cars?brand=${brandSelect}`
-				);
+    carsTable();
+  }, []);
 
-				setModel(response.data);
-			} catch (error) {
-				console.error(error);
-			}
-		}
+  useEffect(() => {
+    async function brandSelectRequest() {
+      try {
+        const response = await api.get(
+          `https://kenzie-kars.herokuapp.com/cars?brand=${brandSelect}`
+        );
 
-		brandSelectRequest();
-	}, [brandSelect]);
+        setModel(response.data);
+      } catch (error) {
+        console.log("Deu erro");
+      }
+    }
 
-	async function createAds(data: IAdsCreate): Promise<void> {
-		setGlobalLoading(true);
-		try {
-			api.defaults.headers.common.authorization = `Bearer ${token}`;
+    brandSelectRequest();
+  }, [brandSelect]);
 
-			const response = await api.post("/ads", data);
+  async function createAds(data: IAdsCreate): Promise<void> {
+    setGlobalLoading(true);
+    try {
+      api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-			toast.success("Anúncio criado com sucesso!");
+      const response = await api.post("/ads", data);
 
-			setAllAds([...allAds, response.data]);
-		} catch (error) {
-			console.error(error);
-		} finally {
-			setGlobalLoading(false);
-		}
-	}
+      toast.success("Anúncio criado com sucesso!");
 
-	return (
-		<AdsContext.Provider
-			value={{
-				modalAds,
-				setModalAds,
-				carsTableKenzie,
-				setCarsTableKenzie,
-				brandSelect,
-				setBrandSelect,
-				model,
-				modelSelect,
-				setModelSelect,
-				createAds,
-			}}
-		>
-			{children}
-		</AdsContext.Provider>
-	);
+      setAllAds([...allAds, response.data]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setGlobalLoading(false);
+    }
+  }
+
+  return (
+    <AdsContext.Provider
+      value={{
+        modalAds,
+        setModalAds,
+        carsTableKenzie,
+        setCarsTableKenzie,
+        brandSelect,
+        setBrandSelect,
+        model,
+        modelSelect,
+        setModelSelect,
+        createAds,
+		colorSelect,
+		setColorSelect
+      }}
+    >
+      {children}
+    </AdsContext.Provider>
+  );
+
 };
 
 export default AdsProvider;
