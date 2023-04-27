@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import { IAdsReturn } from "../card/card.interface";
+import { IUserUpdate } from "../../components/ModalEditUser";
+import { IAddressUpdateRequest } from "../../components/ModalEditAddress";
 
 //contexts/UserContext:
 export interface IProvidersProps {
@@ -76,6 +78,11 @@ export interface IUserContext {
 	getUser: () => Promise<void>;
 	userProfile: IUserWithCars;
 	getUserProfile(userId: string): Promise<void>;
+	updateUser: (
+		data: IUserUpdate | IAddressUpdateRequest,
+		closeModal: () => void
+	) => Promise<Omit<IUser, "address">>;
+	deleteUser: (closeModal: () => void) => Promise<void>;
 }
 
 //Components/UserAvatar:

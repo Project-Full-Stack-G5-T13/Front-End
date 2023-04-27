@@ -5,16 +5,20 @@ import api from "../services/api";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 
-import { IAdsReturn } from "../pages/Dashboard";
-import { iUserUpdate } from "../components/ModalEditUser";
-import { iAddressUpdateRequest } from "../components/ModalEditAddress";
+import { IUserUpdate } from "../components/ModalEditUser";
+import { IAddressUpdateRequest } from "../components/ModalEditAddress";
 
-import { IFormLogin, IFormSignup, IJwtDecoded, IProvidersProps, IUser, IUserContext, IUserWithCars } from "../interface/user/user.interface";
-
-
+import {
+	IFormLogin,
+	IFormSignup,
+	IJwtDecoded,
+	IProvidersProps,
+	IUser,
+	IUserContext,
+	IUserWithCars,
+} from "../interface/user/user.interface";
 
 export const UserContext = createContext({} as IUserContext);
-
 
 const Providers = ({ children }: IProvidersProps) => {
 	const navigate = useNavigate();
@@ -98,9 +102,9 @@ const Providers = ({ children }: IProvidersProps) => {
 	}
 
 	async function updateUser(
-		data: iUserUpdate | iAddressUpdateRequest,
+		data: IUserUpdate | IAddressUpdateRequest,
 		closeModal: () => void
-	): Promise<Omit<iUser, "address">> {
+	): Promise<Omit<IUser, "address">> {
 		try {
 			const token = localStorage.getItem("@Motors:token");
 			const userId = localStorage.getItem("@Motors:userId");

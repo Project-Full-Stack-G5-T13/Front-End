@@ -14,7 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
-export interface iUserUpdate {
+export interface IUserUpdate {
 	name?: string;
 	email?: string;
 	cpf?: string;
@@ -30,7 +30,7 @@ const ModalEditUser = ({ closeModal }) => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<iUserUpdate>({
+	} = useForm<IUserUpdate>({
 		resolver: yupResolver(schemaUserUpdate),
 	});
 
@@ -72,14 +72,7 @@ const ModalEditUser = ({ closeModal }) => {
 					<StyledLabel>Nome (opcional)</StyledLabel>
 					<StyledInput placeholder="Nome" {...register("name")} />
 					<StyledLabel>Email (opcional)</StyledLabel>
-					<StyledInput
-						placeholder="Email"
-						{...register("email")}
-						onClickCapture={() => {
-							delete errors.email;
-							console.log("oi");
-						}}
-					/>
+					<StyledInput placeholder="Email" {...register("email")} />
 					{errors.email && (
 						<StyledDivError>
 							<span>{errors.email.message}</span>

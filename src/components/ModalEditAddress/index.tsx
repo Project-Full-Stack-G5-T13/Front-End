@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
-export interface iAddressUpdate {
+export interface IAddressUpdate {
 	zip_code: string;
 	state: string;
 	city: string;
@@ -19,7 +19,7 @@ export interface iAddressUpdate {
 	complement?: string;
 }
 
-export interface iAddressUpdateRequest {
+export interface IAddressUpdateRequest {
 	address: {
 		zip_code: string;
 		state: string;
@@ -38,7 +38,7 @@ const ModalEditAddress = ({ closeModal }) => {
 		handleSubmit,
 		formState: { errors },
 		watch,
-	} = useForm<iAddressUpdate>({
+	} = useForm<IAddressUpdate>({
 		resolver: yupResolver(schemaAddressUpdate),
 		shouldUnregister: true,
 	});
@@ -55,9 +55,6 @@ const ModalEditAddress = ({ closeModal }) => {
 				...data,
 			},
 		};
-
-		console.log(data);
-		console.log(newAddress);
 
 		updateUser(newAddress, closeModal);
 	}

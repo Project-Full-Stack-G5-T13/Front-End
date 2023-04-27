@@ -20,8 +20,6 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 	};
 
 	const navigate = useNavigate();
-	
-	console.log("car user card", car);
 
 	return (
 		<StyledCardDiv>
@@ -46,8 +44,13 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 			)}
 			<StyledHeading_7_600>{car.model}</StyledHeading_7_600>
 			<StyledBody_2_400>{car.description}</StyledBody_2_400>
-			<div className="userProfileRoute" onClick={() => { navigate(`/profile/${car.user.id}`)}}>
-				<UserAvatar user={car.user}  />
+			<div
+				className="userProfileRoute"
+				onClick={() => {
+					navigate(`/profile/${car.user.id}`);
+				}}
+			>
+				<UserAvatar user={car.user} />
 			</div>
 			<div className="base_info">
 				<div>

@@ -75,6 +75,7 @@ const Profile = () => {
 										{userProfile?.cars.map((e) => {
 											return (
 												<Card
+													key={e.id}
 													car={e}
 													is_active={e.is_active}
 												/>
