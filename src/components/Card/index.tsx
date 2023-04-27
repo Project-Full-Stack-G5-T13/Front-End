@@ -47,7 +47,7 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 			<div
 				className="userProfileRoute"
 				onClick={() => {
-					navigate(`/profile/${car.user.id}`);
+					navigate(`/profile/${car.user.id}/#`);
 				}}
 			>
 				<UserAvatar user={car.user} />
