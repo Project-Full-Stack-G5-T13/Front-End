@@ -12,7 +12,6 @@ import { StyledInput } from "../../styles/inputs";
 import { BsEyeFill } from "react-icons/bs";
 
 const Register = () => {
-
 	const {
 		register,
 		handleSubmit,
@@ -77,10 +76,7 @@ const Register = () => {
 						</div>
 						<div>
 							<StyledLabel>Data de nascimento</StyledLabel>
-							<StyledInput
-								{...register("birth_date")}
-								placeholder="Ex: 00/00/0000"
-							/>
+							<StyledInput {...register("birth_date")} placeholder="Ex: 00/00/0000" />
 							<p className="heading-8-500">{errors.birth_date?.message}</p>
 						</div>
 						<div>
@@ -93,10 +89,7 @@ const Register = () => {
 						</div>
 						<div>
 							<StyledLabel>Imagem de perfil (opcional)</StyledLabel>
-							<StyledInput
-								{...register("image_url")}
-								placeholder="Url da imagem"
-							/>
+							<StyledInput {...register("image_url")} placeholder="Url da imagem" />
 						</div>
 						<h4>Informações de endereço</h4>
 						<div>
@@ -105,26 +98,22 @@ const Register = () => {
 								{...register("address.zip_code")}
 								placeholder="Ex: 17340480"
 							/>
-							<p className="heading-8-500">
-								{errors.address?.zip_code?.message}
-							</p>
+							<p className="heading-8-500">{errors.address?.zip_code?.message}</p>
 						</div>
 						<Article>
 							<div>
 								<StyledLabel>Estado</StyledLabel>
 								<StyledInput
-								{...register("address.state")}
-								placeholder="Digitar Estado"
+									{...register("address.state")}
+									placeholder="Digitar Estado"
 								/>
-								<p className="heading-8-500">
-								{errors.address?.state?.message}
-								</p>
+								<p className="heading-8-500">{errors.address?.state?.message}</p>
 							</div>
 							<div>
 								<StyledLabel>Cidade</StyledLabel>
 								<StyledInput
-								{...register("address.city")}
-								placeholder="Digitar Cidade"
+									{...register("address.city")}
+									placeholder="Digitar Cidade"
 								/>
 								<p className="heading-8-500">{errors.address?.city?.message}</p>
 							</div>
@@ -141,21 +130,19 @@ const Register = () => {
 							<div>
 								<StyledLabel>Número</StyledLabel>
 								<StyledInput
-								{...register("address.number")}
-								placeholder="Digitar número"
+									{...register("address.number")}
+									placeholder="Digitar número"
 								/>
-								<p className="heading-8-500">
-								{errors.address?.number?.message}
-								</p>
+								<p className="heading-8-500">{errors.address?.number?.message}</p>
 							</div>
 							<div>
 								<StyledLabel>Complemento</StyledLabel>
 								<StyledInput
-								{...register("address.complement")}
-								placeholder="Ex: apart. 201"
+									{...register("address.complement")}
+									placeholder="Ex: apart. 201"
 								/>
 								<p className="heading-8-500">
-								{errors.address?.complement?.message}
+									{errors.address?.complement?.message}
 								</p>
 							</div>
 						</Article>
@@ -164,14 +151,18 @@ const Register = () => {
 							<button
 								onClick={() => setAdvertiserBuyer(false)}
 								type="button"
-								className="white_btn"
+								className={`white_btn ${
+									!advertiserBuyer && advertiserBuyer !== "" ? "selected" : ""
+								}`}
 							>
 								Comprador
 							</button>
 							<button
 								onClick={() => setAdvertiserBuyer(true)}
 								type="button"
-								className="white_btn"
+								className={`white_btn ${
+									advertiserBuyer && advertiserBuyer !== "" ? "selected" : ""
+								}`}
 							>
 								Anunciante
 							</button>
