@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useState,
-  ReactNode,
-  useEffect,
-  useContext,
-} from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 import { UserContext } from "./UserContext";
@@ -19,7 +13,6 @@ import {
 export const AdsContext = createContext({} as IAdsContext);
 
 const AdsProvider = ({ children }: IProvidersAdsProps) => {
-
   const [modalAds, setModalAds] = useState<boolean>(false);
   const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>(
     {} as IBrandObject
@@ -97,14 +90,14 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
         modelSelect,
         setModelSelect,
         createAds,
-		colorSelect,
-		setColorSelect
+        colorSelect,
+        setColorSelect,
+        globalLoading
       }}
     >
       {children}
     </AdsContext.Provider>
   );
-
 };
 
 export default AdsProvider;

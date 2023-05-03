@@ -73,6 +73,7 @@ const Providers = ({ children }: IProvidersProps) => {
   }
 
   async function registerUser(data: IFormSignup): Promise<void> {
+    setGlobalLoading(true);
     try {
       await api.post("/users", data);
 
@@ -98,6 +99,8 @@ const Providers = ({ children }: IProvidersProps) => {
           toast.error("Já existe uma conta com este cpf");
         }
       }
+    } finally {
+      setGlobalLoading(false);
     }
   }
 
@@ -105,6 +108,7 @@ const Providers = ({ children }: IProvidersProps) => {
     data: IUserUpdate | IAddressUpdateRequest,
     closeModal: () => void
   ): Promise<Omit<IUser, "address">> {
+    setGlobalLoading(true);
     try {
       const token = localStorage.getItem("@Motors:token");
       const userId = localStorage.getItem("@Motors:userId");
@@ -120,10 +124,13 @@ const Providers = ({ children }: IProvidersProps) => {
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
+    } finally {
+      setGlobalLoading(false);
     }
   }
 
   async function deleteUser(closeModal: () => void): Promise<void> {
+    setGlobalLoading(true);
     try {
       const token = localStorage.getItem("@Motors:token");
       const userId = localStorage.getItem("@Motors:userId");
@@ -142,10 +149,13 @@ const Providers = ({ children }: IProvidersProps) => {
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
+    } finally {
+      setGlobalLoading(false);
     }
   }
 
   async function sendEmail(data: ISendEmail): Promise<void> {
+    setGlobalLoading(true);
     try {
       await api.post("/users/resetpassword", data);
       toast.success("E-mail enviado com sucesso!");
@@ -155,6 +165,8 @@ const Providers = ({ children }: IProvidersProps) => {
           toast.error("E-mail não encontrado.");
         }
       }
+    } finally {
+      setGlobalLoading(false);
     }
   }
 
@@ -162,12 +174,15 @@ const Providers = ({ children }: IProvidersProps) => {
     data: IResetPassword,
     token: string
   ): Promise<void> {
+    setGlobalLoading(true);
     try {
       await api.patch(`/users/resetpassword/${token}`, data);
       navigate("/login");
       toast.success("Senha redefinida!");
     } catch (error) {
       console.log(error);
+    } finally {
+      setGlobalLoading(false);
     }
   }
 

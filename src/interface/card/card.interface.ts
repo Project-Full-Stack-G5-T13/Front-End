@@ -47,8 +47,7 @@ export interface IAdsContext {
   model: IModel[];
   modelSelect: string;
   setModelSelect: React.Dispatch<React.SetStateAction<string>>;
-  // allAds:iAdsCreate[];
-  // setAllAds: React.Dispatch<React.SetStateAction<iAdsCreate[]>>
+  globalLoading: boolean;
   createAds: (data: IAdsCreate) => Promise<void>;
   colorSelect: string;
   setColorSelect: React.Dispatch<React.SetStateAction<string>>;

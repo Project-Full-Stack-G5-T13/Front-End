@@ -1,15 +1,15 @@
 import { WaveLoading } from "react-loading-typescript";
-import { useContext, ReactNode } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { useContext } from "react";
 import { IGlobalLoadingProps } from "../../interface/globalLoading/globalLoading.interface";
+import { AdsContext } from "../../contexts/AdsContext";
 
 const GlobalLoading = ({ children }: IGlobalLoadingProps) => {
-  const { globalLoading } = useContext(UserContext);
+  const { globalLoading } = useContext(AdsContext);
   return (
     <>
       {globalLoading ? (
         <WaveLoading
-          color="#ff577f"
+          color="#4529E6"
           speed={1}
           size={"default"}
           style={{
