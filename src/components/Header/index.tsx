@@ -66,6 +66,7 @@ function Header() {
 					<img
 						src={logo}
 						alt="Motors shop"
+						className="pointer"
 						onClick={() => navigate("/")}
 					/>
 

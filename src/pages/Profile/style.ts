@@ -72,11 +72,11 @@ export const UserHeader = styled.div`
 	}
 
 	.description {
-		font-family: 'Lexend';
+		font-family: "Lexend";
 		font-style: normal;
 		font-weight: 600;
 		font-size: 16px;
-		color: var(--grey-2)
+		color: var(--grey-2);
 	}
 `;
 
@@ -86,9 +86,6 @@ export const CarList = styled.div`
 	flex-direction: column;
 	overflow: hidden;
 	max-width: 1240px;
-	.adsList{
-		display: flex;
-	}
 
 	.list {
 		display: flex;
@@ -100,7 +97,7 @@ export const CarList = styled.div`
 		justify-content: center;
 		padding-top: 40px;
 		flex: 1;
-		
+
 		@media (max-width: 768px) {
 			width: 100%;
 			flex-wrap: nowrap;

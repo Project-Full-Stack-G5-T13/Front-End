@@ -5,7 +5,7 @@ import { Section } from "./styled";
 import { schemaSignup } from "../../validations/index";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IFormSignup } from "../../interface/user/user.interface";
+import { IFormSignup } from "../../contexts/UserContext";
 import { useContext, useState } from "react";
 import { StyledLabel } from "../../styles/typografy";
 import { StyledInput } from "../../styles/inputs";
