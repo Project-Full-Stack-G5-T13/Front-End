@@ -116,7 +116,7 @@ export const schemaSendEmail = yup.object({
 });
 
 export const schemaResetPassword = yup.object({
-	password: yup
+  password: yup
     .string()
     .required("Senha obrigatória!")
     .matches(/[A-Z]/, "Deve conter ao menos 1 letra maiúscula")
@@ -130,4 +130,8 @@ export const schemaResetPassword = yup.object({
       [yup.ref("password")],
       "Confirmação de senha deve ser igual a senha"
     ),
+});
+
+export const schemaCreateComment = yup.object({
+  description: yup.string().min(1, "Deve conter no mínimo 1 caractér"),
 });
