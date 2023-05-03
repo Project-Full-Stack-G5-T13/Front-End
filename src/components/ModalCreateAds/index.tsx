@@ -6,7 +6,7 @@ import { StyledSelect } from "../../styles/select";
 import { StyledModalTitle } from "../Modal/styled";
 import ModalCreateAdsStyled from "./styled";
 import { useForm } from "react-hook-form";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Modal from "../Modal";
 import {
   StyledHeading_7_500,
@@ -120,6 +120,38 @@ const ModalCreateAds = () => {
     getUserProfile(userId);
     setModalAds(false);
   };
+
+  const cloudinaryRef: any = useRef();
+  const widgetRef: any = useRef();
+  const Window: any = window;
+
+  const [list, setList] = useState([]);
+
+  if (list.length == 1) {
+    setValue("images.main_image", list[0]);
+  } else if (list.length == 2) {
+    setValue("images.main_image", list[0]);
+    setValue("images.image_one", list[1]);
+  } else if (list.length == 3) {
+    setValue("images.main_image", list[0]);
+    setValue("images.image_one", list[1]);
+    setValue("images.image_two", list[2]);
+  }
+
+  useEffect(() => {
+    cloudinaryRef.current = Window.cloudinary;
+    widgetRef.current = cloudinaryRef.current.createUploadWidget(
+      {
+        cloudName: "ddwk2vst5",
+        uploadPreset: "nmqtpguq",
+      },
+      function (err, result) {
+        if (result.event == "success") {
+          setList((prevList) => [...prevList, result.info.url]);
+        }
+      }
+    );
+  }, []);
 
   return (
     <Modal>
@@ -247,7 +279,11 @@ const ModalCreateAds = () => {
             <p className="heading-8-500">{errors.images?.image_two?.message}</p>
           </div>
 
-          <StyledButton_brand_opacity className="add_image">
+          <StyledButton_brand_opacity
+            type="button"
+            onClick={() => widgetRef.current.open()}
+            className="add_image"
+          >
             Adicionar campo para imagem da galeria
           </StyledButton_brand_opacity>
 

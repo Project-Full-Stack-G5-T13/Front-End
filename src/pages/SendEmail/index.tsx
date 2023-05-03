@@ -7,17 +7,14 @@ import { schemaSendEmail } from "../../validations";
 import { StyledInput } from "../../styles/inputs";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
-
-export interface iSendEmail {
-  email: string;
-}
+import { ISendEmail } from "../../interface/user/user.interface";
 
 function SendEmail() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iSendEmail>({
+  } = useForm<ISendEmail>({
     resolver: yupResolver(schemaSendEmail),
   });
 

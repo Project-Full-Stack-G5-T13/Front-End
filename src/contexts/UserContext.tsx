@@ -162,10 +162,9 @@ const Providers = ({ children }: IProvidersProps) => {
     data: IResetPassword,
     token: string
   ): Promise<void> {
-    console.log(data, token);
     try {
       await api.patch(`/users/resetpassword/${token}`, data);
-      navigate("/");
+      navigate("/login");
       toast.success("Senha redefinida!");
     } catch (error) {
       console.log(error);
