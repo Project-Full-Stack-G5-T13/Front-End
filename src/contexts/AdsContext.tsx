@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, ReactNode } from "react";
 
 import { toast } from "react-toastify";
 import api from "../services/api";
@@ -24,6 +24,18 @@ export interface IAdsCreate {
 		image_two?: string;
 		image_three?: string;
 	};
+}
+
+export interface IComment {
+  id: string;
+  description: string;
+  user_id: string;
+  car_id: string;
+  created_at: string;
+  user: {
+    name: string;
+    image_url: string;
+  }
 }
 
 export interface IBrandObject {
@@ -55,6 +67,8 @@ export interface IAdsContext {
 	createAds: (data: IAdsCreate) => Promise<void>;
 	colorSelect: string;
 	setColorSelect: React.Dispatch<React.SetStateAction<string>>;
+  comments: IComment[];
+  setComments: React.Dispatch<React.SetStateAction<IComment>>;
 }
 
 interface IModel {
@@ -66,7 +80,7 @@ interface IModel {
 	year: number;
 }
 
-export const AdsContext = createContext({} as IAdsContext);
+export const AdsContext = createContext({} as any);
 
 const AdsProvider = ({ children }: IProvidersAdsProps) => {
 
@@ -79,6 +93,8 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
   const [colorSelect, setColorSelect] = useState<string>("");
 
   const [model, setModel] = useState<IModel[]>([]);
+
+  const [comments, setComments] = useState<any>([]);
 
   const token = localStorage.getItem("@Motors:token");
 
@@ -149,7 +165,9 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
         createAds,
         colorSelect,
         setColorSelect,
-        globalLoading
+        globalLoading,
+        comments,
+        setComments,
       }}
     >
       {children}

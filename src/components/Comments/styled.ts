@@ -13,6 +13,8 @@ export const Div = styled.div`
 	height: 500px;
 	padding: 20px;
 	margin-bottom: 30px;
+	width: 100%;
+	overflow-y: auto;
 
 	section{
 		margin: 8px;
