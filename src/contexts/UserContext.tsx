@@ -95,178 +95,176 @@ interface IUserContext {
 }
 
 const Providers = ({ children }: IProvidersProps) => {
-	const navigate = useNavigate();
 
-	const [userProfile, setUserProfile] = useState<IUserWithCars>();
-	const [globalLoading, setGlobalLoading] = useState<boolean>(false);
-	const [user, setUser] = useState<IUser>();
+  const navigate = useNavigate();
 
-	async function getUser() {
-		try {
-			const token = localStorage.getItem("@Motors:token");
-			const userId = localStorage.getItem("@Motors:userId");
-			api.defaults.headers.common.Authorization = `Bearer ${token}`;
-			const response = await api.get(`users/${userId}`);
-			const myUser: IUser = response.data;
-			setUser(myUser);
-		} catch (error) {
-			setUser(null);
-			console.error(error);
-		}
-	}
+  const [userProfile, setUserProfile] = useState<IUserWithCars>();
+  const [globalLoading, setGlobalLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<IUser>();
 
-	async function getUserProfile(userId: string) {
-		try {
-			const { data } = await api.get(`users/${userId}`);
-			setUserProfile(data);
-		} catch (error) {
-			console.error(error);
-		}
-	}
+  async function getUser() {
+    try {
+      const token = localStorage.getItem("@Motors:token");
+      const userId = localStorage.getItem("@Motors:userId");
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const response = await api.get(`users/${userId}`);
+      const myUser: IUser = response.data;
+      setUser(myUser);
+    } catch (error) {
+      setUser(null);
+      console.error(error);
+    }
+  }
 
-	async function signInUser(data: IFormLogin): Promise<void> {
-		setGlobalLoading(true);
-		try {
-			const response = await api.post("/session", data);
-			localStorage.setItem("@Motors:token", response.data.token);
-			const decoded: IJwtDecoded = jwtDecode(response.data.token);
-			const userId = decoded.sub;
-			localStorage.setItem("@Motors:userId", `${userId}`);
+  async function getUserProfile(userId: string) {
+    try {
+      const { data } = await api.get(`users/${userId}`);
+      setUserProfile(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-			await getUser();
+  async function signInUser(data: IFormLogin): Promise<void> {
+    setGlobalLoading(true);
+    try {
+      const response = await api.post("/session", data);
+      localStorage.setItem("@Motors:token", response.data.token);
+      const decoded: IJwtDecoded = jwtDecode(response.data.token);
+      const userId = decoded.sub;
+      localStorage.setItem("@Motors:userId", `${userId}`);
 
-			toast.success("Logado com sucesso!");
-			navigate(`/`);
-		} catch (error) {
-			toast.error("Email ou senha invalido!");
-		} finally {
-			setGlobalLoading(false);
-		}
-	}
+      await getUser();
 
-	async function registerUser(data: IFormSignup): Promise<void> {
-		try {
-			await api.post("/users", data);
+      toast.success("Logado com sucesso!");
+      navigate(`/`);
+    } catch (error) {
+      toast.error("Email ou senha invalido!");
+    } finally {
+      setGlobalLoading(false);
+    }
+  }
 
-			navigate("/login");
-			toast.success("Usuário cadastrado com sucesso!");
-		} catch (error) {
-			console.error(error);
-			if (axios.isAxiosError(error)) {
-				if (
-					error?.response?.data.message ==
-					"There is already an account with this email"
-				) {
-					toast.error("Já existe uma conta com este e-mail");
-				} else if (
-					error?.response?.data.message ==
-					"There is already an account with this phone number"
-				) {
-					toast.error(
-						"Já existe uma conta com este número de telefone"
-					);
-				} else if (
-					error?.response?.data.message ==
-					"There is already an account with this cpf"
-				) {
-					toast.error("Já existe uma conta com este cpf");
-				}
-			}
-		}
-	}
+  async function registerUser(data: IFormSignup): Promise<void> {
+    try {
+      await api.post("/users", data);
 
-	async function updateUser(
-		data: IUserUpdate | IAddressUpdateRequest,
-		closeModal: () => void
-	): Promise<Omit<IUser, "address">> {
-		try {
-			const token = localStorage.getItem("@Motors:token");
-			const userId = localStorage.getItem("@Motors:userId");
-			api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      navigate("/login");
+      toast.success("Usuário cadastrado com sucesso!");
+    } catch (error) {
+      console.error(error);
+      if (axios.isAxiosError(error)) {
+        if (
+          error?.response?.data.message ==
+          "There is already an account with this email"
+        ) {
+          toast.error("Já existe uma conta com este e-mail");
+        } else if (
+          error?.response?.data.message ==
+          "There is already an account with this phone number"
+        ) {
+          toast.error("Já existe uma conta com este número de telefone");
+        } else if (
+          error?.response?.data.message ==
+          "There is already an account with this cpf"
+        ) {
+          toast.error("Já existe uma conta com este cpf");
+        }
+      }
+    }
+  }
 
-			const response = await api.patch(`/users/${userId}`, data);
+  async function updateUser(
+    data: IUserUpdate | IAddressUpdateRequest,
+    closeModal: () => void
+  ): Promise<Omit<IUser, "address">> {
+    try {
+      const token = localStorage.getItem("@Motors:token");
+      const userId = localStorage.getItem("@Motors:userId");
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-			const updatedUser = response.data;
-			await getUser();
-			closeModal();
-			toast.success("Usuario atualizado com sucesso!");
-			return updatedUser;
-		} catch (error) {
-			console.error(error);
-			toast.error(error.response.data.message);
-		}
-	}
+      const response = await api.patch(`/users/${userId}`, data);
 
-	async function deleteUser(closeModal: () => void): Promise<void> {
-		try {
-			const token = localStorage.getItem("@Motors:token");
-			const userId = localStorage.getItem("@Motors:userId");
-			api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const updatedUser = response.data;
+      await getUser();
+      closeModal();
+      toast.success("Usuario atualizado com sucesso!");
+      return updatedUser;
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
+  }
 
-			await api.delete(`/users/${userId}`);
+  async function deleteUser(closeModal: () => void): Promise<void> {
+    try {
+      const token = localStorage.getItem("@Motors:token");
+      const userId = localStorage.getItem("@Motors:userId");
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-			localStorage.clear();
-			closeModal();
+      await api.delete(`/users/${userId}`);
 
-			await getUser();
+      localStorage.clear();
+      closeModal();
 
-			navigate("/login");
+      await getUser();
 
-			toast.success("Usuario excluido com sucesso!");
-		} catch (error) {
-			console.error(error);
-			toast.error(error.response.data.message);
-		}
-	}
+      navigate("/login");
 
-	async function sendEmail(data: ISendEmail): Promise<void> {
-		try {
-			await api.post("/users/resetpassword", data);
-			toast.success("E-mail enviado com sucesso!");
-		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				if (error?.response?.data.message == "E-mail not found.") {
-					toast.error("E-mail não encontrado.");
-				}
-			}
-		}
-	}
+      toast.success("Usuario excluido com sucesso!");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
+  }
 
-	async function resetPassword(
-		data: IResetPassword,
-		token: string
-	): Promise<void> {
-		console.log(data, token);
-		try {
-			await api.patch(`/users/resetpassword/${token}`, data);
-			navigate("/login");
-			toast.success("Senha redefinida!");
-		} catch (error) {
-			console.log(error);
-		}
-	}
+  async function sendEmail(data: ISendEmail): Promise<void> {
+    try {
+      await api.post("/users/resetpassword", data);
+      toast.success("E-mail enviado com sucesso!");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error?.response?.data.message == "E-mail not found.") {
+          toast.error("E-mail não encontrado.");
+        }
+      }
+    }
+  }
 
-	return (
-		<UserContext.Provider
-			value={{
-				registerUser,
-				signInUser,
-				globalLoading,
-				setGlobalLoading,
-				user,
-				setUser,
-				getUser,
-				userProfile,
-				getUserProfile,
-				updateUser,
-				deleteUser,
-				sendEmail,
-				resetPassword,
-			}}
-		>
-			{children}
-		</UserContext.Provider>
-	);
+  async function resetPassword(
+    data: IResetPassword,
+    token: string
+  ): Promise<void> {
+    try {
+      await api.patch(`/users/resetpassword/${token}`, data);
+      navigate("/login");
+      toast.success("Senha redefinida!");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return (
+    <UserContext.Provider
+      value={{
+        registerUser,
+        signInUser,
+        globalLoading,
+        setGlobalLoading,
+        user,
+        setUser,
+        getUser,
+        userProfile,
+        getUserProfile,
+        updateUser,
+        deleteUser,
+        sendEmail,
+        resetPassword,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export default Providers;

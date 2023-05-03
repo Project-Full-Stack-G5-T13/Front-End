@@ -3,7 +3,7 @@ import * as yup from "yup";
 export const schemaAdsCreate = yup.object({
   brand: yup.string().required("Marca é obrigatório"),
   model: yup.string().required("Modelo é obrigatório"),
-  launch_year: yup.string().required("Ano é obrigatório"),
+  launch_year: yup.number().required("Ano é obrigatório"),
   fuel_type: yup.string().required("Tipo de combustível é obrigatório"),
   km: yup
     .number()
@@ -22,9 +22,8 @@ export const schemaAdsCreate = yup.object({
       .string()
       .required("Imagem de capa é obrigatório")
       .url("Necessário que seja uma url"),
-    image_one: yup.string().notRequired().url("Necessário que seja uma url"),
+    image_one: yup.string().required("Imagem obrigatório").url("Necessário que seja uma url"),
     image_two: yup.string().notRequired().url("Necessário que seja uma url"),
-    image_three: yup.string().notRequired().url("Necessário que seja uma url"),
   }),
 });
 
