@@ -62,6 +62,10 @@ const GlobalStyle = createGlobalStyle`
         cursor: pointer;
     }
 
+    .pointer {
+		cursor: pointer;
+	}
+
     .heading-1-700{
         font-family: 'Lexend';
         font-weight: 700;

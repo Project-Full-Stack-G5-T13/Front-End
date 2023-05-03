@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
+
 //contexts/AdsContext:
 export interface IProvidersAdsProps {
   children: ReactNode;

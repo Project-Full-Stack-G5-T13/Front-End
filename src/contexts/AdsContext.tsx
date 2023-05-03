@@ -1,18 +1,75 @@
 import { createContext, useState, useEffect, useContext } from "react";
+
 import { toast } from "react-toastify";
 import api from "../services/api";
 import { UserContext } from "./UserContext";
-import {
-  IAdsContext,
-  IAdsCreate,
-  IBrandObject,
-  IModel,
-  IProvidersAdsProps,
-} from "../interface/card/card.interface";
+
+interface IProvidersAdsProps {
+	children: ReactNode;
+}
+
+export interface IAdsCreate {
+	brand: string;
+	model: string;
+	car_color: string;
+	fuel_type: string;
+	description: string;
+	km: number;
+	launch_year: number;
+	price_table?: number;
+	price: number;
+	images: {
+		main_image: string;
+		image_one?: string;
+		image_two?: string;
+		image_three?: string;
+	};
+}
+
+export interface IBrandObject {
+	chevrolet: Array<Object>;
+	citroën: Array<Object>;
+	fiat: Array<Object>;
+	ford: Array<Object>;
+	honda: Array<Object>;
+	hyundai: Array<Object>;
+	nissan: Array<Object>;
+	peugeot: Array<Object>;
+	renault: Array<Object>;
+	toyota: Array<Object>;
+	volkswagen: Array<Object>;
+}
+
+export interface IAdsContext {
+	modalAds: boolean;
+	setModalAds: React.Dispatch<React.SetStateAction<boolean>>;
+	carsTableKenzie: IBrandObject;
+	setCarsTableKenzie: React.Dispatch<React.SetStateAction<IBrandObject>>;
+	brandSelect: string;
+	setBrandSelect: React.Dispatch<React.SetStateAction<string>>;
+	model: IModel[];
+	modelSelect: string;
+	setModelSelect: React.Dispatch<React.SetStateAction<string>>;
+	// allAds:iAdsCreate[];
+	// setAllAds: React.Dispatch<React.SetStateAction<iAdsCreate[]>>
+	createAds: (data: IAdsCreate) => Promise<void>;
+	colorSelect: string;
+	setColorSelect: React.Dispatch<React.SetStateAction<string>>;
+}
+
+interface IModel {
+	brand: string;
+	fuel: number;
+	id: string;
+	name: string;
+	value: number;
+	year: number;
+}
 
 export const AdsContext = createContext({} as IAdsContext);
 
 const AdsProvider = ({ children }: IProvidersAdsProps) => {
+
   const [modalAds, setModalAds] = useState<boolean>(false);
   const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>(
     {} as IBrandObject
