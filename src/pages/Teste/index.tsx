@@ -62,10 +62,7 @@ const Teste = () => {
 					/>
 
 					<StyledInput placeholder="brand" {...register("brand")} />
-					<StyledInput
-						placeholder="combustivel"
-						{...register("fuel_type")}
-					/>
+					<StyledInput placeholder="combustivel" {...register("fuel_type")} />
 
 					<button type="submit">Clique aqui</button>
 				</form>
