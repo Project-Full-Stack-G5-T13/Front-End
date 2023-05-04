@@ -78,10 +78,13 @@ export interface ICardProps {
 		launch_year: number;
 		price: number;
 		is_active: boolean;
+		id: string;
 	};
 
 	good_price?: boolean;
 	is_active?: boolean;
+	profile?: boolean;
+	edit?: (id: string) => void;
 }
 
 //Components/CarList:

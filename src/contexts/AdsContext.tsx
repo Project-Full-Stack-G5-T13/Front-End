@@ -1,5 +1,10 @@
-import { createContext, useState, useEffect, useContext, ReactNode } from "react";
-
+import {
+	createContext,
+	useState,
+	useEffect,
+	useContext,
+	ReactNode,
+} from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 import { UserContext } from "./UserContext";
@@ -26,6 +31,25 @@ export interface IAdsCreate {
 	};
 }
 
+export interface IAdsUpdate {
+	brand?: string;
+	model?: string;
+	car_color?: string;
+	fuel_type?: string;
+	description?: string;
+	km?: number;
+	launch_year?: number;
+	price_table?: number;
+	price?: number;
+	images?: {
+		main_image?: string;
+		image_one?: string;
+		image_two?: string;
+		image_three?: string;
+	};
+	is_active?: boolean;
+}
+
 export interface IComment {
 	id: string;
 	description: string;
@@ -38,6 +62,17 @@ export interface IComment {
 	};
 }
 
+export interface IComment {
+	id: string;
+	description: string;
+	user_id: string;
+	car_id: string;
+	created_at: string;
+	user: {
+		name: string;
+		image_url: string;
+	};
+}
 export interface IBrandObject {
 	chevrolet: Array<Object>;
 	citroën: Array<Object>;
@@ -67,6 +102,8 @@ export interface IAdsContext {
 	createAds: (data: IAdsCreate) => Promise<void>;
 	colorSelect: string;
 	setColorSelect: React.Dispatch<React.SetStateAction<string>>;
+	updateAds: (data: IAdsUpdate, adId: string) => Promise<void>;
+	deleteAds: (adId: string) => Promise<void>;
 	comments: IComment[];
 	setComments: React.Dispatch<React.SetStateAction<IComment>>;
 	getCar: (carId: string) => Promise<any>;
@@ -85,7 +122,9 @@ export const AdsContext = createContext({} as any);
 
 const AdsProvider = ({ children }: IProvidersAdsProps) => {
 	const [modalAds, setModalAds] = useState<boolean>(false);
-	const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>({} as IBrandObject);
+	const [carsTableKenzie, setCarsTableKenzie] = useState<IBrandObject>(
+		{} as IBrandObject
+	);
 	const [brandSelect, setBrandSelect] = useState<string>("");
 	const [modelSelect, setModelSelect] = useState<string>("");
 	const [colorSelect, setColorSelect] = useState<string>("");
@@ -99,20 +138,12 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 	const { globalLoading, setGlobalLoading } = useContext(UserContext);
 	const [allAds, setAllAds] = useState<IAdsCreate[]>([]);
 
-	const getCar = async (carId: string) => {
-		try {
-			const { data } = await api.get(`/ads/${carId}`);
-			return data;
-		} catch (err) {
-			toast.error("Ocorreu algum erro");
-			console.log(err);
-		}
-	};
-
 	useEffect(() => {
 		async function carsTable() {
 			try {
-				const response = await api.get("https://kenzie-kars.herokuapp.com/cars");
+				const response = await api.get(
+					"https://kenzie-kars.herokuapp.com/cars"
+				);
 
 				setCarsTableKenzie(response.data);
 			} catch (error) {
@@ -156,6 +187,46 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 		}
 	}
 
+	async function updateAds(data: IAdsUpdate, adId: string): Promise<void> {
+		setGlobalLoading(true);
+		try {
+			api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+			const response = await api.patch(`/ads/${adId}`, data);
+
+			toast.success("Anúncio atualizado com sucesso!");
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setGlobalLoading(false);
+		}
+	}
+
+	async function deleteAds(adId: string): Promise<void> {
+		setGlobalLoading(true);
+		try {
+			api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+			const response = await api.delete(`/ads/${adId}`);
+
+			toast.success("Anúncio deletado com sucesso!");
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setGlobalLoading(false);
+		}
+	}
+
+	const getCar = async (carId: string) => {
+		try {
+			const { data } = await api.get(`/ads/${carId}`);
+			return data;
+		} catch (err) {
+			toast.error("Ocorreu algum erro");
+			console.log(err);
+		}
+	};
+
 	return (
 		<AdsContext.Provider
 			value={{
@@ -171,6 +242,8 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 				createAds,
 				colorSelect,
 				setColorSelect,
+				updateAds,
+				deleteAds,
 				globalLoading,
 				comments,
 				setComments,
