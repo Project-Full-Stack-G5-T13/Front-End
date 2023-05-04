@@ -31,6 +31,25 @@ export interface IAdsCreate {
 	};
 }
 
+export interface IAdsUpdate {
+	brand?: string;
+	model?: string;
+	car_color?: string;
+	fuel_type?: string;
+	description?: string;
+	km?: number;
+	launch_year?: number;
+	price_table?: number;
+	price?: number;
+	images?: {
+		main_image?: string;
+		image_one?: string;
+		image_two?: string;
+		image_three?: string;
+	};
+	is_active?: boolean;
+}
+
 export interface IBrandObject {
 	chevrolet: Array<Object>;
 	citroën: Array<Object>;
@@ -60,6 +79,8 @@ export interface IAdsContext {
 	createAds: (data: IAdsCreate) => Promise<void>;
 	colorSelect: string;
 	setColorSelect: React.Dispatch<React.SetStateAction<string>>;
+	updateAds: (data: IAdsUpdate, adId: string) => Promise<void>;
+	deleteAds: (adId: string) => Promise<void>;
 }
 
 interface IModel {
@@ -138,6 +159,36 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 		}
 	}
 
+	async function updateAds(data: IAdsUpdate, adId: string): Promise<void> {
+		setGlobalLoading(true);
+		try {
+			api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+			const response = await api.patch(`/ads/${adId}`, data);
+
+			toast.success("Anúncio atualizado com sucesso!");
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setGlobalLoading(false);
+		}
+	}
+
+	async function deleteAds(adId: string): Promise<void> {
+		setGlobalLoading(true);
+		try {
+			api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+			const response = await api.delete(`/ads/${adId}`);
+
+			toast.success("Anúncio deletado com sucesso!");
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setGlobalLoading(false);
+		}
+	}
+
 	return (
 		<AdsContext.Provider
 			value={{
@@ -153,6 +204,8 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 				createAds,
 				colorSelect,
 				setColorSelect,
+				updateAds,
+				deleteAds,
 			}}
 		>
 			{children}
