@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Div } from "./styled";
 import img from "../../assets/default-user-image.png"
 import { useContext } from "react";
@@ -8,10 +8,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaCreateComment } from "../../validations";
 import api from "../../services/api";
 import { UserContext } from "../../contexts/UserContext";
+import * as io from "socket.io-client";
+
+const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
 
 function MakeComments() {
-	const { setComments, comments } = useContext(AdsContext);
+	const { comments } = useContext(AdsContext);
 	const { user } = useContext(UserContext);
+
+	const { id } = useParams();
 
 	const {
 		setValue,
@@ -19,22 +24,22 @@ function MakeComments() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<IComment>({
-		resolver: yupResolver(schemaCreateComment)
+		resolver: yupResolver(schemaCreateComment),
+		mode: "onChange",
 	});
-
-	const createComment = async (payload: any) => {
-
+	
+	const createComment = async (payload: IComment) => {
+		
 		const token = window.localStorage.getItem("@Motors:token");
 
 		api.defaults.headers.authorization = `Bearer ${token}`;
+		const response = await api.post(`/comments/${id}`, payload);
 
-		const response = await api.post(`/comments/${"cf8fa196-5992-4281-aa88-07a49044c6b9"}`, payload);
-		setComments([response.data, ...comments]);
+		socket.emit("create_comment", [response.data, ...comments]);
 
 		setValue("description", "");
 	};
 
-	const navigate = useNavigate();
 	return (
 		<>
 			<Div>
