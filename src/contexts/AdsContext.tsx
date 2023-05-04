@@ -61,6 +61,18 @@ export interface IComment {
 		image_url: string;
 	};
 }
+
+export interface IComment {
+	id: string;
+	description: string;
+	user_id: string;
+	car_id: string;
+	created_at: string;
+	user: {
+		name: string;
+		image_url: string;
+	};
+}
 export interface IBrandObject {
 	chevrolet: Array<Object>;
 	citroën: Array<Object>;
@@ -94,6 +106,7 @@ export interface IAdsContext {
 	deleteAds: (adId: string) => Promise<void>;
 	comments: IComment[];
 	setComments: React.Dispatch<React.SetStateAction<IComment>>;
+	getCar: (carId: string) => Promise<any>;
 }
 
 interface IModel {
@@ -204,6 +217,16 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 		}
 	}
 
+	const getCar = async (carId: string) => {
+		try {
+			const { data } = await api.get(`/ads/${carId}`);
+			return data;
+		} catch (err) {
+			toast.error("Ocorreu algum erro");
+			console.log(err);
+		}
+	};
+
 	return (
 		<AdsContext.Provider
 			value={{
@@ -224,6 +247,7 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 				globalLoading,
 				comments,
 				setComments,
+				getCar,
 			}}
 		>
 			{children}
