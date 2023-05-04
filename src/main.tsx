@@ -5,6 +5,7 @@ import React from "react";
 import App from "./App";
 import Providers from "./contexts/UserContext";
 import AdsContext from "./contexts/AdsContext";
+import GlobalLoading from "./components/GlobalLoading";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <GlobalStyle />
       <Providers>
         <AdsContext>
-          <App />
+          <GlobalLoading>
+            <App />
+          </GlobalLoading>
         </AdsContext>
       </Providers>
     </BrowserRouter>

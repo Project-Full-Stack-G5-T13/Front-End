@@ -31,6 +31,7 @@ export const Section = styled.section`
 
 		& > .end {
 			align-self: flex-end;
+			cursor: pointer;
 		}
 
 		& > .center {

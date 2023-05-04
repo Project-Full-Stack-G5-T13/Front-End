@@ -72,6 +72,10 @@ export const Div = styled.div`
     color: var(--fixed-white);
     border-radius: 4px;
     border: none;
+
+		:disabled {
+			background-color: #CED4DA;
+		};
   }
 
 	input {
@@ -108,5 +112,12 @@ export const Div = styled.div`
 		color: var(--gray-3);
 		border-radius: 24px;
 		font-size: 12px;
+		cursor: pointer;
   }
+
+	.error-message{
+		font-size: 12px;
+		color: #FF1F1F;
+		padding-top: 5px;
+	}
 `;
