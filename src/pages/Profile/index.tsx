@@ -11,9 +11,12 @@ import {
 	StyledButton_white_outline,
 } from "../../styles/buttons";
 import { StyledHeading_1, StyledSpanDetail } from "../../styles/typografy";
+import ModalEditAds from "../../components/ModalEditAds";
 const Profile = () => {
 	const [isProfile, setIsProfile] = useState<boolean>(false);
 	const { modalAds, setModalAds } = useContext(AdsContext);
+	const [openEditModal, setOpenEditModal] = useState(false);
+	const [adId, setAdId] = useState("");
 	const navigate = useNavigate();
 	const { getUserProfile, userProfile } = useContext(UserContext);
 
@@ -35,6 +38,15 @@ const Profile = () => {
 		}
 		fetchUser();
 	}, [userId]);
+
+	function editModal(id: string) {
+		setAdId(id);
+		setOpenEditModal(true);
+	}
+
+	function closeEditModal() {
+		setOpenEditModal(false);
+	}
 
 	return (
 		<>
@@ -71,11 +83,19 @@ const Profile = () => {
 								userProfile?.cars.length > 0 ? (
 									<ul className="list">
 										{userProfile?.cars.map((e) => {
-											return (
+											return isProfile ? (
 												<Card
 													key={e.id}
 													car={e}
-													is_active={e.is_active}
+													is_active
+													profile
+													edit={editModal}
+												/>
+											) : (
+												<Card
+													key={e.id}
+													car={e}
+													is_active
 												/>
 											);
 										})}
@@ -106,6 +126,9 @@ const Profile = () => {
 				</Main>
 			</Container>
 			{modalAds && <ModalCreateAds />}
+			{openEditModal && (
+				<ModalEditAds adsId={adId} closeModal={closeEditModal} />
+			)}
 		</>
 	);
 };

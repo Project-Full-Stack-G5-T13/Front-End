@@ -9,8 +9,10 @@ import UserAvatar from "../UserAvatar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ICardProps } from "../../interface/card/card.interface";
+import { StyledButton_white_outline_medium } from "../../styles/buttons";
+import ModalEditAds from "../ModalEditAds";
 
-const Card = ({ car, good_price, is_active }: ICardProps) => {
+const Card = ({ car, good_price, is_active, profile, edit }: ICardProps) => {
 	const [image, setImage] = useState(car.images.main_image);
 
 	const handleErrorImage = () => {
@@ -23,7 +25,10 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 
 	return (
 		<StyledCardDiv>
-			<figure className="imgContainer">
+			<figure
+				className="imgContainer"
+				onClick={() => navigate(`/car/${car.id}`)}
+			>
 				<img
 					src={image}
 					onError={handleErrorImage}
@@ -50,7 +55,7 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 					navigate(`/profile/${car.user.id}`);
 				}}
 			>
-				<UserAvatar user={car.user} />
+				{!profile && <UserAvatar user={car.user} />}
 			</div>
 			<div className="base_info">
 				<div>
@@ -64,6 +69,21 @@ const Card = ({ car, good_price, is_active }: ICardProps) => {
 					})}
 				</StyledHeading_7_500>
 			</div>
+
+			{profile && (
+				<div className="button-container">
+					<StyledButton_white_outline_medium
+						onClick={() => edit(car.id)}
+					>
+						Editar
+					</StyledButton_white_outline_medium>
+					<StyledButton_white_outline_medium
+						onClick={() => navigate(`/car/${car.id}`)}
+					>
+						Ver detalhes
+					</StyledButton_white_outline_medium>
+				</div>
+			)}
 		</StyledCardDiv>
 	);
 };

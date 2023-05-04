@@ -1,429 +1,177 @@
 import styled from "styled-components";
 import halfimg from "../../assets/half-back.png";
+import UserAvatar from "../../components/UserAvatar";
 
 export const Section = styled.section`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	min-height: 30%;
+	width: 100vw;
+	min-height: 100vh;
 	background-image: url(${halfimg});
 	background-repeat: no-repeat;
 	background-size: contain;
+	background-size: 100% 900px;
 
-	@media (max-width: 900px) {
-		background-size: 100% 900px;
-	}
-
-	@media (max-width: 580px) {
-		background-size: 100% 900px;
+	@media (max-width: 768px) {
+		background-size: 100% 700px;
 	}
 `;
 
-export const Article = styled.article`
+export const Container = styled.div`
 	margin: 0 auto;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	max-width: 1400px;
-	gap: 30px;
+	width: 100%;
+	max-width: 1240px;
+	padding: 1rem;
+`;
 
-	@media (max-width: 900px) {
+export const Main = styled.div`
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1rem;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
+
+	.main-content {
+		width: 60%;
 		display: flex;
 		flex-direction: column;
-		gap: 0px;
-	}
+		gap: 1rem;
 
-	@media (max-width: 580px) {
-		width: 300px;
-
-		h3 {
-			font-size: 16px;
+		@media (max-width: 768px) {
+			width: 100%;
 		}
 	}
-`;
-
-export const Main = styled.main`
-	display: flex;
-	flex-direction: column;
-	margin-top: 29px;
-	width: 550px;
-
-	@media (max-width: 580px) {
-		align-items: center;
-	}
-`;
-
-export const SecondMain = styled.main`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 140px;
-	margin-bottom: 30px;
-	gap: 30px;
-	width: 300px;
-
-	@media (max-width: 900px) {
-		margin-top: 0px;
-	}
-`;
-
-export const Figure = styled.figure`
-	margin-top: 120px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 550px;
-	height: 260px;
-	background-color: var(--grey-10);
-	border-radius: 4px;
-
-	img {
-		width: 80%;
-		max-width: 470px;
-		min-width: 260px;
-	}
-
-	@media (max-width: 580px) {
-		width: 470px;
-	}
-	@media (max-width: 490px) {
-		width: 370px;
-	}
-	@media (max-width: 390px) {
-		width: 320px;
-	}
-	@media (max-width: 370px) {
-		width: 270px;
-	}
-`;
-
-export const Div = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	border-radius: 4px;
-	gap: 8px;
-	background-color: var(--fixed-white);
-	width: 550px;
-	height: 260px;
-	margin-top: 30px;
-	padding: 20px;
-
-	h3 {
-		height: 80px;
+	.main-picture {
 		width: 100%;
-		text-align: center;
-		margin: 0 auto;
-		text-overflow: ellipsis;
-		overflow-x: hidden;
-	}
-
-	.container {
-		width: 100%;
-	}
-
-	.priceAndSpan {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		font-family: "Inter";
-		font-style: normal;
-		font-weight: 600;
-		font-size: 14px;
-	}
-	.span {
-		font-family: "Inter";
-		display: flex;
-		flex-direction: row;
-		width: 50%;
-		gap: 20px;
-	}
-
-	.price {
-		font-family: "Inter";
-		width: 100px;
-	}
-
-	span {
-		width: 70px;
-		height: 28px;
-		display: flex;
-		justify-content: space-around;
-		background-color: var(--brand-4);
-		color: var(--brand-2);
-		padding-top: 5px;
-		border-radius: 4px;
-	}
-
-	button {
-		margin-top: 20px;
-		width: 100px;
-		height: 38px;
-		background-color: var(--brand-1);
-		border: 1.5px solid #4529e6;
-		border-radius: 4px;
-		color: var(--fixed-white);
-		font-family: "Inter";
-		font-style: normal;
-		font-weight: 600;
-		font-size: 14px;
-	}
-
-	@media (max-width: 580px) {
-		width: 470px;
-	}
-	@media (max-width: 490px) {
-		width: 370px;
-	}
-	@media (max-width: 390px) {
-		width: 320px;
-	}
-	@media (max-width: 370px) {
-		width: 270px;
-	}
-`;
-
-export const SecondDiv = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	border-radius: 4px;
-	gap: 8px;
-	background-color: var(--fixed-white);
-	width: 550px;
-	height: 260px;
-	margin-top: 30px;
-	padding: 20px;
-	margin-bottom: 30px;
-
-	h3 {
-		height: 40px;
-		width: 500px;
-		text-overflow: ellipsis;
-		overflow-x: hidden;
-	}
-
-	p {
-		font-family: "Inter";
-		color: var(--grey-2);
-		width: 100%;
-		font-style: normal;
-		font-weight: 400;
-		font-size: 16px;
-		height: 130px;
-		text-overflow: ellipsis;
-		overflow-x: hidden;
-	}
-
-	@media (max-width: 580px) {
-		width: 470px;
-	}
-
-	@media (max-width: 490px) {
-		width: 370px;
-
-		p {
-			font-size: 14px;
-		}
-	}
-
-	@media (max-width: 390px) {
-		width: 320px;
-
-		p {
-			font-size: 13px;
-		}
-	}
-
-	@media (max-width: 370px) {
-		width: 270px;
-	}
-`;
-
-export const Aside = styled.aside`
-	width: 300px;
-	height: 300px;
-	border-radius: 4px;
-	background-color: var(--fixed-white);
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	padding: 30px;
-
-	.aside-images {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: stretch;
-		gap: 10px;
-	}
-
-	.aside-images img {
-		width: 73px;
-		height: 73px;
-		background-color: var(--grey-8);
-	}
-
-	.defaultphoto {
-		width: 60px;
-		height: 60px;
-		border-radius: 50px;
-	}
-
-	@media (max-width: 900px) {
-		width: 550px;
-
-		.aside-images {
-			align-self: center;
-			width: 300px;
-			justify-content: center;
-		}
-	}
-
-	@media (max-width: 580px) {
-		width: 470px;
-	}
-	@media (max-width: 490px) {
-		width: 370px;
-	}
-	@media (max-width: 390px) {
-		width: 320px;
-	}
-	@media (max-width: 370px) {
-		width: 270px;
-	}
-`;
-
-export const SecondAside = styled.aside`
-	width: 300px;
-	height: 300px;
-	border-radius: 4px;
-	background-color: var(--fixed-white);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 15px;
-	padding: 15px;
-
-	img {
-		width: 60px;
-		height: 60px;
-		border-radius: 50px;
-	}
-	p {
-		font-family: "Inter";
-		height: 1-00px;
-		text-align: center;
-		margin: 0 auto;
-		font-style: normal;
-		font-weight: 400;
-		font-size: 15px;
-		color: var(--grey-2);
-	}
-
-	button {
-		width: 206px;
-		height: 48px;
-		background-color: var(--grey-0);
-		color: var(--fixed-white);
-		border-radius: 4px;
-		border: none;
-	}
-
-	@media (max-width: 900px) {
-		width: 550px;
-
-		.aside-images {
-			align-self: center;
-			width: 300px;
-			justify-content: center;
-		}
-	}
-
-	@media (max-width: 580px) {
-		width: 470px;
-	}
-	@media (max-width: 490px) {
-		width: 370px;
-
-		p {
-			font-size: 14px;
-		}
-	}
-
-	@media (max-width: 390px) {
-		width: 320px;
-		p {
-			font-size: 13px;
-		}
-	}
-
-	@media (max-width: 370px) {
-		width: 270px;
-
-		button {
-			width: 150px;
-			background-color: var(--grey-0);
-			color: var(--fixed-white);
-			border-radius: 4px;
-			border: none;
-		}
-	}
-`;
-
-export const Modal = styled.div`
-	z-index: 1000;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	background-color: rgba(0, 0, 0, 0.4);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-
-	.modal-wrapper {
-		width: 100%;
-		max-width: 500px;
+		padding: 2rem;
 		background-color: white;
-		border-radius: 5px;
-		padding: 1rem;
-	}
-
-	.modal-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 1rem;
-
-		button {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-weight: 700;
-			font-size: x-large;
-			border: none;
-			color: var(--grey-4);
-			background-color: transparent;
-		}
-	}
-
-	.modal-img {
-		background-color: var(--grey-6);
-		border-radius: 5px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 300px;
+		aspect-ratio: 16/9;
 
 		img {
 			width: 100%;
 			height: 100%;
+			object-fit: cover;
 		}
+	}
+	.car-info-box {
+		width: 100%;
+		padding: 2rem;
+		background-color: white;
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		gap: 2rem;
+	}
+
+	.car-info {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.info {
+		display: flex;
+		gap: 1rem;
+	}
+	.car-description-box {
+		width: 100%;
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		background-color: white;
+		min-height: 160px;
+	}
+	.side-content {
+		width: 40%;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		@media (max-width: 768px) {
+			width: 100%;
+		}
+	}
+	.car-gallery {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 2rem;
+		background-color: white;
+	}
+
+	.wrapper {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-column-gap: 1rem;
+		grid-row-gap: 1rem;
+	}
+
+	.img-box {
+		width: 100%;
+		aspect-ratio: 1/1;
+		overflow: hidden;
+		border-radius: 12px;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	.user-box {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		background-color: white;
+		padding: 2rem;
+	}
+`;
+
+const randomColors = [
+	"#E34D8C",
+	"#C04277",
+	"#7D2A4D",
+	"#7000FF",
+	"#6200E3",
+	"#36007D",
+	"#349974",
+	"#2A7D5F",
+	"#153D2E",
+	"#6100FF",
+	"#5700E3",
+	"#30007D",
+];
+
+const getRandomColor = () => {
+	const index = Math.floor(Math.random() * randomColors.length);
+	return randomColors[index];
+};
+
+export const UserImage = styled.div`
+	width: 100px;
+	aspect-ratio: 1/1;
+	overflow: hidden;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: ${getRandomColor};
+	color: var(--fixed-white);
+	font-weight: 600;
+	font-size: 2rem;
+	line-height: 24px;
+	text-transform: capitalize;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 `;
