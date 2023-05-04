@@ -25,7 +25,10 @@ const Card = ({ car, good_price, is_active, profile, edit }: ICardProps) => {
 
 	return (
 		<StyledCardDiv>
-			<figure className="imgContainer">
+			<figure
+				className="imgContainer"
+				onClick={() => navigate(`/car/${car.id}`)}
+			>
 				<img
 					src={image}
 					onError={handleErrorImage}
@@ -74,7 +77,9 @@ const Card = ({ car, good_price, is_active, profile, edit }: ICardProps) => {
 					>
 						Editar
 					</StyledButton_white_outline_medium>
-					<StyledButton_white_outline_medium>
+					<StyledButton_white_outline_medium
+						onClick={() => navigate(`/car/${car.id}`)}
+					>
 						Ver detalhes
 					</StyledButton_white_outline_medium>
 				</div>
