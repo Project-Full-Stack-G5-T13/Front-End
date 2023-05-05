@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Div } from "./styled";
 import img from "../../assets/default-user-image.png";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AdsContext } from "../../contexts/AdsContext";
 import api from "../../services/api";
 import moment from "moment";
@@ -12,10 +12,13 @@ const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
 
 function Comments() {
   const { setComments, comments } = useContext(AdsContext);
+  const [ticking, SetTicking] = useState(0);
 
   const { id } = useParams();
 
   useEffect(() => {
+    socket.emit("join_room", id);
+
     (async () => {
       const response = await api.get(`/comments/${id}`);
       setComments(response.data);
@@ -26,7 +29,11 @@ function Comments() {
     socket.on("received_comments", (data) => {
       setComments(data);
     });
-  }, [socket]);
+
+    setComments(comments);
+  }, [socket, ticking]);
+
+  setInterval(() => { SetTicking(Math.random()) }, 30000);
 
   const elapsedTime = (created_at: string): string => {
     const diff = moment().diff(new Date(created_at));

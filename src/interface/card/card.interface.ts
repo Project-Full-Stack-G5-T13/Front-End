@@ -118,6 +118,7 @@ export interface IAdsReturn {
 	};
 	user_id: string;
 	user: {
+		id: string;
 		name: string;
 		image_url: string;
 		description: string;
