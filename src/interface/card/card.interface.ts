@@ -122,6 +122,7 @@ export interface IAdsReturn {
 		name: string;
 		image_url: string;
 		description: string;
+		phone_number: number;
 	};
 }
 
