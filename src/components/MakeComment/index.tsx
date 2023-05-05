@@ -27,15 +27,14 @@ function MakeComments() {
 		resolver: yupResolver(schemaCreateComment),
 		mode: "onChange",
 	});
-	
+
 	const createComment = async (payload: IComment) => {
-		
 		const token = window.localStorage.getItem("@Motors:token");
 
 		api.defaults.headers.authorization = `Bearer ${token}`;
 		const response = await api.post(`/comments/${id}`, payload);
 
-		socket.emit("create_comment", [response.data, ...comments]);
+		socket.emit("create_comment", { comments: [response.data, ...comments], id });
 
 		setValue("description", "");
 	};
