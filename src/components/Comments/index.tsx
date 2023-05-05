@@ -1,21 +1,39 @@
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Div } from "./styled";
-import img from "../../assets/default-user-image.png"
-import { useContext, useEffect } from "react";
+import img from "../../assets/default-user-image.png";
+import { useContext, useEffect, useState } from "react";
 import { AdsContext } from "../../contexts/AdsContext";
 import api from "../../services/api";
 import moment from "moment";
 import { IComment } from "../../contexts/AdsContext";
+import * as io from "socket.io-client";
+
+const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
 
 function Comments() {
   const { setComments, comments } = useContext(AdsContext);
+  const [ticking, SetTicking] = useState(0);
+
+  const { id } = useParams();
 
   useEffect(() => {
+    socket.emit("join_room", id);
+
     (async () => {
-      const response = await api.get(`/comments/${"cf8fa196-5992-4281-aa88-07a49044c6b9"}`);
-      setComments(response.data)
+      const response = await api.get(`/comments/${id}`);
+      setComments(response.data);
     })();
   }, []);
+
+  useEffect(() => {
+    socket.on("received_comments", (data) => {
+      setComments(data);
+    });
+
+    setComments(comments);
+  }, [socket, ticking]);
+
+  setInterval(() => { SetTicking(Math.random()) }, 30000);
 
   const elapsedTime = (created_at: string): string => {
     const diff = moment().diff(new Date(created_at));
@@ -26,14 +44,6 @@ function Comments() {
     const seconds = Number(time.format("ss"));
 
     switch (true) {
-
-      case hours >= 24:
-
-        if (hours > 24) {
-          return `há ${hours} dia`;
-        } else {
-          return `há ${hours} dias`;
-        }
 
       case hours >= 1 && hours <= 24:
 
@@ -60,8 +70,6 @@ function Comments() {
         }
     };
   };
-
-  const navigate = useNavigate();
 
   return (
     <>

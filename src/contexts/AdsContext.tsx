@@ -105,8 +105,9 @@ export interface IAdsContext {
 	updateAds: (data: IAdsUpdate, adId: string) => Promise<void>;
 	deleteAds: (adId: string) => Promise<void>;
 	comments: IComment[];
-	setComments: React.Dispatch<React.SetStateAction<IComment>>;
+	setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
 	getCar: (carId: string) => Promise<any>;
+  globalLoading: boolean;
 }
 
 interface IModel {
@@ -118,7 +119,7 @@ interface IModel {
 	year: number;
 }
 
-export const AdsContext = createContext({} as any);
+export const AdsContext = createContext({} as IAdsContext);
 
 const AdsProvider = ({ children }: IProvidersAdsProps) => {
 	const [modalAds, setModalAds] = useState<boolean>(false);

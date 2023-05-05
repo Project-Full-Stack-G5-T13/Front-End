@@ -23,6 +23,8 @@ function Car() {
 	const { id } = useParams();
 	const [isOpen, setIsOpen] = useState(false);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		const fetchCar = async () => {
 			const car = await getCar(id);
@@ -121,7 +123,11 @@ function Car() {
 											<div>{currentCar.user.name[0].toUpperCase()}</div>
 										</UserImage>
 										<h2>{currentCar.user.name}</h2>
-										<StyledButton_black>
+										<StyledButton_black
+											onClick={() =>
+												navigate(`/profile/${currentCar.user_id}`)
+											}
+										>
 											Ver todos os anuncios{" "}
 										</StyledButton_black>
 									</div>
