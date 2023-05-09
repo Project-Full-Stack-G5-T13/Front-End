@@ -42,9 +42,7 @@ export const StyledButton_grey_medium = styled(StyledButton_grey)`
 	font-size: 14px;
 `;
 
-export const StyledButton_primary = styled.a.attrs({
-	target: "_blank"
-})`
+export const StyledButton_primary = styled.button`
 	padding: 12px 28px;
 	background-color: var(--brand-1);
 	border: 1.5px solid var(--brand-1);
