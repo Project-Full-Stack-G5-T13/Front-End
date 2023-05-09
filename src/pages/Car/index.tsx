@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import car from "../../assets/EXTERIOR-frontSidePilotNear-1653845164710-removebg-preview 1.png";
 import defaultphoto from "../../assets/default-user-image.png";
@@ -97,7 +97,12 @@ function Car() {
 												})}
 											</StyledHeading_7_500>
 										</div>
-										<StyledButton_primary>Comprar</StyledButton_primary>
+										<StyledButton_primary
+											href={`https://wa.me/55${currentCar.user.phone_number}
+											?text=Tenho interesse em comprar seu automóvel.`
+											}>
+											Comprar
+										</StyledButton_primary>
 									</div>
 									<div className="car-description-box">
 										<h3>Descrição</h3>

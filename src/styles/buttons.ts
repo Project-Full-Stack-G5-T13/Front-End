@@ -42,7 +42,9 @@ export const StyledButton_grey_medium = styled(StyledButton_grey)`
 	font-size: 14px;
 `;
 
-export const StyledButton_primary = styled.button`
+export const StyledButton_primary = styled.a.attrs({
+	target: "_blank"
+})`
 	padding: 12px 28px;
 	background-color: var(--brand-1);
 	border: 1.5px solid var(--brand-1);
@@ -51,6 +53,8 @@ export const StyledButton_primary = styled.button`
 	font-size: 16px;
 	font-weight: 600;
 	color: var(--fixed-white);
+	
+	cursor: pointer;
 
 	:hover {
 		background-color: var(--brand-2);
