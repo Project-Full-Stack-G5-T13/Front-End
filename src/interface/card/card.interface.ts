@@ -116,7 +116,7 @@ export interface IAdsReturn {
 		image_four?: string;
 		image_five?: string;
 	};
-	user_id: string;
+	// user_id: string;
 	user: {
 		id: string;
 		name: string;
@@ -130,7 +130,7 @@ export interface IComment {
 	id: string;
 	description: string;
 	user_id: string;
-	car_id: string;
+	// car_id: string;
 	created_at: Date;
 }
 
