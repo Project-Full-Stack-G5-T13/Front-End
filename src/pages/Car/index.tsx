@@ -1,8 +1,8 @@
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import car from "../../assets/EXTERIOR-frontSidePilotNear-1653845164710-removebg-preview 1.png";
 import defaultphoto from "../../assets/default-user-image.png";
-import { Container, Main, Section, UserImage } from "./styled";
+import { Container, Main, Section, UserImage, BuyCar } from "./styled";
 import Comments from "../../components/Comments";
 import MakeComment from "../../components/MakeComment";
 import { useContext, useEffect, useState } from "react";
@@ -97,12 +97,12 @@ function Car() {
 												})}
 											</StyledHeading_7_500>
 										</div>
-										<StyledButton_primary
+										<BuyCar
 											href={`https://wa.me/55${currentCar.user.phone_number}
 											?text=Tenho interesse em comprar seu automóvel.`
 											}>
 											Comprar
-										</StyledButton_primary>
+										</BuyCar>
 									</div>
 									<div className="car-description-box">
 										<h3>Descrição</h3>
