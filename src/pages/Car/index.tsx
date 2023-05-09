@@ -17,7 +17,9 @@ import MakeComments from "../../components/MakeComment";
 
 function Car() {
 	const { getCar } = useContext(AdsContext);
-	const [currentCar, setCurrentCar] = useState<IAdsCompleteReturn | undefined>();
+	const [currentCar, setCurrentCar] = useState<
+		IAdsCompleteReturn | undefined
+	>();
 	const [data, setData] = useState<any>({});
 	const [images, setImages] = useState([]);
 	const { id } = useParams();
@@ -91,16 +93,19 @@ function Car() {
 											</div>
 
 											<StyledHeading_7_500>
-												{currentCar.price.toLocaleString("pt-br", {
-													style: "currency",
-													currency: "BRL",
-												})}
+												{currentCar.price.toLocaleString(
+													"pt-br",
+													{
+														style: "currency",
+														currency: "BRL",
+													}
+												)}
 											</StyledHeading_7_500>
 										</div>
 										<BuyCar
 											href={`https://wa.me/55${currentCar.user.phone_number}
-											?text=Tenho interesse em comprar seu automóvel.`
-											}>
+											?text=Tenho interesse em comprar seu automóvel.`}
+										>
 											Comprar
 										</BuyCar>
 									</div>
@@ -114,10 +119,15 @@ function Car() {
 										<h3>Fotos</h3>
 										<div className="wrapper">
 											{images.map((i, index) => (
-												<div key={index} className="img-box">
+												<div
+													key={index}
+													className="img-box"
+												>
 													<img
 														src={i}
-														onClick={() => handleOpen(index)}
+														onClick={() =>
+															handleOpen(index)
+														}
 													/>
 												</div>
 											))}
@@ -125,12 +135,16 @@ function Car() {
 									</div>
 									<div className="user-box">
 										<UserImage>
-											<div>{currentCar.user.name[0].toUpperCase()}</div>
+											<div>
+												{currentCar.user.name[0].toUpperCase()}
+											</div>
 										</UserImage>
 										<h2>{currentCar.user.name}</h2>
 										<StyledButton_black
 											onClick={() =>
-												navigate(`/profile/${currentCar.user_id}`)
+												navigate(
+													`/profile/${currentCar.user.id}`
+												)
 											}
 										>
 											Ver todos os anuncios{" "}
