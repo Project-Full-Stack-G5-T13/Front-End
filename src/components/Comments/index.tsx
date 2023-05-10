@@ -7,14 +7,93 @@ import api from "../../services/api";
 import moment from "moment";
 import { IComment } from "../../contexts/AdsContext";
 import * as io from "socket.io-client";
+import CommentsModal from "../CommentsEditModal";
+import { toast } from "react-toastify";
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
+const token = window.localStorage.getItem("@Motors:token");
 
 function Comments() {
   const { setComments, comments } = useContext(AdsContext);
   const [ticking, SetTicking] = useState(0);
-
   const { id } = useParams();
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedComment, setSelectedComment] = useState<IComment | null>(null);
+
+  const handleEditComment = (comment: IComment) => {
+    setSelectedComment(comment);
+    setShowEditModal(true);
+  }
+  
+  const handleDeleteComment = (comment: IComment) => {
+    setSelectedComment(comment);
+    setShowDeleteModal(true);
+  }
+  
+  const handleCloseModals = () => {
+    setShowEditModal(false);
+    setShowDeleteModal(false);
+  }
+
+  type Props = {
+    comment: IComment;
+    onClose: () => void;
+  };
+
+  function EditCommentModal({ comment, onClose }: Props) {
+    const [newComment, setNewComment] = useState(comment.description);
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setNewComment(event.target.value);
+    };
+
+    const handleSave = () => {
+      onClose();
+    };
+
+    return (
+      <CommentsModal onClose={onClose}>
+        <h2>Editar Comentário</h2>
+        <textarea value={newComment} onChange={handleInputChange} />
+        <button onClick={handleSave}>Editar</button>
+        <button onClick={onClose}>Voltar</button>
+      </CommentsModal>
+    );
+  }
+
+  function DeleteCommentModal({ comment, onClose }: Props) {
+    const handleDelete = () => {
+      api
+        .delete(`/comments/${comment.id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          const notDeletedComment = comments.filter((comment) => comment.id !== comment.id);
+          setComments(notDeletedComment);
+          toast.success("Comentário deletado com sucesso!", {
+            pauseOnHover: false,
+          });
+        })
+        .catch((error) => console.log(error));
+        onClose()    
+    }
+        return (
+          <CommentsModal onClose={onClose}>
+            <h2>Excluir Comentário</h2>
+            <p>Você tem certeza que quer deletar esse comentário?</p>
+            <button onClick={handleDelete}>Excluir</button>
+            <button onClick={onClose}>Não</button>
+          </CommentsModal>
+        );
+  }
+
+
+//
 
   useEffect(() => {
     socket.emit("join_room", id);
@@ -86,9 +165,29 @@ function Comments() {
               <span>{elapsedTime(comment.created_at)}</span>
             </div>
             <p>{comment.description}</p>
+            <div>
+              <button onClick={() => handleEditComment(comment)}>Editar</button>
+              <button onClick={() => handleDeleteComment(comment)}>Excluir</button>
+            </div>
           </section>
         ))}
       </Div>
+      {showEditModal && (
+      <CommentsModal onClose={handleCloseModals}>
+        <EditCommentModal
+          comment={selectedComment}
+          onClose={handleCloseModals}
+        />
+      </CommentsModal>
+    )}
+    {showDeleteModal && (
+      <CommentsModal onClose={handleCloseModals}>
+        <DeleteCommentModal
+          comment={selectedComment}
+          onClose={handleCloseModals}
+        />
+      </CommentsModal>
+    )}
     </>
   );
 }
