@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { StyledModal } from "../Modal/styled";
+import { StyledModal } from "./styled";
 
 interface IModalComments {
 	children: ReactNode;

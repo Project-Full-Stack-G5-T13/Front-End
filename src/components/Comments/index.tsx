@@ -68,15 +68,25 @@ function Comments() {
 
     return (
       <CommentsModal onClose={onClose}>
-        <h2>Editar Comentário</h2>
+        <h2>Editar Comentário?</h2>
         <textarea value={newComment} onChange={handleInputChange} />
-        <button onClick={handleSave}>Editar</button>
-        <button onClick={onClose}>Voltar</button>
+        <div>
+          <button onClick={handleSave}>Editar</button>
+          <button onClick={onClose}>Voltar</button>
+        </div>
       </CommentsModal>
     );
   }
 
   function DeleteCommentModal({ comment, onClose }: Props) {
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+      api.get("/comments").then((res) => {
+        setComments(res.data);
+      });
+    }, []);
+  
     const handleDelete = () => {
       api
         .delete(`/comments/${comment.id}`, {
@@ -86,24 +96,29 @@ function Comments() {
           },
         })
         .then((res) => {
-          const notDeletedComment = comments.filter((comment) => comment.id !== comment.id);
+          const notDeletedComment = comments.filter(
+            (comment) => comment.id !== comment.id
+          );
           setComments(notDeletedComment);
+          console.log(notDeletedComment);
           toast.success("Comentário deletado com sucesso!", {
             pauseOnHover: false,
           });
         })
         .catch((error) => console.log(error));
-        onClose()    
-    }
-        return (
-          <CommentsModal onClose={onClose}>
-            <h2>Excluir Comentário</h2>
-            <p>Você tem certeza que quer deletar esse comentário?</p>
-            <button onClick={handleDelete}>Excluir</button>
-            <button onClick={onClose}>Não</button>
-          </CommentsModal>
-        );
-  }
+      onClose();
+    };
+
+    return (
+      <CommentsModal onClose={onClose}>
+        <h2>Excluir Comentário?</h2>
+        <div>
+          <button onClick={handleDelete}>Sim</button>
+          <button onClick={onClose}>Não</button>          
+        </div>
+      </CommentsModal>
+    );
+}
 
   useEffect(() => {
     socket.emit("join_room", id);
@@ -133,7 +148,6 @@ function Comments() {
     const seconds = Number(time.format("ss"));
 
     switch (true) {
-
       case hours >= 1 && hours <= 24:
 
         if (hours > 1) {
@@ -173,31 +187,32 @@ function Comments() {
               />
               <h4>{comment.user.name}</h4>
               <span>{elapsedTime(comment.created_at)}</span>
+              {showEditModal && (
+              <CommentsModal onClose={handleCloseModals}>
+                <EditCommentModal
+                  comment={selectedComment}
+                  onClose={handleCloseModals}
+                />
+              </CommentsModal>
+              )}
+              {showDeleteModal && (
+                <CommentsModal onClose={handleCloseModals}>
+                  <DeleteCommentModal
+                    comment={selectedComment}
+                    onClose={handleCloseModals}
+                  />
+                </CommentsModal>
+              )}
             </div>
             <p>{comment.description}</p>
-            <div>
+            <div className="updateDiv">
               <button onClick={() => handleEditComment(comment)}>Editar</button>
               <button onClick={() => handleDeleteComment(comment)}>Excluir</button>
             </div>
           </section>
         ))}
       </Div>
-      {showEditModal && (
-      <CommentsModal onClose={handleCloseModals}>
-        <EditCommentModal
-          comment={selectedComment}
-          onClose={handleCloseModals}
-        />
-      </CommentsModal>
-    )}
-    {showDeleteModal && (
-      <CommentsModal onClose={handleCloseModals}>
-        <DeleteCommentModal
-          comment={selectedComment}
-          onClose={handleCloseModals}
-        />
-      </CommentsModal>
-    )}
+
     </>
   );
 }
