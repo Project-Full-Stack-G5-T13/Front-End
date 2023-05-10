@@ -16,6 +16,7 @@ export const Div = styled.div`
 	width: 100%;
 	overflow-y: auto;
 		section{
+			width: 97%;
 			margin: 8px;
 			height: 240px;
 		}
@@ -25,13 +26,40 @@ export const Div = styled.div`
 			flex-direction: row;
 			flex-wrap: nowrap;
 			align-items: center;
+			justify-content: space-between;
 			gap: 20px;
 			width: 100%
+		}
+		.mainDiv {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.iconDiv2{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 10px;
+		}
+		.iconDiv{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.updateDeleteButton{
+			display: flex;
+			flex-direction: row;
 		}
 		span {
 			align-self: center;
 			color: var(--grey-2);
-			font-size: 11px;
+			font-size: 12px;
+			width: 68px;
+			margin-left: 12px;
 		}
 		h3 {
 			margin-top: 5px;
@@ -54,20 +82,21 @@ export const Div = styled.div`
 			height: 50px;
 			border-radius: 50px;
 		}
+
+		svg {
+			scale: 1.5;
+		}
+
 		.updateDiv button {
-			padding: 5px 12px;
+			padding-top: 3px;
 			background-color: var(--grey-10);
-			border: 1.5px solid var(--brand-1);
-			border-radius: 4px;
-			margin: 10px;
-			margin-top: 2px;
+			border: none;
+			margin: 5px;
+			align-items: center;
+			width: 16px;
+			margin-top: 5px;
 			font-size: 12px;
 			font-weight: 600;
 			color: var(--brand-1);
-			:hover {
-				background-color: var(--brand-4);
-				border-color: var(--brand-1);
-				color: var(--brand-1);
-			}
 		}
 `;
