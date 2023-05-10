@@ -12,8 +12,8 @@ import { string } from "yup";
 import api from "../../services/api";
 import { UserContext } from "../../contexts/UserContext";
 import { IAdsReturn } from "../../interface/card/card.interface";
-
-
+import Card from "../../components/Card";
+import { AdsContext, IModel } from "../../contexts/AdsContext";
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -91,6 +91,45 @@ function Dashboard() {
 		getAds();
 	}, [query]);
 
+	const [compareModels, setCompareModels] = useState<IModel[]>([]);
+
+	useEffect(() => {
+		async function getCompareModels() {
+			try {
+				const brands = await api.get(
+					`https://kenzie-kars.herokuapp.com/cars`
+				);
+
+				const keys = Object.keys(brands.data);
+
+				const newModels = await Promise.all(
+					keys.map(async (key) => {
+						const result = await api.get(
+							`https://kenzie-kars.herokuapp.com/cars?brand=${key}`
+						);
+						return result.data;
+					})
+				);
+				setCompareModels(newModels.flat());
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		getCompareModels();
+	}, []);
+
+	function getGoodPrice(car: IAdsReturn) {
+		const findModel = compareModels.find(
+			(apiModel) =>
+				apiModel.name.toLowerCase() == car.model.toLowerCase() &&
+				apiModel.year == car.launch_year
+		);
+		if (findModel) {
+			return car.price <= findModel.value * 0.1;
+		}
+		return false;
+	}
+
 	return (
 		<>
 			<HomePainel />
@@ -135,7 +174,18 @@ function Dashboard() {
 						/>
 					</>
 				)}
-				<CarList ads={ads} />
+				<CarList>
+					{ads.map((ad) => {
+						const teste = getGoodPrice(ad);
+						{
+							return teste ? (
+								<Card car={ad} key={ad.id} good_price />
+							) : (
+								<Card car={ad} key={ad.id} />
+							);
+						}
+					})}
+				</CarList>
 				{widthWindow <= 768 && (
 					<div className="btn_container">
 						<StyledButton_primary

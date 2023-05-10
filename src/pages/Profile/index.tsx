@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CarList, Container, Main, NotFound, UserHeader } from "./style";
+import { Container, Main, NotFound, UserHeader } from "./style";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/Card";
@@ -10,8 +10,14 @@ import {
 	StyledButton_primary,
 	StyledButton_white_outline,
 } from "../../styles/buttons";
-import { StyledHeading_1, StyledSpanDetail } from "../../styles/typografy";
+import {
+	StyledHeading_1,
+	StyledHeading_5_600,
+	StyledSpanDetail,
+} from "../../styles/typografy";
 import ModalEditAds from "../../components/ModalEditAds";
+import CarList from "../../components/CarList";
+
 const Profile = () => {
 	const [isProfile, setIsProfile] = useState<boolean>(false);
 	const { modalAds, setModalAds } = useContext(AdsContext);
@@ -78,32 +84,30 @@ const Profile = () => {
 								)}
 							</UserHeader>
 
+							<StyledHeading_5_600 className="align-start">
+								Anúncios
+							</StyledHeading_5_600>
+
 							<CarList>
-								{userProfile?.cars &&
-								userProfile?.cars.length > 0 ? (
-									<ul className="list">
-										{userProfile?.cars.map((e) => {
+								{userProfile?.cars.length > 0 ? (
+									<>
+										{userProfile.cars.map((e) => {
 											return isProfile ? (
 												<Card
 													key={e.id}
 													car={e}
-													is_active
 													profile
 													edit={editModal}
 												/>
 											) : (
-												<Card
-													key={e.id}
-													car={e}
-													is_active
-												/>
+												<Card key={e.id} car={e} />
 											);
 										})}
-									</ul>
+									</>
 								) : (
 									<h2>
-										Esse usuário não possui nenhum veículo
-										cadastrado
+										Esse vendedor ainda não possui nenhum
+										veículo cadastrado
 									</h2>
 								)}
 							</CarList>
