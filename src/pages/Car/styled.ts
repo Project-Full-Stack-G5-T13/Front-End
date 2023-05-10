@@ -88,6 +88,8 @@ export const Main = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+		position:sticky;
+		top:30px;
 
 		@media (max-width: 768px) {
 			width: 100%;

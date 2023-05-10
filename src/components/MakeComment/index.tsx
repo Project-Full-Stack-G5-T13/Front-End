@@ -11,6 +11,7 @@ import { UserContext } from "../../contexts/UserContext";
 import * as io from "socket.io-client";
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
+// const socket = io.connect("http://localhost:3333");
 
 function MakeComments() {
 	const { comments } = useContext(AdsContext);
