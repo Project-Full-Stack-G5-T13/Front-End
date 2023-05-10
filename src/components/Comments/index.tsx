@@ -14,6 +14,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { AiFillEdit } from "react-icons/ai";
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
+// const socket = io.connect("http://localhost:3333");
 const token = window.localStorage.getItem("@Motors:token");
 
 function Comments() {
@@ -59,7 +60,6 @@ function Comments() {
           },
         })
         .then((res) => {
-          console.log(res);
           const index = comments.findIndex((c) => c.id === comment.id);
           comments.splice(index, 1, res.data);
           socket.emit("update_comment", { comments, id });
@@ -188,6 +188,8 @@ function Comments() {
     <>
       <Div>
         <h3>Comentários</h3>
+        {comments.length == 0 && <p>Este anúncio não contem comentários</p>}
+
         {comments.length > 0 &&
           comments.map((comment: IComment) => (
             <section key={comment.id}>
