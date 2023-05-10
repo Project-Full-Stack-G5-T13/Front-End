@@ -45,12 +45,25 @@ function Comments() {
   function EditCommentModal({ comment, onClose }: Props) {
     const [newComment, setNewComment] = useState(comment.description);
 
+    const handleSave = () => {
+      api
+        .patch(`/comments/${comment.id}`, {
+          description: newComment,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          toast.success("Alteração salva com sucesso!", {
+            pauseOnHover: false,
+          });
+        })
+        .catch((error) => console.log(error));
+        onClose();
+    }
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setNewComment(event.target.value);
-    };
-
-    const handleSave = () => {
-      onClose();
     };
 
     return (
@@ -91,9 +104,6 @@ function Comments() {
           </CommentsModal>
         );
   }
-
-
-//
 
   useEffect(() => {
     socket.emit("join_room", id);
