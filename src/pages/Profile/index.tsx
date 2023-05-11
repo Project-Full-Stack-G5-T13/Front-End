@@ -18,6 +18,9 @@ import {
 } from "../../styles/typografy";
 import ModalEditAds from "../../components/ModalEditAds";
 import CarList from "../../components/CarList";
+import Pagination from "../../components/Pagination";
+import api from "../../services/api";
+import { IAdsReturn } from "../../interface/card/card.interface";
 
 const Profile = () => {
 	const [isProfile, setIsProfile] = useState<boolean>(false);
@@ -26,8 +29,30 @@ const Profile = () => {
 	const [adId, setAdId] = useState("");
 	const navigate = useNavigate();
 	const { getUserProfile, userProfile } = useContext(UserContext);
+	const [userAds, setUserAds] = useState<IAdsReturn[]>([])
 
 	const { userId } = useParams();
+
+	const [nextPage, setNextPage] = useState(false);
+	const [prevPage, setPrevPage] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+
+	async function getUserAds(userId:string): Promise<void> {
+		try {
+			const userAds = await api.get(`/ads/user/${userId}/?page=${currentPage}`);
+			console.log(userAds)
+			
+			setUserAds(userAds.data.result);
+			setTotalPages(userAds.data.totalPages);
+			setCurrentPage(userAds.data.page);
+			setNextPage(userAds.data.hasNextPage);
+			setPrevPage(userAds.data.hasPrevPage);
+
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	useEffect(() => {
 		const profileId = localStorage.getItem("@Motors:userId");
@@ -43,6 +68,7 @@ const Profile = () => {
 				}
 			}
 		}
+		getUserAds(profileId)
 		fetchUser();
 	}, [userId]);
 
@@ -90,9 +116,9 @@ const Profile = () => {
 							</StyledHeading_5_600>
 
 							<CarList>
-								{userProfile?.cars.length > 0 ? (
+								{userAds.length > 0 ? (
 									<>
-										{userProfile.cars.map((e) => {
+										{userAds.map((e) => {
 											return isProfile ? (
 												<Card
 													key={e.id}
@@ -113,11 +139,9 @@ const Profile = () => {
 									</StyledHeading_3_600>
 								)}
 							</CarList>
+							<Pagination currentPage={currentPage} hasNextPage={nextPage} hasPrevPage={prevPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
 
-							{/* <div className="pagination">
-								<span>1 de 2</span>
-								<a href="">Seguinte</a>
-							</div> */}
+							
 						</>
 					) : (
 						<NotFound>
