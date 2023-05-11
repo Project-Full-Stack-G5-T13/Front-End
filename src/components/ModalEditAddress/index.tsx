@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { StyledButton_grey, StyledButton_primary } from "../../styles/buttons";
-import { StyledInput, StyledTextArea } from "../../styles/inputs";
+import { StyledInput } from "../../styles/inputs";
 import { StyledHeading_7_500, StyledLabel } from "../../styles/typografy";
 import Modal from "../Modal";
 import { StyledModalTitle } from "../Modal/styled";
@@ -9,8 +9,6 @@ import { schemaAddressUpdate } from "../../validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 export interface IAddressUpdate {
 	zip_code: string;
@@ -33,7 +31,7 @@ export interface IAddressUpdateRequest {
 }
 
 const ModalEditAddress = ({ closeModal }) => {
-	const { updateUser } = useContext(UserContext);
+	const { updateUser, checkZipCode } = useContext(UserContext);
 
 	const {
 		register,
@@ -72,38 +70,6 @@ const ModalEditAddress = ({ closeModal }) => {
 
 	const allFields = Boolean(zip_code && state && city && street && number);
 
-	const checkZipCode = async (event) => {
-		const zipCode = event.target.value;
-
-		if (zipCode.length < 8) {
-			setValue("state", "");
-			setValue("city", "");
-			setValue("street", "");
-		}
-
-		if (zipCode.length == 8) {
-			try {
-				const info = await axios.get(
-					`https://viacep.com.br/ws/${zipCode}/json/`
-				);
-
-				if (info.data.erro) {
-					throw new Error("Invalid zipcode");
-				}
-
-				setValue("state", info.data.uf);
-				setValue("city", info.data.localidade);
-				setValue("street", info.data.logradouro);
-			} catch (error) {
-				setValue("state", "");
-				setValue("city", "");
-				setValue("street", "");
-				toast.error("CEP inválido");
-				console.error(error);
-			}
-		}
-	};
-
 	return (
 		<Modal>
 			<StyledModalTitle>
@@ -119,7 +85,7 @@ const ModalEditAddress = ({ closeModal }) => {
 							maxLength={8}
 							placeholder="CEP"
 							{...register("zip_code")}
-							onChange={checkZipCode}
+							onChange={(event) => checkZipCode(event, setValue)}
 						/>
 						{errors.zip_code && (
 							<StyledDivError>

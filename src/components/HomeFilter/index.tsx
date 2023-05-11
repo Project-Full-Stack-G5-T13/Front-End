@@ -15,6 +15,9 @@ interface IHomeFilter {
 	clearQuery: () => void;
 }
 
+function capitalize(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
 const HomeFilter = ({
 	brands,
@@ -34,7 +37,7 @@ const HomeFilter = ({
 						key={brand}
 						onClick={() => handleSetQuery("brand", brand)}
 					>
-						{brand}
+						{capitalize(brand)}
 					</StyledHeading_6_500>
 				))}
 			</ul>
@@ -45,7 +48,7 @@ const HomeFilter = ({
 						key={model}
 						onClick={() => handleSetQuery("model", model)}
 					>
-						{model}
+						{capitalize(model)}
 					</StyledHeading_6_500>
 				))}
 			</ul>
@@ -56,7 +59,7 @@ const HomeFilter = ({
 						key={car_color}
 						onClick={() => handleSetQuery("car_color", car_color)}
 					>
-						{car_color}
+						{capitalize(car_color)}
 					</StyledHeading_6_500>
 				))}
 			</ul>
@@ -78,7 +81,7 @@ const HomeFilter = ({
 						key={fuel}
 						onClick={() => handleSetQuery("fuel_type", fuel)}
 					>
-						{fuel}
+						{capitalize(fuel)}
 					</StyledHeading_6_500>
 				))}
 			</ul>
