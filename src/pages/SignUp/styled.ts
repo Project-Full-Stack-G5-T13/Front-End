@@ -103,9 +103,10 @@ export const Article = styled.article`
 	div {
 		display: flex;
 		flex-direction: column;
+		width: 45%;
 	}
 
-	input {
+	/* input {
 		font-family: "Inter";
 		font-size: 16px;
 		font-weight: 400;
@@ -116,7 +117,7 @@ export const Article = styled.article`
 		color: var(--grey-3);
 		border: 2px solid var(--grey-6);
 		background-color: var(--grey-10);
-	}
+	} */
 
 	p {
 		line-height: normal;
