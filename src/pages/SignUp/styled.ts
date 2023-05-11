@@ -106,19 +106,6 @@ export const Article = styled.article`
 		width: 45%;
 	}
 
-	/* input {
-		font-family: "Inter";
-		font-size: 16px;
-		font-weight: 400;
-		height: 48px;
-		width: 100%;
-		padding-left: 8px;
-		border-radius: 4px;
-		color: var(--grey-3);
-		border: 2px solid var(--grey-6);
-		background-color: var(--grey-10);
-	} */
-
 	p {
 		line-height: normal;
 	}
