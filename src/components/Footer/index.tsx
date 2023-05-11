@@ -7,11 +7,11 @@ const Footer = () => {
     <Container>
       <div>
         <figure>
-          <img src={MotorshopLogo} alt="Logo do site" />         
+          <img src={MotorshopLogo} alt="Logo do site" />
         </figure>
         <p> © 2023 - Todos os direitos reservados.</p>
         <section>
-          <a href="#">^</a>        
+          <a href="#">^</a>
         </section>
       </div>
     </Container>
