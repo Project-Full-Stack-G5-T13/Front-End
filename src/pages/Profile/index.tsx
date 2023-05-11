@@ -55,6 +55,12 @@ const Profile = () => {
 	}
 
 	useEffect(() => {
+		if(userProfile){
+			getUserAds(userProfile.id)
+		}
+	},[currentPage])
+
+	useEffect(() => {
 		const profileId = localStorage.getItem("@Motors:userId");
 		if (profileId == userId) {
 			setIsProfile(true);
@@ -68,7 +74,7 @@ const Profile = () => {
 				}
 			}
 		}
-		getUserAds(profileId)
+		
 		fetchUser();
 	}, [userId]);
 
@@ -140,8 +146,6 @@ const Profile = () => {
 								)}
 							</CarList>
 							<Pagination currentPage={currentPage} hasNextPage={nextPage} hasPrevPage={prevPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
-
-							
 						</>
 					) : (
 						<NotFound>
