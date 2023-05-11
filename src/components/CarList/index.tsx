@@ -2,7 +2,7 @@ import Card from "../../components/Card";
 import { Section } from "./styled";
 import { ICardListProps } from "../../interface/card/card.interface";
 
-function CarList({ ads }: ICardListProps) {
+function CarList({ ads, removeInactive, children }: ICardListProps) {
 	const mycar = {
 		images: {
 			main_image:
@@ -24,13 +24,12 @@ function CarList({ ads }: ICardListProps) {
 	return (
 		<Section>
 			{/* <Card car={mycar}></Card> */}
-			{ads.map((ad) => (
-				<Card key={ad.id} car={ad} />
-			))}
-			{/* <Card car={mycar}></Card>
-			<Card car={mycar}></Card>
-			<Card car={mycar}></Card>
-			<Card car={mycar}></Card> */}
+			{/* {removeInactive
+				? ads.map((ad) =>
+						ad.is_active ? <Card key={ad.id} car={ad} /> : null
+				  )
+				: ads.map((ad) => <Card key={ad.id} car={ad} />)} */}
+			{children}
 		</Section>
 	);
 }

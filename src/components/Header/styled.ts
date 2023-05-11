@@ -13,11 +13,15 @@ const HeaderStyled = styled.header`
 		margin: 0 auto;
 		max-width: 1400px;
 		height: 80px;
-		padding: 0 30px 0 30px;
+		padding: 0 1rem 0 1rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		position: relative;
+
+		@media (min-width: 1400px) {
+			padding: 0;
+		}
 
 		& > .desktop_options {
 			display: flex;

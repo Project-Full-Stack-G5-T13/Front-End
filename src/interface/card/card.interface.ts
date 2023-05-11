@@ -82,14 +82,15 @@ export interface ICardProps {
 	};
 
 	good_price?: boolean;
-	is_active?: boolean;
 	profile?: boolean;
 	edit?: (id: string) => void;
 }
 
 //Components/CarList:
 export interface ICardListProps {
-	ads: IAdsReturn[];
+	ads?: IAdsReturn[];
+	removeInactive?: boolean;
+	children?: ReactNode;
 }
 
 //pages/Dashboard:
