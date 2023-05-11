@@ -14,6 +14,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { IAdsReturn } from "../../interface/card/card.interface";
 import Card from "../../components/Card";
 import { AdsContext, IModel } from "../../contexts/AdsContext";
+import Pagination from "../../components/Pagination";
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -31,6 +32,11 @@ function Dashboard() {
 	const [ads, setAds] = useState<IAdsReturn[]>([]);
 	const [query, setQuery] = useState("");
 
+	const [nextPage, setNextPage] = useState(false);
+	const [prevPage, setPrevPage] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+
 	const [brands, setBrands] = useState<string[]>([]);
 	const [models, setModels] = useState<string[]>([]);
 	const [colors, setColors] = useState<string[]>([]);
@@ -39,12 +45,10 @@ function Dashboard() {
 
 	const handleSetQuery = (type: string, value: string) => {
 		if (type == "brand") {
-			const newQuery = `?${type}=${value}`;
+			const newQuery = `&${type}=${value}`;
 			setQuery(newQuery);
 		} else {
-			const newQuery = query
-				? query + `&${type}=${value}`
-				: query + `?${type}=${value}`;
+			const newQuery = query + `&${type}=${value}`;
 			setQuery(newQuery);
 		}
 	};
@@ -55,32 +59,26 @@ function Dashboard() {
 
 	async function getAds(): Promise<void> {
 		try {
-			const allAds = await api.get(`/ads/${query}`);
+			const allAds = await api.get(`/ads/?page=${currentPage}${query}`);
 			setAds(allAds.data.result);
+			setTotalPages(allAds.data.totalPages);
+			setCurrentPage(allAds.data.page);
+			setNextPage(allAds.data.hasNextPage);
+			setPrevPage(allAds.data.hasPrevPage);
 
-			const newBrands = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.brand
-			);
+			const newBrands = allAds.data.result.map((ad: IAdsReturn) => ad.brand);
 			setBrands([...new Set([...brands, ...newBrands])]);
 
-			const newModels = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.model.split(" ")[0]
-			);
+			const newModels = allAds.data.result.map((ad: IAdsReturn) => ad.model.split(" ")[0]);
 			setModels([...new Set([...newModels])]);
 
-			const newColors = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.car_color
-			);
+			const newColors = allAds.data.result.map((ad: IAdsReturn) => ad.car_color);
 			setColors([...new Set([...newColors])]);
 
-			const newYears = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.launch_year
-			);
+			const newYears = allAds.data.result.map((ad: IAdsReturn) => ad.launch_year);
 			setYears([...new Set([...newYears])]);
 
-			const newFuels = allAds.data.result.map(
-				(ad: IAdsReturn) => ad.fuel_type
-			);
+			const newFuels = allAds.data.result.map((ad: IAdsReturn) => ad.fuel_type);
 			setFuels([...new Set([...newFuels])]);
 		} catch (error) {
 			console.error(error);
@@ -89,16 +87,14 @@ function Dashboard() {
 
 	useEffect(() => {
 		getAds();
-	}, [query]);
+	}, [query,currentPage]);
 
 	const [compareModels, setCompareModels] = useState<IModel[]>([]);
 
 	useEffect(() => {
 		async function getCompareModels() {
 			try {
-				const brands = await api.get(
-					`https://kenzie-kars.herokuapp.com/cars`
-				);
+				const brands = await api.get(`https://kenzie-kars.herokuapp.com/cars`);
 
 				const keys = Object.keys(brands.data);
 
@@ -138,9 +134,7 @@ function Dashboard() {
 					<Modal>
 						<StyledModalTitle>
 							<StyledHeading_7_500>Filtros</StyledHeading_7_500>
-							<button onClick={() => setOpenModal(false)}>
-								X
-							</button>
+							<button onClick={() => setOpenModal(false)}>X</button>
 						</StyledModalTitle>
 
 						<HomeFilter
@@ -153,9 +147,7 @@ function Dashboard() {
 							clearQuery={clearQuery}
 						/>
 						<div className="btn_container">
-							<StyledButton_primary
-								onClick={() => setOpenModal(false)}
-							>
+							<StyledButton_primary onClick={() => setOpenModal(false)}>
 								Ver anúncios
 							</StyledButton_primary>
 						</div>
@@ -188,14 +180,20 @@ function Dashboard() {
 				</CarList>
 				{widthWindow <= 768 && (
 					<div className="btn_container">
-						<StyledButton_primary
-							onClick={() => setOpenModal(true)}
-						>
+						<StyledButton_primary onClick={() => setOpenModal(true)}>
 							Filtros
 						</StyledButton_primary>
 					</div>
 				)}
 			</Main>
+			<Pagination
+				currentPage={currentPage}
+				setCurrentPage={setCurrentPage}
+				
+				totalPages={totalPages}
+				hasNextPage={nextPage}
+				hasPrevPage={prevPage}
+			/>
 		</>
 	);
 }

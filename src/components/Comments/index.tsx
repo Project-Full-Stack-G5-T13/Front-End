@@ -14,7 +14,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { AiFillEdit } from "react-icons/ai";
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
-// const socket = io.connect("http://localhost:3333");
+
 const token = window.localStorage.getItem("@Motors:token");
 
 function Comments() {
@@ -226,7 +226,7 @@ function Comments() {
 									</div>
 
 									<div className="updateDeleteButton">
-										{user.id == comment.user_id && (
+										{user?.id == comment.user_id && (
 											<div className="updateDiv">
 												<button
 													onClick={() =>
