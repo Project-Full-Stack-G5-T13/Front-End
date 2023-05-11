@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledPagination = styled.div`
 	width: 100%;
 	min-height: 10px;
-	border: 1px solid red;
 	display: flex;
 	align-items: center;
 	justify-content: center;
