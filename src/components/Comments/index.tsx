@@ -7,90 +7,272 @@ import api from "../../services/api";
 import moment from "moment";
 import { IComment } from "../../contexts/AdsContext";
 import * as io from "socket.io-client";
+import CommentsModal from "../CommentsEditModal";
+import { toast } from "react-toastify";
+import { UserContext } from "../../contexts/UserContext";
+import { AiFillDelete } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
 
+const token = window.localStorage.getItem("@Motors:token");
+
 function Comments() {
-  const { setComments, comments } = useContext(AdsContext);
-  const [ticking, SetTicking] = useState(0);
+	const { setComments, comments } = useContext(AdsContext);
+	const { user } = useContext(UserContext);
 
-  const { id } = useParams();
+	const [ticking, SetTicking] = useState(0);
+	const { id } = useParams();
 
-  useEffect(() => {
-    socket.emit("join_room", id);
+	const [showEditModal, setShowEditModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [selectedComment, setSelectedComment] = useState<IComment | null>(
+		null
+	);
 
-    (async () => {
-      const response = await api.get(`/comments/${id}`);
-      setComments(response.data);
-    })();
-  }, []);
+	const handleEditComment = (comment: IComment) => {
+		setSelectedComment(comment);
+		setShowEditModal(true);
+	};
 
-  useEffect(() => {
-    socket.on("received_comments", (data) => {
-      setComments(data);
-    });
+	const handleDeleteComment = (comment: IComment) => {
+		setSelectedComment(comment);
+		setShowDeleteModal(true);
+	};
 
-    setComments(comments);
-  }, [socket, ticking]);
+	const handleCloseModals = () => {
+		setShowEditModal(false);
+		setShowDeleteModal(false);
+	};
 
-  setInterval(() => { SetTicking(Math.random()) }, 30000);
+	type Props = {
+		comment: IComment;
+		onClose: () => void;
+	};
 
-  const elapsedTime = (created_at: string): string => {
-    const diff = moment().diff(new Date(created_at));
-    const time = moment.utc(diff);
+	function EditCommentModal({ comment, onClose }: Props) {
+		const [newComment, setNewComment] = useState(comment.description);
+		const handleSave = () => {
+			api.patch(`/comments/${comment.id}`, {
+				description: newComment,
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			})
+				.then((res) => {
+					const index = comments.findIndex(
+						(c) => c.id === comment.id
+					);
+					comments.splice(index, 1, res.data);
+					socket.emit("update_comment", { comments, id });
 
-    const hours = Number(time.format("HH"));
-    const minutes = Number(time.format("mm"));
-    const seconds = Number(time.format("ss"));
+					toast.success("Alteração salva com sucesso!", {
+						pauseOnHover: false,
+					});
+				})
+				.catch((error) => console.log(error));
+			onClose();
+		};
+		const handleInputChange = (
+			event: React.ChangeEvent<HTMLTextAreaElement>
+		) => {
+			setNewComment(event.target.value);
+		};
 
-    switch (true) {
+		return (
+			<CommentsModal onClose={onClose}>
+				<h2>Editar Comentário?</h2>
+				<textarea value={newComment} onChange={handleInputChange} />
+				<div>
+					<button onClick={handleSave}>Editar</button>
+					<button onClick={onClose}>Voltar</button>
+				</div>
+			</CommentsModal>
+		);
+	}
 
-      case hours >= 1 && hours <= 24:
+	function DeleteCommentModal({ comment, onClose }: Props) {
+		const handleDelete = () => {
+			api.delete(`/comments/${comment.id}`, {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			})
+				.then((res) => {
+					const index = comments.findIndex(
+						(c) => c.id === comment.id
+					);
+					comments.splice(index, 1);
 
-        if (hours > 1) {
-          return `há ${hours} horas`;
-        } else {
-          return `há ${hours} hora`;
-        }
+					socket.emit("delete_comment", { comments, id });
+					toast.success("Comentário deletado com sucesso!", {
+						pauseOnHover: false,
+					});
+				})
+				.catch((error) => console.log(error));
 
-      case minutes >= 1 && minutes <= 60:
+			onClose();
+		};
 
-        if (minutes > 1) {
-          return `há ${minutes} minutos`;
-        } else {
-          return `há ${minutes} minuto`;
-        }
+		return (
+			<CommentsModal onClose={onClose}>
+				<h2>Excluir Comentário?</h2>
+				<div>
+					<button onClick={handleDelete}>Sim</button>
+					<button onClick={onClose}>Não</button>
+				</div>
+			</CommentsModal>
+		);
+	}
 
-      default:
+	useEffect(() => {
+		socket.emit("join_room", id);
 
-        if (seconds > 1) {
-          return `há ${seconds} segundos`;
-        } else {
-          return `há ${seconds} segundo`;
-        }
-    };
-  };
+		(async () => {
+			const response = await api.get(`/comments/${id}`);
+			setComments(response.data);
+		})();
+	}, []);
 
-  return (
-    <>
-      <Div>
-        <h3>Comentários</h3>
-        {comments.length > 0 && comments.map((comment: IComment) => (
-          <section key={comment.id}>
-            <div className="profile-comment">
-              <img
-                src={comment.user?.image_url.startsWith("https://") ? comment.user.image_url : img}
-                alt={`foto de perfil de ${comment.user.name}`}
-              />
-              <h4>{comment.user.name}</h4>
-              <span>{elapsedTime(comment.created_at)}</span>
-            </div>
-            <p>{comment.description}</p>
-          </section>
-        ))}
-      </Div>
-    </>
-  );
+	useEffect(() => {
+		socket.on("received_comments", (data) => {
+			setComments(data);
+		});
+
+		socket.on("comments_deleted", (data: IComment[]) => {
+			setComments(data);
+		});
+
+		socket.on("comments_updated", (data: IComment[]) => {
+			setComments(data);
+		});
+
+		setComments(comments);
+	}, [socket, ticking]);
+
+	setInterval(() => {
+		SetTicking(Math.random());
+	}, 30000);
+
+	const elapsedTime = (created_at: string): string => {
+		const diff = moment().diff(new Date(created_at));
+		const time = moment.utc(diff);
+
+		const hours = Number(time.format("HH"));
+		const minutes = Number(time.format("mm"));
+		const seconds = Number(time.format("ss"));
+
+		switch (true) {
+			case hours >= 1 && hours <= 24:
+				if (hours > 1) {
+					return `há ${hours} horas`;
+				} else {
+					return `há ${hours} hora`;
+				}
+
+			case minutes >= 1 && minutes <= 60:
+				if (minutes > 1) {
+					return `há ${minutes} minutos`;
+				} else {
+					return `há ${minutes} minuto`;
+				}
+
+			default:
+				if (seconds > 1) {
+					return `há ${seconds} segundos`;
+				} else {
+					return `há ${seconds} segundo`;
+				}
+		}
+	};
+
+	return (
+		<>
+			<Div>
+				<h3>Comentários</h3>
+				{comments.length == 0 && (
+					<p>
+						Este anúncio ainda não possui comentários, seja o
+						primeiro a comentar!!
+					</p>
+				)}
+
+				{comments.length > 0 &&
+					comments.map((comment: IComment) => (
+						<section key={comment.id}>
+							<div className="profile-comment">
+								<div className="mainDiv">
+									<div className="iconDiv2">
+										<img
+											src={
+												comment.user?.image_url.startsWith(
+													"https://"
+												)
+													? comment.user.image_url
+													: img
+											}
+											alt={`foto de perfil de ${comment.user.name}`}
+										/>
+										<div className="iconDiv">
+											<h4>{comment.user.name}</h4>
+											<span>
+												{elapsedTime(
+													comment.created_at
+												)}
+											</span>
+										</div>
+									</div>
+
+									<div className="updateDeleteButton">
+										{user?.id == comment.user_id && (
+											<div className="updateDiv">
+												<button
+													onClick={() =>
+														handleEditComment(
+															comment
+														)
+													}
+												>
+													<AiFillEdit />
+												</button>
+												<button
+													onClick={() =>
+														handleDeleteComment(
+															comment
+														)
+													}
+												>
+													<AiFillDelete />
+												</button>
+											</div>
+										)}
+									</div>
+								</div>
+								{showEditModal && (
+									<CommentsModal onClose={handleCloseModals}>
+										<EditCommentModal
+											comment={selectedComment}
+											onClose={handleCloseModals}
+										/>
+									</CommentsModal>
+								)}
+								{showDeleteModal && (
+									<CommentsModal onClose={handleCloseModals}>
+										<DeleteCommentModal
+											comment={selectedComment}
+											onClose={handleCloseModals}
+										/>
+									</CommentsModal>
+								)}
+							</div>
+							<p>{comment.description}</p>
+						</section>
+					))}
+			</Div>
+		</>
+	);
 }
 
 export default Comments;

@@ -107,10 +107,10 @@ export interface IAdsContext {
 	comments: IComment[];
 	setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
 	getCar: (carId: string) => Promise<any>;
-  globalLoading: boolean;
+	globalLoading: boolean;
 }
 
-interface IModel {
+export interface IModel {
 	brand: string;
 	fuel: number;
 	id: string;
@@ -164,6 +164,7 @@ const AdsProvider = ({ children }: IProvidersAdsProps) => {
 
 				setModel(response.data);
 			} catch (error) {
+				console.error(error);
 				console.log("Deu erro");
 			}
 		}

@@ -16,6 +16,7 @@ export const StyledCardDiv = styled.div`
 		align-items: center;
 		background-color: #ffffff;
 		overflow: hidden;
+		cursor: pointer;
 
 		img {
 			width: 100%;

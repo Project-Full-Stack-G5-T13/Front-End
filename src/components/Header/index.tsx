@@ -48,6 +48,7 @@ function Header() {
 	};
 
 	const openEditUserModal = () => {
+		setMenuProfile(false);
 		setEditUserModal(true);
 	};
 
@@ -56,7 +57,13 @@ function Header() {
 	};
 
 	const openEditAddressModal = () => {
+		setMenuProfile(false);
 		setEditAddressModal(true);
+	};
+
+	const navigateToProfile = () => {
+		setMenuProfile(false);
+		navigate(`/profile/${user.id}`);
 	};
 
 	return (
@@ -152,7 +159,7 @@ function Header() {
 								{user.is_seller && (
 									<button
 										onClick={() => {
-											navigate(`/profile/${user.id}`);
+											navigateToProfile();
 										}}
 									>
 										Meus Anúncios

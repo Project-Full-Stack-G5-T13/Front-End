@@ -82,14 +82,15 @@ export interface ICardProps {
 	};
 
 	good_price?: boolean;
-	is_active?: boolean;
 	profile?: boolean;
 	edit?: (id: string) => void;
 }
 
 //Components/CarList:
 export interface ICardListProps {
-	ads: IAdsReturn[];
+	ads?: IAdsReturn[];
+	removeInactive?: boolean;
+	children?: ReactNode;
 }
 
 //pages/Dashboard:
@@ -116,7 +117,7 @@ export interface IAdsReturn {
 		image_four?: string;
 		image_five?: string;
 	};
-	user_id: string;
+	// user_id: string;
 	user: {
 		id: string;
 		name: string;
@@ -130,7 +131,7 @@ export interface IComment {
 	id: string;
 	description: string;
 	user_id: string;
-	car_id: string;
+	// car_id: string;
 	created_at: Date;
 }
 

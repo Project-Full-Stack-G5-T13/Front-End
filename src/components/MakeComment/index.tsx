@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Div } from "./styled";
-import img from "../../assets/default-user-image.png"
+import img from "../../assets/default-user-image.png";
 import { useContext } from "react";
 import { AdsContext, IComment } from "../../contexts/AdsContext";
 import { useForm } from "react-hook-form";
@@ -34,7 +34,10 @@ function MakeComments() {
 		api.defaults.headers.authorization = `Bearer ${token}`;
 		const response = await api.post(`/comments/${id}`, payload);
 
-		socket.emit("create_comment", { comments: [response.data, ...comments], id });
+		socket.emit("create_comment", {
+			comments: [response.data, ...comments],
+			id,
+		});
 
 		setValue("description", "");
 	};
@@ -43,39 +46,53 @@ function MakeComments() {
 		<>
 			<Div>
 				<section>
-					{user &&
+					{user && (
 						<div className="profile-comment">
 							<img
-								src={user.image_url.startsWith("https://") ? user.image_url : img}
+								src={
+									user.image_url.startsWith("https://")
+										? user.image_url
+										: img
+								}
 								alt={`foto de perfil de ${user.name}`}
 							/>
 							<h4>{user.name}</h4>
 						</div>
-					}
-					<form className="inputDiv" onSubmit={handleSubmit(createComment)}>
-						<input
+					)}
+					<form
+						className="inputForm"
+						onSubmit={handleSubmit(createComment)}
+					>
+						<textarea
+							maxLength={250}
 							{...register("description")}
-							type="text"
 							placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
-						/>
-						<button type="submit" disabled={!user}>Comentar</button>
+						></textarea>
+						<button type="submit" disabled={!user}>
+							Comentar
+						</button>
 					</form>
-					<div className="error-message">{errors.description && errors.description.message}</div>
+					<div className="error-message">
+						{errors.description && errors.description.message}
+					</div>
 				</section>
 				<div className="pre-phrase">
-					<span onClick={() =>
-						setValue("description", "Gostei muito!")
-					}>
+					<span
+						onClick={() => setValue("description", "Gostei muito!")}
+					>
 						Gostei muito!
 					</span>
-					<span onClick={() =>
-						setValue("description", "Incrível")
-					}>
+					<span onClick={() => setValue("description", "Incrível")}>
 						Incrível
 					</span>
-					<span onClick={() =>
-						setValue("description", "Recomendarei para meus amigos")
-					}>
+					<span
+						onClick={() =>
+							setValue(
+								"description",
+								"Recomendarei para meus amigos"
+							)
+						}
+					>
 						Recomendarei para meus amigos
 					</span>
 				</div>

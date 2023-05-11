@@ -15,6 +15,7 @@ const Register = () => {
 	const {
 		register,
 		handleSubmit,
+		setValue,
 		formState: { errors },
 	} = useForm<IFormSignup>({
 		resolver: yupResolver(schemaSignup),
@@ -27,7 +28,7 @@ const Register = () => {
 	);
 	const [confirmPassword, setConfirmPassword] = useState(false);
 	const [password, setPassword] = useState(false);
-	const { registerUser } = useContext(UserContext);
+	const { registerUser, checkZipCode } = useContext(UserContext);
 
 	function validatedAccountType(data: IFormSignup) {
 		if (advertiserBuyer && advertiserBuyer !== "") {
@@ -129,6 +130,9 @@ const Register = () => {
 							<StyledLabel>CEP</StyledLabel>
 							<StyledInput
 								{...register("address.zip_code")}
+								onChange={(event) =>
+									checkZipCode(event, setValue, "address.")
+								}
 								placeholder="Ex: 17340480"
 							/>
 
@@ -140,6 +144,7 @@ const Register = () => {
 							<div>
 								<StyledLabel>Estado</StyledLabel>
 								<StyledInput
+									readOnly
 									{...register("address.state")}
 									placeholder="Digitar Estado"
 								/>
@@ -151,6 +156,7 @@ const Register = () => {
 							<div>
 								<StyledLabel>Cidade</StyledLabel>
 								<StyledInput
+									readOnly
 									{...register("address.city")}
 									placeholder="Digitar Cidade"
 								/>
@@ -163,6 +169,7 @@ const Register = () => {
 						<div>
 							<StyledLabel>Rua</StyledLabel>
 							<StyledInput
+								readOnly
 								{...register("address.street")}
 								placeholder="Digitar Rua"
 							/>

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CarList, Container, Main, NotFound, UserHeader } from "./style";
+import { Container, Main, NotFound, UserHeader } from "./style";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/Card";
@@ -10,8 +10,18 @@ import {
 	StyledButton_primary,
 	StyledButton_white_outline,
 } from "../../styles/buttons";
-import { StyledHeading_1, StyledSpanDetail } from "../../styles/typografy";
+import {
+	StyledHeading_1,
+	StyledHeading_3_600,
+	StyledHeading_5_600,
+	StyledSpanDetail,
+} from "../../styles/typografy";
 import ModalEditAds from "../../components/ModalEditAds";
+import CarList from "../../components/CarList";
+import Pagination from "../../components/Pagination";
+import api from "../../services/api";
+import { IAdsReturn } from "../../interface/card/card.interface";
+
 const Profile = () => {
 	const [isProfile, setIsProfile] = useState<boolean>(false);
 	const { modalAds, setModalAds } = useContext(AdsContext);
@@ -19,8 +29,36 @@ const Profile = () => {
 	const [adId, setAdId] = useState("");
 	const navigate = useNavigate();
 	const { getUserProfile, userProfile } = useContext(UserContext);
+	const [userAds, setUserAds] = useState<IAdsReturn[]>([])
 
 	const { userId } = useParams();
+
+	const [nextPage, setNextPage] = useState(false);
+	const [prevPage, setPrevPage] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+
+	async function getUserAds(userId:string): Promise<void> {
+		try {
+			const userAds = await api.get(`/ads/user/${userId}/?page=${currentPage}`);
+			console.log(userAds)
+			
+			setUserAds(userAds.data.result);
+			setTotalPages(userAds.data.totalPages);
+			setCurrentPage(userAds.data.page);
+			setNextPage(userAds.data.hasNextPage);
+			setPrevPage(userAds.data.hasPrevPage);
+
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	useEffect(() => {
+		if(userProfile){
+			getUserAds(userProfile.id)
+		}
+	},[currentPage])
 
 	useEffect(() => {
 		const profileId = localStorage.getItem("@Motors:userId");
@@ -36,6 +74,7 @@ const Profile = () => {
 				}
 			}
 		}
+		
 		fetchUser();
 	}, [userId]);
 
@@ -78,40 +117,35 @@ const Profile = () => {
 								)}
 							</UserHeader>
 
+							<StyledHeading_5_600 className="align-start">
+								Anúncios
+							</StyledHeading_5_600>
+
 							<CarList>
-								{userProfile?.cars &&
-								userProfile?.cars.length > 0 ? (
-									<ul className="list">
-										{userProfile?.cars.map((e) => {
+								{userAds.length > 0 ? (
+									<>
+										{userAds.map((e) => {
 											return isProfile ? (
 												<Card
 													key={e.id}
 													car={e}
-													is_active
 													profile
 													edit={editModal}
 												/>
 											) : (
-												<Card
-													key={e.id}
-													car={e}
-													is_active
-												/>
+												<Card key={e.id} car={e} />
 											);
 										})}
-									</ul>
+									</>
 								) : (
-									<h2>
-										Esse usuário não possui nenhum veículo
-										cadastrado
-									</h2>
+									<StyledHeading_3_600>
+										{isProfile
+											? "Você ainda não possui nenhum veiculo cadastrado"
+											: "Esse vendedor ainda não possui nenhum veículo cadastrado"}
+									</StyledHeading_3_600>
 								)}
 							</CarList>
-
-							{/* <div className="pagination">
-								<span>1 de 2</span>
-								<a href="">Seguinte</a>
-							</div> */}
+							<Pagination currentPage={currentPage} hasNextPage={nextPage} hasPrevPage={prevPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
 						</>
 					) : (
 						<NotFound>

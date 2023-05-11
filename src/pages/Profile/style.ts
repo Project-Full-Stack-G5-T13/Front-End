@@ -11,10 +11,10 @@ export const Container = styled.div`
   background-image: url(${halfimg});
   background-repeat: no-repeat;
   background-size: contain;
-  background-size: 100% 900px;
+  background-size: 100% 500px;
 
   @media (max-width: 768px) {
-    background-size: 100% 700px;
+    background-size: 100% 400px;
   }
 `;
 
@@ -23,15 +23,24 @@ export const Main = styled.div`
   max-width: 1440px;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   margin-top: 2rem;
   gap: 2rem;
   align-items: center;
+  
   .pagination {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .align-start {
+    align-self: start;
+    margin-left: 30px;
+  }
+
+  & > section {
+    padding: 0 2rem;
   }
 `;
 
@@ -80,38 +89,6 @@ export const UserHeader = styled.div`
     font-weight: 600;
     font-size: 16px;
     color: var(--grey-2);
-  }
-`;
-
-export const CarList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  max-width: 1240px;
-
-  .list {
-    display: flex;
-    flex-direction: row;
-    flex-flow: row wrap;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: center;
-    padding-top: 40px;
-    flex: 1;
-    margin-top: 30px;
-    margin-bottom: 10px;
-
-    @media (max-width: 768px) {
-      width: 100%;
-      flex-wrap: nowrap;
-      overflow-y: scroll;
-      height: fit-content;
-      padding: 16px;
-      align-content: stretch;
-      justify-content: flex-start;
-    }
   }
 `;
 

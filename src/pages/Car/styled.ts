@@ -88,6 +88,8 @@ export const Main = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+		position:sticky;
+		top:30px;
 
 		@media (max-width: 768px) {
 			width: 100%;
@@ -175,3 +177,23 @@ export const UserImage = styled.div`
 		object-fit: cover;
 	}
 `;
+
+export const BuyCar = styled.a.attrs({
+	target: "_blank"
+})`
+		padding: 12px 28px;
+		background-color: var(--brand-1);
+		border: 1.5px solid var(--brand-1);
+		border-radius: 4px;
+
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--fixed-white);
+	
+		cursor: pointer;
+
+		:hover {
+			background-color: var(--brand-2);
+			border-color: var(--brand-2);
+		}
+`

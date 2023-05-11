@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { StyledButton_grey, StyledButton_primary } from "../../styles/buttons";
-import { StyledInput, StyledTextArea } from "../../styles/inputs";
+import { StyledInput } from "../../styles/inputs";
 import { StyledHeading_7_500, StyledLabel } from "../../styles/typografy";
 import Modal from "../Modal";
 import { StyledModalTitle } from "../Modal/styled";
@@ -31,19 +31,20 @@ export interface IAddressUpdateRequest {
 }
 
 const ModalEditAddress = ({ closeModal }) => {
-	const { updateUser } = useContext(UserContext);
+	const { updateUser, checkZipCode } = useContext(UserContext);
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		watch,
+		setValue,
 	} = useForm<IAddressUpdate>({
 		resolver: yupResolver(schemaAddressUpdate),
 		shouldUnregister: true,
 	});
 
-	function onSubmitDataValidate(data) {
+	const onSubmitDataValidate = (data) => {
 		for (const key in data) {
 			if (data[key] == "") {
 				delete data[key];
@@ -57,7 +58,7 @@ const ModalEditAddress = ({ closeModal }) => {
 		};
 
 		updateUser(newAddress, closeModal);
-	}
+	};
 
 	const [zip_code, state, city, street, number] = watch([
 		"zip_code",
@@ -81,8 +82,10 @@ const ModalEditAddress = ({ closeModal }) => {
 					<StyledLabel>
 						CEP
 						<StyledInput
+							maxLength={8}
 							placeholder="CEP"
 							{...register("zip_code")}
+							onChange={(event) => checkZipCode(event, setValue)}
 						/>
 						{errors.zip_code && (
 							<StyledDivError>
@@ -96,6 +99,7 @@ const ModalEditAddress = ({ closeModal }) => {
 							Estado
 							<StyledInput
 								placeholder="Estado"
+								readOnly
 								{...register("state")}
 							/>
 							{errors.state && (
@@ -109,6 +113,7 @@ const ModalEditAddress = ({ closeModal }) => {
 							Cidade
 							<StyledInput
 								placeholder="Cidade"
+								readOnly
 								{...register("city")}
 							/>
 							{errors.city && (
@@ -123,6 +128,7 @@ const ModalEditAddress = ({ closeModal }) => {
 						Rua
 						<StyledInput
 							placeholder="Rua"
+							readOnly
 							{...register("street")}
 						/>
 						{errors.street && (
