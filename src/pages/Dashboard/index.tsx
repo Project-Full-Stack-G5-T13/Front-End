@@ -125,7 +125,7 @@ function Dashboard() {
 				apiModel.year == car.launch_year
 		);
 		if (findModel) {
-			return car.price <= findModel.value * 0.1;
+			return car.price <= findModel.value - findModel.value * 0.1;
 		}
 		return false;
 	}

@@ -9,6 +9,8 @@ import { schemaAddressUpdate } from "../../validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export interface IAddressUpdate {
 	zip_code: string;
@@ -38,12 +40,13 @@ const ModalEditAddress = ({ closeModal }) => {
 		handleSubmit,
 		formState: { errors },
 		watch,
+		setValue,
 	} = useForm<IAddressUpdate>({
 		resolver: yupResolver(schemaAddressUpdate),
 		shouldUnregister: true,
 	});
 
-	function onSubmitDataValidate(data) {
+	const onSubmitDataValidate = (data) => {
 		for (const key in data) {
 			if (data[key] == "") {
 				delete data[key];
@@ -57,7 +60,7 @@ const ModalEditAddress = ({ closeModal }) => {
 		};
 
 		updateUser(newAddress, closeModal);
-	}
+	};
 
 	const [zip_code, state, city, street, number] = watch([
 		"zip_code",
@@ -68,6 +71,38 @@ const ModalEditAddress = ({ closeModal }) => {
 	]);
 
 	const allFields = Boolean(zip_code && state && city && street && number);
+
+	const checkZipCode = async (event) => {
+		const zipCode = event.target.value;
+
+		if (zipCode.length < 8) {
+			setValue("state", "");
+			setValue("city", "");
+			setValue("street", "");
+		}
+
+		if (zipCode.length == 8) {
+			try {
+				const info = await axios.get(
+					`https://viacep.com.br/ws/${zipCode}/json/`
+				);
+
+				if (info.data.erro) {
+					throw new Error("Invalid zipcode");
+				}
+
+				setValue("state", info.data.uf);
+				setValue("city", info.data.localidade);
+				setValue("street", info.data.logradouro);
+			} catch (error) {
+				setValue("state", "");
+				setValue("city", "");
+				setValue("street", "");
+				toast.error("CEP inválido");
+				console.error(error);
+			}
+		}
+	};
 
 	return (
 		<Modal>
@@ -81,8 +116,10 @@ const ModalEditAddress = ({ closeModal }) => {
 					<StyledLabel>
 						CEP
 						<StyledInput
+							maxLength={8}
 							placeholder="CEP"
 							{...register("zip_code")}
+							onChange={checkZipCode}
 						/>
 						{errors.zip_code && (
 							<StyledDivError>
@@ -96,6 +133,7 @@ const ModalEditAddress = ({ closeModal }) => {
 							Estado
 							<StyledInput
 								placeholder="Estado"
+								readOnly
 								{...register("state")}
 							/>
 							{errors.state && (
@@ -109,6 +147,7 @@ const ModalEditAddress = ({ closeModal }) => {
 							Cidade
 							<StyledInput
 								placeholder="Cidade"
+								readOnly
 								{...register("city")}
 							/>
 							{errors.city && (
@@ -123,6 +162,7 @@ const ModalEditAddress = ({ closeModal }) => {
 						Rua
 						<StyledInput
 							placeholder="Rua"
+							readOnly
 							{...register("street")}
 						/>
 						{errors.street && (

@@ -12,6 +12,7 @@ import {
 } from "../../styles/buttons";
 import {
 	StyledHeading_1,
+	StyledHeading_3_600,
 	StyledHeading_5_600,
 	StyledSpanDetail,
 } from "../../styles/typografy";
@@ -105,10 +106,11 @@ const Profile = () => {
 										})}
 									</>
 								) : (
-									<h2>
-										Esse vendedor ainda não possui nenhum
-										veículo cadastrado
-									</h2>
+									<StyledHeading_3_600>
+										{isProfile
+											? "Você ainda não possui nenhum veiculo cadastrado"
+											: "Esse vendedor ainda não possui nenhum veículo cadastrado"}
+									</StyledHeading_3_600>
 								)}
 							</CarList>
 
