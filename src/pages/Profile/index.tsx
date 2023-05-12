@@ -42,9 +42,7 @@ const Profile = () => {
 
 	async function getUserAds(userId: string): Promise<void> {
 		try {
-			const userAds = await api.get(
-				`/ads/user/${userId}/?page=${currentPage}`
-			);
+			const userAds = await api.get(`/ads/user/${userId}/?page=${currentPage}`);
 			console.log(userAds);
 
 			setUserAds(userAds.data.result);
@@ -79,6 +77,7 @@ const Profile = () => {
 		}
 
 		fetchUser();
+		getUserAds(userId);
 	}, [userId]);
 
 	function editModal(id: string) {
@@ -99,14 +98,10 @@ const Profile = () => {
 							<UserHeader>
 								<UserAvatar user={userProfile} vertical>
 									{userProfile?.is_seller && (
-										<StyledSpanDetail>
-											Anunciante
-										</StyledSpanDetail>
+										<StyledSpanDetail>Anunciante</StyledSpanDetail>
 									)}
 								</UserAvatar>
-								<p className="description">
-									{userProfile?.description}
-								</p>
+								<p className="description">{userProfile?.description}</p>
 								{isProfile && (
 									<StyledButton_brand_outline
 										onClick={() => setModalAds(!modalAds)}
@@ -125,12 +120,7 @@ const Profile = () => {
 									<>
 										{userAds.map((e) => {
 											return isProfile ? (
-												<Card
-													key={e.id}
-													car={e}
-													profile
-													edit={editModal}
-												/>
+												<Card key={e.id} car={e} profile edit={editModal} />
 											) : (
 												<Card key={e.id} car={e} />
 											);
@@ -154,9 +144,7 @@ const Profile = () => {
 						</>
 					) : (
 						<NotFound>
-							<StyledHeading_1>
-								Usuário não encontrado
-							</StyledHeading_1>
+							<StyledHeading_1>Usuário não encontrado</StyledHeading_1>
 							<StyledButton_primary onClick={() => navigate("/")}>
 								Voltar
 							</StyledButton_primary>
@@ -165,9 +153,7 @@ const Profile = () => {
 				</Main>
 			</Container>
 			{modalAds && <ModalCreateAds />}
-			{openEditModal && (
-				<ModalEditAds adsId={adId} closeModal={closeEditModal} />
-			)}
+			{openEditModal && <ModalEditAds adsId={adId} closeModal={closeEditModal} />}
 		</>
 	);
 };
