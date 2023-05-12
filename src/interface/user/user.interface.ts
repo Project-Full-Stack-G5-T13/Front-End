@@ -5,17 +5,20 @@ import { IAddressUpdateRequest } from "../../components/ModalEditAddress";
 
 //Components/UserAvatar:
 export interface IUserAvatarProps {
-  user: {
-    name: string;
-    image_url?: string;
-  };
+	user: {
+		name: string;
+		image_url?: string;
+	};
+	vertical?: boolean;
+	children?: ReactNode;
+	bold?: boolean;
 }
 
 export interface ISendEmail {
-  email: string;
+	email: string;
 }
 
 export interface IResetPassword {
-  password: string;
-  confirmPassword: string;
+	password: string;
+	confirmPassword: string;
 }

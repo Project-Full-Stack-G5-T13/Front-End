@@ -9,6 +9,7 @@ import { schemaCreateComment } from "../../validations";
 import api from "../../services/api";
 import { UserContext } from "../../contexts/UserContext";
 import * as io from "socket.io-client";
+import UserAvatar from "../UserAvatar";
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
 
@@ -48,15 +49,7 @@ function MakeComments() {
 				<section>
 					{user && (
 						<div className="profile-comment">
-							<img
-								src={
-									user.image_url.startsWith("https://")
-										? user.image_url
-										: img
-								}
-								alt={`foto de perfil de ${user.name}`}
-							/>
-							<h4>{user.name}</h4>
+							<UserAvatar user={user} bold />
 						</div>
 					)}
 					<form
