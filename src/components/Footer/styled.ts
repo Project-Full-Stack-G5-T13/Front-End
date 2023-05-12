@@ -40,6 +40,7 @@ export const Container = styled.footer`
 		margin-right: 36px;
 		display: flex;
 		justify-content: center;
+		cursor: pointer;
 	}
 
 	a {
