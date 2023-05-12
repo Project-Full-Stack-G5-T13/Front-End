@@ -14,24 +14,25 @@ import ResetPassword from "./pages/ResetPassword";
 import Login from "./pages/Login";
 
 const App = () => {
-	return (
-		<>
-			<Header />
-			<Routes>
-				<Route path="*" element={<Dashboard />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
-				<Route path="/car/:id" element={<Car />} />
-				<Route path="/teste" element={<Teste />} />
-				<Route path="/profile/:userId" element={<Profile />} />
-				<Route path="/createadsmodal" element={<ModalCreateAds />} />
-				<Route path="/sendemail" element={<SendEmail />} />
-				<Route path="/recovery/:token" element={<ResetPassword />} />
-			</Routes>
-			<ToastContainer limit={1} autoClose={1500} />
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <span id="inicio"></span>
+      <Header />
+      <Routes>
+        <Route path="*" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/car/:id" element={<Car />} />
+        <Route path="/teste" element={<Teste />} />
+        <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/createadsmodal" element={<ModalCreateAds />} />
+        <Route path="/sendemail" element={<SendEmail />} />
+        <Route path="/recovery/:token" element={<ResetPassword />} />
+      </Routes>
+      <ToastContainer limit={1} autoClose={1500} />
+      <Footer />
+    </>
+  );
 };
 
 export default App;
