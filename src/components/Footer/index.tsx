@@ -1,5 +1,4 @@
 import Container from "./styled";
-import React from "react";
 import MotorshopLogo from "../../assets/Motorshoplogo.png";
 
 const Footer = () => {
@@ -11,7 +10,7 @@ const Footer = () => {
         </figure>
         <p> © 2023 - Todos os direitos reservados.</p>
         <section>
-          <a href="#">^</a>
+          <a href = "#inicio">^</a>
         </section>
       </div>
     </Container>

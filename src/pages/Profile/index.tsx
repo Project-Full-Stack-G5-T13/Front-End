@@ -21,6 +21,8 @@ import CarList from "../../components/CarList";
 import Pagination from "../../components/Pagination";
 import api from "../../services/api";
 import { IAdsReturn } from "../../interface/card/card.interface";
+import { StyledUserAvatar } from "../../components/UserAvatar/styled";
+import UserAvatar from "../../components/UserAvatar";
 
 const Profile = () => {
 	const [isProfile, setIsProfile] = useState<boolean>(false);
@@ -73,6 +75,7 @@ const Profile = () => {
 				}
 			}
 		}
+
 		fetchUser();
 		getUserAds(userId);
 	}, [userId]);
@@ -93,15 +96,11 @@ const Profile = () => {
 					{userProfile ? (
 						<>
 							<UserHeader>
-								<div className="img-box">
-									<h1>{userProfile.name.charAt(0)}</h1>
-								</div>
-								<div className="name-box">
-									<h3>{userProfile?.name}</h3>
+								<UserAvatar user={userProfile} vertical>
 									{userProfile?.is_seller && (
 										<StyledSpanDetail>Anunciante</StyledSpanDetail>
 									)}
-								</div>
+								</UserAvatar>
 								<p className="description">{userProfile?.description}</p>
 								{isProfile && (
 									<StyledButton_brand_outline

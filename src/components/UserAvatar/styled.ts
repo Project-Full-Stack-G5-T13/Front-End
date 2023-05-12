@@ -20,14 +20,20 @@ const getRandomColor = () => {
 	return randomColors[index];
 };
 
-export const StyledUserAvatar = styled.div`
-	display: flex;
-	gap: 8px;
-	align-items: center;
+interface teste {
+	vertical: boolean;
+}
 
-	& > .img_container {
-		max-width: 40px;
-		max-height: 40px;
+export const StyledUserAvatar = styled.div<teste>`
+	display: flex;
+	gap: ${(props) => (props.vertical ? "20px" : "8px")};
+	/* align-items: center; */
+	width: fit-content;
+	flex-direction: ${(props) => (props.vertical ? "column" : "row")};
+
+	& > .imgContainer {
+		width: ${(props) => (props.vertical ? "104px" : "40px")};
+		height: ${(props) => (props.vertical ? "104px" : "40px")};
 		border-radius: 50%;
 		overflow: hidden;
 
@@ -36,24 +42,40 @@ export const StyledUserAvatar = styled.div`
 			height: 100%;
 			object-fit: cover;
 		}
+
+		& > .defaultImage {
+			width: ${(props) => (props.vertical ? "104px" : "40px")};
+			height: ${(props) => (props.vertical ? "104px" : "40px")};
+			border-radius: 50%;
+
+			background-color: ${getRandomColor()};
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			color: var(--fixed-white);
+			font-weight: 600;
+			font-size: ${(props) => (props.vertical ? "36px" : "14px")};
+
+			text-transform: capitalize;
+		}
 	}
-
-	& > div {
-		width: 32px;
-		height: 32px;
-		border-radius: 50%;
-
-		background-color: ${getRandomColor()};
-		display: flex;
+	@media (max-width: 425px) {
 		align-items: center;
-		justify-content: center;
-
-		color: var(--fixed-white);
-		font-weight: 600;
-		font-size: 14px;
-		line-height: 24px;
 	}
-	& > p {
-		text-transform: capitalize;
+	& > .userInfo {
+		display: flex;
+		align-self: center;
+		justify-content: center;
+		gap: 16px;
+
+		@media (max-width: 425px) {
+			flex-direction: column;
+			gap: 6px;
+
+			& > span {
+				margin: 0;
+			}
+		}
 	}
 `;
