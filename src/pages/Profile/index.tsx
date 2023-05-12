@@ -29,7 +29,7 @@ const Profile = () => {
 	const [adId, setAdId] = useState("");
 	const navigate = useNavigate();
 	const { getUserProfile, userProfile } = useContext(UserContext);
-	const [userAds, setUserAds] = useState<IAdsReturn[]>([])
+	const [userAds, setUserAds] = useState<IAdsReturn[]>([]);
 
 	const { userId } = useParams();
 
@@ -38,27 +38,26 @@ const Profile = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 
-	async function getUserAds(userId:string): Promise<void> {
+	async function getUserAds(userId: string): Promise<void> {
 		try {
 			const userAds = await api.get(`/ads/user/${userId}/?page=${currentPage}`);
-			console.log(userAds)
-			
+			console.log(userAds);
+
 			setUserAds(userAds.data.result);
 			setTotalPages(userAds.data.totalPages);
 			setCurrentPage(userAds.data.page);
 			setNextPage(userAds.data.hasNextPage);
 			setPrevPage(userAds.data.hasPrevPage);
-
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
 	useEffect(() => {
-		if(userProfile){
-			getUserAds(userProfile.id)
+		if (userProfile) {
+			getUserAds(userProfile.id);
 		}
-	},[currentPage])
+	}, [currentPage]);
 
 	useEffect(() => {
 		const profileId = localStorage.getItem("@Motors:userId");
@@ -74,8 +73,8 @@ const Profile = () => {
 				}
 			}
 		}
-		
 		fetchUser();
+		getUserAds(userId);
 	}, [userId]);
 
 	function editModal(id: string) {
@@ -100,14 +99,10 @@ const Profile = () => {
 								<div className="name-box">
 									<h3>{userProfile?.name}</h3>
 									{userProfile?.is_seller && (
-										<StyledSpanDetail>
-											Anunciante
-										</StyledSpanDetail>
+										<StyledSpanDetail>Anunciante</StyledSpanDetail>
 									)}
 								</div>
-								<p className="description">
-									{userProfile?.description}
-								</p>
+								<p className="description">{userProfile?.description}</p>
 								{isProfile && (
 									<StyledButton_brand_outline
 										onClick={() => setModalAds(!modalAds)}
@@ -126,12 +121,7 @@ const Profile = () => {
 									<>
 										{userAds.map((e) => {
 											return isProfile ? (
-												<Card
-													key={e.id}
-													car={e}
-													profile
-													edit={editModal}
-												/>
+												<Card key={e.id} car={e} profile edit={editModal} />
 											) : (
 												<Card key={e.id} car={e} />
 											);
@@ -145,13 +135,17 @@ const Profile = () => {
 									</StyledHeading_3_600>
 								)}
 							</CarList>
-							<Pagination currentPage={currentPage} hasNextPage={nextPage} hasPrevPage={prevPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+							<Pagination
+								currentPage={currentPage}
+								hasNextPage={nextPage}
+								hasPrevPage={prevPage}
+								setCurrentPage={setCurrentPage}
+								totalPages={totalPages}
+							/>
 						</>
 					) : (
 						<NotFound>
-							<StyledHeading_1>
-								Usuário não encontrado
-							</StyledHeading_1>
+							<StyledHeading_1>Usuário não encontrado</StyledHeading_1>
 							<StyledButton_primary onClick={() => navigate("/")}>
 								Voltar
 							</StyledButton_primary>
@@ -160,9 +154,7 @@ const Profile = () => {
 				</Main>
 			</Container>
 			{modalAds && <ModalCreateAds />}
-			{openEditModal && (
-				<ModalEditAds adsId={adId} closeModal={closeEditModal} />
-			)}
+			{openEditModal && <ModalEditAds adsId={adId} closeModal={closeEditModal} />}
 		</>
 	);
 };

@@ -26,6 +26,44 @@ const ModalCreateAdsStyled = styled.section`
 		padding: 0px 5px;
 	}
 
+	.image-input {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+
+		input {
+			width: 100%;
+		}
+	}
+
+	.upload-btn {
+		aspect-ratio: 1/1;
+		height: 48px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--brand-1);
+		border: 1.5px solid var(--brand-1);
+		border-radius: 4px;
+		font-size: x-large;
+		font-weight: 600;
+		color: var(--fixed-white);
+
+		cursor: pointer;
+
+		:hover {
+			background-color: var(--brand-2);
+			border-color: var(--brand-2);
+		}
+
+		:disabled {
+			background-color: var(--brand-3);
+			border-color: var(--brand-3);
+			color: var(--brand-4);
+		}
+	}
+
 	.div-inputs p {
 		color: var(--alert-1);
 		padding: 0px 5px;
