@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { UserContext } from "../../contexts/UserContext";
 import { AiFillDelete } from "react-icons/ai";
 import { AiFillEdit } from "react-icons/ai";
+import UserAvatar from "../UserAvatar";
+import { StyledSpanCommentTime } from "../../styles/typografy";
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_HOST);
 
@@ -204,26 +206,11 @@ function Comments() {
 						<section key={comment.id}>
 							<div className="profile-comment">
 								<div className="mainDiv">
-									<div className="iconDiv2">
-										<img
-											src={
-												comment.user?.image_url.startsWith(
-													"https://"
-												)
-													? comment.user.image_url
-													: img
-											}
-											alt={`foto de perfil de ${comment.user.name}`}
-										/>
-										<div className="iconDiv">
-											<h4>{comment.user.name}</h4>
-											<span>
-												{elapsedTime(
-													comment.created_at
-												)}
-											</span>
-										</div>
-									</div>
+									<UserAvatar user={comment.user} bold>
+										<StyledSpanCommentTime>
+											{elapsedTime(comment.created_at)}
+										</StyledSpanCommentTime>
+									</UserAvatar>
 
 									<div className="updateDeleteButton">
 										{user?.id == comment.user_id && (
