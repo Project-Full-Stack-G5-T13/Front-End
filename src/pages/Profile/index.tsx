@@ -21,6 +21,8 @@ import CarList from "../../components/CarList";
 import Pagination from "../../components/Pagination";
 import api from "../../services/api";
 import { IAdsReturn } from "../../interface/card/card.interface";
+import { StyledUserAvatar } from "../../components/UserAvatar/styled";
+import UserAvatar from "../../components/UserAvatar";
 
 const Profile = () => {
 	const [isProfile, setIsProfile] = useState<boolean>(false);
@@ -29,7 +31,7 @@ const Profile = () => {
 	const [adId, setAdId] = useState("");
 	const navigate = useNavigate();
 	const { getUserProfile, userProfile } = useContext(UserContext);
-	const [userAds, setUserAds] = useState<IAdsReturn[]>([])
+	const [userAds, setUserAds] = useState<IAdsReturn[]>([]);
 
 	const { userId } = useParams();
 
@@ -38,27 +40,28 @@ const Profile = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 
-	async function getUserAds(userId:string): Promise<void> {
+	async function getUserAds(userId: string): Promise<void> {
 		try {
-			const userAds = await api.get(`/ads/user/${userId}/?page=${currentPage}`);
-			console.log(userAds)
-			
+			const userAds = await api.get(
+				`/ads/user/${userId}/?page=${currentPage}`
+			);
+			console.log(userAds);
+
 			setUserAds(userAds.data.result);
 			setTotalPages(userAds.data.totalPages);
 			setCurrentPage(userAds.data.page);
 			setNextPage(userAds.data.hasNextPage);
 			setPrevPage(userAds.data.hasPrevPage);
-
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
 	useEffect(() => {
-		if(userProfile){
-			getUserAds(userProfile.id)
+		if (userProfile) {
+			getUserAds(userProfile.id);
 		}
-	},[currentPage])
+	}, [currentPage]);
 
 	useEffect(() => {
 		const profileId = localStorage.getItem("@Motors:userId");
@@ -74,7 +77,7 @@ const Profile = () => {
 				}
 			}
 		}
-		
+
 		fetchUser();
 	}, [userId]);
 
@@ -94,17 +97,13 @@ const Profile = () => {
 					{userProfile ? (
 						<>
 							<UserHeader>
-								<div className="img-box">
-									<h1>{userProfile.name.charAt(0)}</h1>
-								</div>
-								<div className="name-box">
-									<h3>{userProfile?.name}</h3>
+								<UserAvatar user={userProfile} vertical>
 									{userProfile?.is_seller && (
 										<StyledSpanDetail>
 											Anunciante
 										</StyledSpanDetail>
 									)}
-								</div>
+								</UserAvatar>
 								<p className="description">
 									{userProfile?.description}
 								</p>
@@ -145,7 +144,13 @@ const Profile = () => {
 									</StyledHeading_3_600>
 								)}
 							</CarList>
-							<Pagination currentPage={currentPage} hasNextPage={nextPage} hasPrevPage={prevPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+							<Pagination
+								currentPage={currentPage}
+								hasNextPage={nextPage}
+								hasPrevPage={prevPage}
+								setCurrentPage={setCurrentPage}
+								totalPages={totalPages}
+							/>
 						</>
 					) : (
 						<NotFound>
